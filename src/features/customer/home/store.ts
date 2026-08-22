@@ -1,0 +1,44 @@
+import { create } from "zustand";
+import type { CustomerHomeResponse } from "./types";
+import { getCustomerHomeDateOverview } from "./api";
+
+const fallbackData: CustomerHomeResponse = {
+  banners: [],
+  categories: [],
+  recentProducts: [],
+  spotlightProducts: [],
+  coupons: [],
+  videos: [],
+};
+
+type CustomerHomeStore = {
+  data: CustomerHomeResponse;
+  loading: boolean;
+  loadHome: () => Promise<void>;
+  clear: () => void;
+};
+
+export const useCustomerHomeStore = create<CustomerHomeStore>((set) => ({
+  loading: true,
+  data: fallbackData,
+  loadHome: async () => {
+    try {
+      set({ loading: true });
+
+      const response = await getCustomerHomeDateOverview();
+
+      set({
+        data: response ?? fallbackData,
+        loading: false,
+      });
+    } catch {
+      set({
+        data: fallbackData,
+        loading: false,
+      });
+    }
+  },
+  clear: () => {
+    set({ data: fallbackData, loading: true });
+  },
+}));
