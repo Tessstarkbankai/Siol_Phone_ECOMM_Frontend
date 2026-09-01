@@ -28,7 +28,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-[#f8fafc] text-neutral-900 border-t border-neutral-200 mt-20">
+    <footer className="bg-[#f8fafc] text-neutral-900 border-t border-neutral-200 mt-4 sm:mt-6">
       {/* 4-Pillar Trust Strip */}
       <div className="border-b border-neutral-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

@@ -19,6 +19,7 @@ import { HeroProductsBanner } from "@/components/home/hero-products-banner";
 import { SpotlightBanners } from "@/components/home/spotlight-banners";
 import { PortraitVideoStrip } from "@/components/home/portrait-video-strip";
 import { TestimonialsCarousel } from "@/components/home/testimonials-carousel";
+import { StoreLocator } from "@/components/home/store-locator";
 import { CustomerProductCard } from "@/components/customer/products/customer-product-card";
 import type { CustomerProduct } from "@/features/customer/products/types";
 
@@ -42,13 +43,13 @@ export function StoreHome() {
   const mappedProducts: CustomerProduct[] = data.recentProducts.map((p) => ({
     _id: p._id,
     title: p.title,
-    description: "",
+    description: p.description || "",
     category: { _id: "cat", name: p.brand },
     brand: p.brand,
-    stock: 20,
+    stock: p.stock ?? 20,
     images: [{ url: p.image, publicId: "img", isCover: true }],
-    colors: [],
-    sizes: ["S", "M", "L", "XL"],
+    colors: p.colors || [],
+    sizes: (p.sizes as any) || ["M"],
     price: p.price,
     salePercentage: p.salePercentage,
     status: "active",
@@ -57,7 +58,7 @@ export function StoreHome() {
   }));
 
   return (
-    <div className="min-h-screen bg-[#ffffff] pb-16">
+    <div className="min-h-screen bg-[#ffffff] pb-4 sm:pb-6">
       {/* 1. Round Appliance Collection Strip (Below Navbar, Above Hero Banner) */}
       <CircularCollectionStrip categories={data.categories} />
 
@@ -170,6 +171,9 @@ export function StoreHome() {
 
       {/* 9. Verified Customer Reviews */}
       <TestimonialsCarousel />
+
+      {/* 10. Flagship Experience Store Locator with 3D Globe */}
+      <StoreLocator />
     </div>
   );
 }

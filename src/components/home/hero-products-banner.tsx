@@ -25,12 +25,15 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
 
   async function handleQuickAdd(item: CustomerHomeProduct) {
     try {
+      const chosenColor = item.colors && item.colors.length > 0 ? item.colors[0] : undefined;
+      const chosenSize = item.sizes && item.sizes.length > 0 ? (item.sizes[0] as any) : undefined;
+
       await addItem(
         {
           productId: item._id,
           quantity: 1,
-          color: "Standard",
-          size: "M",
+          color: chosenColor,
+          size: chosenSize,
           title: item.title,
           brand: item.brand || "Wonderchef",
           image: item.image,
@@ -38,7 +41,6 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
         },
         Boolean(isSignedIn),
       );
-      toast.success(`${item.title} added to your cart!`);
       setCartOpen(true);
     } catch {
       toast.error("Failed to add product to cart");

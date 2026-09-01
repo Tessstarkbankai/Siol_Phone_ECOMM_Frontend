@@ -57,8 +57,8 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
 
     try {
       setAddingCart(true);
-      const chosenColor = product.colors[0] || "Default";
-      const chosenSize = product.sizes[0] || "M";
+      const chosenColor = product.colors && product.colors.length > 0 ? product.colors[0] : undefined;
+      const chosenSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : undefined;
 
       await addToCart(
         {
@@ -74,7 +74,6 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
         Boolean(isSignedIn),
       );
 
-      toast.success(`${product.title} added to cart!`);
       setCartOpen(true);
     } catch {
       toast.error("Failed to add product to cart");

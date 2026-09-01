@@ -18,6 +18,9 @@ export type CustomerHomeProduct = {
   price: number;
   finalPrice: number;
   salePercentage: number;
+  stock?: number;
+  colors?: string[];
+  sizes?: string[];
   createdAt: string;
 };
 
