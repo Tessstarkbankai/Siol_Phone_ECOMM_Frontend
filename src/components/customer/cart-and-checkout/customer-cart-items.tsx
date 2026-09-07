@@ -28,7 +28,7 @@ export function CustomerCartItems() {
       <div className="border-b border-border px-5 py-4 flex items-center justify-between bg-neutral-50">
         <div className="flex items-center gap-2">
           <ShoppingCart className="h-5 w-5 text-primary" />
-          <h2 className="text-base font-black text-foreground">
+          <h2 className="text-base font-semibold text-foreground">
             Shopping Cart ({cart.items.length})
           </h2>
         </div>
@@ -37,14 +37,14 @@ export function CustomerCartItems() {
       {/* Free Shipping Progress Indicator */}
       {cart.items.length > 0 ? (
         <div className="bg-primary/5 border-b border-primary/20 px-5 py-3 space-y-1.5">
-          <div className="flex items-center justify-between text-xs font-bold">
+          <div className="flex items-center justify-between text-xs font-semibold">
             <span className="flex items-center gap-1.5 text-foreground">
               <Truck className="h-4 w-4 text-primary" />
               {remainingForFreeShipping > 0
                 ? `Add ₹${remainingForFreeShipping} more for FREE Delivery`
                 : "🎉 You unlocked FREE Express Delivery!"}
             </span>
-            <span className="text-primary">{progressPercent}%</span>
+            <span className="text-primary font-bold">{progressPercent}%</span>
           </div>
           <div className="h-1.5 w-full rounded-full bg-neutral-200 overflow-hidden">
             <div
@@ -64,7 +64,7 @@ export function CustomerCartItems() {
                 <ShoppingBag className="h-7 w-7" />
               </div>
               <div className="space-y-1">
-                <p className="text-base font-black text-foreground">Your cart is empty</p>
+                <p className="text-base font-semibold text-foreground">Your cart is empty</p>
                 <p className="text-xs text-muted-foreground max-w-xs">
                   Looks like you haven't added any items to your cart yet. Explore our curated collections!
                 </p>
@@ -72,7 +72,7 @@ export function CustomerCartItems() {
               <Button
                 onClick={() => setOpen(false)}
                 asChild
-                className="bg-primary text-white font-bold h-10 px-6 rounded-lg shadow-sm"
+                className="bg-primary text-white font-semibold h-10 px-6 rounded-lg shadow-sm"
               >
                 <Link to="/collections">Start Shopping</Link>
               </Button>
@@ -91,12 +91,12 @@ export function CustomerCartItems() {
 
                 <div className="min-w-0 flex-1 flex flex-col justify-between space-y-1.5">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider text-primary">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary">
                       {item.brand}
                     </span>
                     <Link
                       to={`/collection/${item.productId}`}
-                      className="block line-clamp-1 text-sm font-bold text-foreground transition-colors group-hover:text-primary"
+                      className="block line-clamp-1 text-sm font-semibold text-foreground transition-colors group-hover:text-primary tracking-tight"
                       onClick={() => setOpen(false)}
                     >
                       {item.title}
@@ -107,7 +107,7 @@ export function CustomerCartItems() {
                   </div>
 
                   <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-border/40">
-                    <p className="text-sm font-black text-foreground">
+                    <p className="text-sm font-semibold text-foreground">
                       {formatPrice(item.finalPrice * item.quantity)}
                     </p>
 

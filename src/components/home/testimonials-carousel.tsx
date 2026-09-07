@@ -8,53 +8,53 @@ const testimonials = [
     name: "Dr. Ananya Roy",
     city: "Mumbai",
     rating: 5,
-    product: "Crimson Edge 4.5L Air Fryer",
+    product: "iPhone 16 Pro Max (Desert Titanium)",
     quote:
-      "The best air fryer I've ever owned. French fries and paneer tikka come out crispy on the outside and tender inside with just a spray of oil. Super easy to clean!",
+      "The 4K 120fps Dolby Vision and Camera Control button are game changers for travel vlogging. Battery easily lasts 1.5 full days. Delivered in 24 hours with sealed official warranty!",
   },
   {
     id: 2,
     name: "Vikram Malhotra",
     city: "Bengaluru",
     rating: 5,
-    product: "Royal Velvet 4-Pc Cookware Set",
+    product: "Galaxy S25 Ultra (Titanium Gray)",
     quote:
-      "MetaTuff coating is truly durable. Even without butter or oil, dosas and omelettes slide right off without sticking. Exceptional quality and induction compatibility.",
+      "Galaxy AI Live Translate and 100x Space Zoom blew me away during concert shooting. The anti-reflective Gorilla Armor screen is unmatched under bright sunlight.",
   },
   {
     id: 3,
     name: "Pooja Hegde",
     city: "Hyderabad",
     rating: 5,
-    product: "Nutri-blend 500W High Speed Blender",
+    product: "Galaxy Z Fold6 5G (Silver Shadow)",
     quote:
-      "Grinds soaked chutneys, dry spices, and protein smoothies in less than 30 seconds. Compact, powerful, and looks gorgeous on my kitchen countertop!",
+      "Multitasking on the 7.6-inch inner screen feels like holding an ultra-light laptop. Split screen trading and video editing run butter-smooth without any thermal throttling.",
   },
   {
     id: 4,
     name: "Siddharth Sen",
     city: "Delhi NCR",
     rating: 5,
-    product: "Regalia 15-Bar Espresso Machine",
+    product: "Pixel 9 Pro XL (Obsidian 256GB)",
     quote:
-      "The coffee aroma and crema density match high-end European espresso bars. The steam wand creates velvety micro-foam for lattes effortlessly.",
+      "Gemini Live and Magic Editor make photo editing effortless. Best smartphone camera consistency on the market with 7 years of guaranteed Android updates.",
   },
 ];
 
 export function TestimonialsCarousel() {
   return (
-    <section className="py-14 bg-neutral-50 border-y border-neutral-200">
+    <section className="py-14 bg-gradient-to-b from-white via-blue-50/20 to-white border-y border-blue-100/70 my-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.25em] text-primary">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-primary">
             <Quote className="h-3.5 w-3.5" />
-            <span>Customer Stories</span>
+            <span>Buyer Feedback</span>
           </div>
-          <h2 className="text-2xl font-black tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl">
-            Trusted by 50,000+ Home Chefs
+          <h2 className="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
+            Trusted by 50,000+ Tech Enthusiasts
           </h2>
-          <p className="text-sm text-neutral-600">
-            Real feedback from verified buyers across India on performance, ease of use, and durability.
+          <p className="text-sm text-slate-600">
+            Real feedback from verified buyers across India on camera performance, battery endurance, and same-day dispatch.
           </p>
         </div>
 
@@ -62,17 +62,17 @@ export function TestimonialsCarousel() {
           {testimonials.map((item) => (
             <Card
               key={item.id}
-              className="bg-white border-neutral-200/80 shadow-xs hover:shadow-md transition-shadow rounded-2xl p-1"
+              className="bg-white border-blue-100/80 shadow-xs hover:shadow-xl hover:border-primary/40 transition-all rounded-3xl p-1"
             >
               <CardContent className="p-5 flex flex-col justify-between h-full space-y-4">
                 <div className="space-y-3">
                   <RatingStars rating={item.rating} showCount={false} size="sm" />
-                  <p className="text-sm text-neutral-700 leading-relaxed italic">
+                  <p className="text-sm text-slate-700 leading-relaxed italic">
                     "{item.quote}"
                   </p>
                 </div>
 
-                <div className="pt-3 border-t border-neutral-100">
+                <div className="pt-3 border-t border-blue-50">
                   <div className="flex items-center justify-between">
                     <p className="font-bold text-sm text-neutral-900">{item.name}</p>
                     <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">

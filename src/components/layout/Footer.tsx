@@ -38,8 +38,8 @@ export function Footer() {
                 <Truck className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-bold text-neutral-900">Free Express Delivery</p>
-                <p className="text-xs text-neutral-500">On all orders above ₹999</p>
+                <p className="text-sm font-bold text-neutral-900">Express Insured Transit</p>
+                <p className="text-xs text-neutral-500">Same-day dispatch nationwide</p>
               </div>
             </div>
 
@@ -48,8 +48,8 @@ export function Footer() {
                 <RotateCcw className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-bold text-neutral-900">7-Day Easy Returns</p>
-                <p className="text-xs text-neutral-500">Hassle-free instant pickup</p>
+                <p className="text-sm font-bold text-neutral-900">7-Day Replacement</p>
+                <p className="text-xs text-neutral-500">Hassle-free doorstep exchange</p>
               </div>
             </div>
 
@@ -58,8 +58,8 @@ export function Footer() {
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-bold text-neutral-900">100% Genuine Certified</p>
-                <p className="text-xs text-neutral-500">2-Year direct brand warranty</p>
+                <p className="text-sm font-bold text-neutral-900">Official Brand Sealed</p>
+                <p className="text-xs text-neutral-500">IMEI verified brand warranty</p>
               </div>
             </div>
 
@@ -68,8 +68,8 @@ export function Footer() {
                 <Headphones className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-bold text-neutral-900">Dedicated Support</p>
-                <p className="text-xs text-neutral-500">Mon-Sat 9AM - 8PM IST</p>
+                <p className="text-sm font-bold text-neutral-900">24/7 Tech Concierge</p>
+                <p className="text-xs text-neutral-500">Device setup & live support</p>
               </div>
             </div>
           </div>
@@ -81,48 +81,53 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-2 group">
+            <Link to="/" className="flex items-center gap-2.5 group">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white shadow-xs">
                 <Sparkles className="h-5 w-5" />
               </div>
-              <span className="text-2xl font-black tracking-tight text-primary uppercase">
-                WONDERCHEF<span className="text-neutral-900">.</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-xl font-black tracking-tight text-neutral-900 leading-none">
+                  NEXUS<span className="text-primary">.MOBILE</span>
+                </span>
+                <span className="text-[9px] font-bold tracking-[0.2em] text-neutral-500 uppercase">
+                  Flagship Store
+                </span>
+              </div>
             </Link>
             <p className="text-sm text-neutral-600 max-w-sm leading-relaxed">
-              India's premium cookware and kitchen appliances brand. Built with German design standards, Italian engineering, and chef-curated precision.
+              India's premier flagship mobile store. Authorized retail partner for Apple, Samsung, Google, and OnePlus delivering 100% brand-sealed hardware nationwide.
             </p>
             <div className="pt-2">
               <span className="inline-block rounded-lg bg-white border border-neutral-300 px-3 py-1 text-xs font-semibold text-neutral-700">
-                🔒 PCI-DSS Compliant • 256-Bit SSL Encrypted
+                🔒 Official Authorized Reseller • 256-Bit SSL Encrypted
               </span>
             </div>
           </div>
 
-          {/* Column 1: Shop Collections */}
+          {/* Column 1: Shop Smartphones */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-              Shop Collections
+              Flagship Categories
             </h4>
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
-                <Link to="/collections" className="hover:text-primary transition">
-                  All Collections
+                <Link to="/collections?brand=Apple" className="hover:text-primary transition">
+                  Apple iPhone 16 Pro
                 </Link>
               </li>
               <li>
-                <Link to="/collections?sort=recent" className="hover:text-primary transition">
-                  New Arrivals
+                <Link to="/collections?brand=Samsung" className="hover:text-primary transition">
+                  Samsung Galaxy S25 & Z Fold
                 </Link>
               </li>
               <li>
-                <Link to="/collections?sort=price-low" className="hover:text-primary transition">
-                  Special Offers & Deals
+                <Link to="/collections?brand=Google" className="hover:text-primary transition">
+                  Google Pixel 9 Pro Series
                 </Link>
               </li>
               <li>
-                <Link to="/collections" className="hover:text-primary transition">
-                  Best Sellers
+                <Link to="/collections?category=magsafe" className="hover:text-primary transition">
+                  MagSafe & GaN Fast Chargers
                 </Link>
               </li>
             </ul>
@@ -131,27 +136,32 @@ export function Footer() {
           {/* Column 2: Customer Care */}
           <div className="space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-              Customer Care
+              Customer Support
             </h4>
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
                 <Link to="/contact" className="hover:text-primary transition">
-                  Help & Contact Us
+                  Help & Tech Support
                 </Link>
               </li>
               <li>
                 <Link to="/faq" className="hover:text-primary transition">
-                  Frequently Asked Questions
+                  IMEI & Warranty FAQs
                 </Link>
               </li>
               <li>
                 <Link to="/shipping-policy" className="hover:text-primary transition">
-                  Shipping & Delivery Policy
+                  Next-Day Delivery Policy
                 </Link>
               </li>
               <li>
                 <Link to="/return-policy" className="hover:text-primary transition">
-                  7-Day Return Policy
+                  7-Day Replacement Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/become-seller" className="text-primary font-bold hover:underline transition">
+                  Sell on Nexus Marketplace →
                 </Link>
               </li>
             </ul>
@@ -182,7 +192,7 @@ export function Footer() {
 
         {/* Bottom Legal & Payment Badges */}
         <div className="mt-12 pt-8 border-t border-neutral-200 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs text-neutral-500">
-          <p>© 2026 WONDERCHEF INDIA. All rights reserved.</p>
+          <p>© 2026 NEXUS MOBILE TECHNOLOGIES INDIA. All rights reserved.</p>
 
           <div className="flex flex-wrap items-center gap-4">
             <Link to="/privacy-policy" className="hover:text-neutral-900 transition">

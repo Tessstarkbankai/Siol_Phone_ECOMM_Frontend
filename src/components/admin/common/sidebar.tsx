@@ -2,11 +2,12 @@ import {
   BadgePercent,
   BarChart3,
   Film,
+  IndianRupee,
   LayoutDashboard,
   Package,
   Settings2,
+  ShieldCheck,
   Store,
-  Video,
   type LucideIcon,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -20,9 +21,12 @@ type AdminNavItem = {
 const items: AdminNavItem[] = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Products", href: "/admin/products", icon: Package },
-  { label: "Videos", href: "/admin/videos", icon: Film },
-  { label: "Coupons", href: "/admin/coupons", icon: BadgePercent },
+  { label: "Moderation", href: "/admin/moderation", icon: ShieldCheck },
+  { label: "Vendors", href: "/admin/vendors", icon: Store },
+  { label: "Payouts", href: "/admin/payouts", icon: IndianRupee },
   { label: "Orders", href: "/admin/orders", icon: BarChart3 },
+  { label: "Coupons", href: "/admin/coupons", icon: BadgePercent },
+  { label: "Videos", href: "/admin/videos", icon: Film },
   { label: "Settings", href: "/admin/settings", icon: Settings2 },
 ];
 

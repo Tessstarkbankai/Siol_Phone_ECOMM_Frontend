@@ -3,8 +3,8 @@ export function TermsPage() {
     <div className="min-h-screen bg-background pb-20">
       <section className="bg-[#09090b] text-white py-14 border-b border-white/10 text-center">
         <div className="mx-auto max-w-4xl px-4 space-y-2">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">Legal Terms</p>
-          <h1 className="text-3xl font-black sm:text-5xl text-white">Terms of Service</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Legal Terms</p>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-white">Terms of Service</h1>
         </div>
       </section>
 

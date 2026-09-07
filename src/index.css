@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -15,41 +16,60 @@
   --popover: #ffffff;
   --popover-foreground: #0f172a;
 
-  /* Signature luxury crimson red accent */
-  --primary: #d91b24;
-  --primary-hover: #b91c1c;
+  /* Signature Apple & Samsung Flagship Electric Cobalt Blue */
+  --primary: #0071e3;
+  --primary-hover: #0077ed;
   --primary-foreground: #ffffff;
 
-  --secondary: #f8fafc;
-  --secondary-foreground: #1e293b;
+  --secondary: #f4f4f7;
+  --secondary-foreground: #09090b;
 
-  --muted: #f1f5f9;
+  --muted: #f1f3f7;
   --muted-foreground: #64748b;
 
-  --accent: #fef2f2;
-  --accent-foreground: #d91b24;
+  --accent: #f0f7ff;
+  --accent-foreground: #0071e3;
 
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
   --border: #e2e8f0;
   --input: #cbd5e1;
-  --ring: #d91b24;
+  --ring: #0071e3;
 
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
   /* Header & Footer light theme variables */
   --header-bg: #ffffff;
-  --header-foreground: #0f172a;
-  --footer-bg: #f8fafc;
-  --footer-foreground: #0f172a;
+  --header-foreground: #09090b;
+  --footer-bg: #09090b;
+  --footer-foreground: #f4f4f5;
 
-  --sans: "Inter Variable", system-ui, -apple-system, sans-serif;
+  /* Apple San Francisco Typography Font Stacks */
+  --font-apple-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "SF Pro", "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-apple-text: "SF Pro Text", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-apple-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-apple-rounded: "SF Pro Rounded", "SF Pro", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --sans: var(--font-apple-text);
 }
 
 @theme inline {
-  --font-heading: var(--sans);
-  --font-sans: var(--sans);
+  --font-sans: var(--font-apple-text);
+  --font-display: var(--font-apple-display);
+  --font-heading: var(--font-apple-display);
+  --font-text: var(--font-apple-text);
+  --font-mono: var(--font-apple-mono);
+  --font-rounded: var(--font-apple-rounded);
+
+  --tracking-super-tight: -0.035em;
+  --tracking-tight: -0.022em;
+  --tracking-snug: -0.012em;
+  --tracking-normal: -0.005em;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.08em;
+
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -80,8 +100,108 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "kern" 1;
+    letter-spacing: -0.008em;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-apple-display);
+    letter-spacing: -0.02em;
   }
 }
+
+@font-face {
+  font-family: 'SF Pro Text';
+  font-style: normal;
+  font-weight: 400;
+  src: local('SF Pro Text'), local('SF Pro Text Regular'), local('-apple-system'), local('SF Pro Display');
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  font-style: normal;
+  font-weight: 500;
+  src: local('SF Pro Text Medium'), local('SF Pro Text'), local('-apple-system'), local('SF Pro Display');
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  font-style: normal;
+  font-weight: 600;
+  src: local('SF Pro Text Semibold'), local('SF Pro Text'), local('-apple-system'), local('SF Pro Display');
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  font-style: normal;
+  font-weight: 700;
+  src: local('SF Pro Text Bold'), local('SF Pro Text'), local('-apple-system'), local('SF Pro Display');
+}
+
+@layer utilities {
+  .apple-hero-title {
+    font-family: var(--font-apple-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.06;
+  }
+  .apple-section-title {
+    font-family: var(--font-apple-display);
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.15;
+  }
+  .apple-headline {
+    font-family: var(--font-apple-display);
+    font-weight: 600;
+    letter-spacing: -0.016em;
+    line-height: 1.25;
+  }
+  .apple-subheadline {
+    font-family: var(--font-apple-text);
+    font-weight: 400;
+    letter-spacing: -0.008em;
+    line-height: 1.45;
+  }
+  .apple-body {
+    font-family: var(--font-apple-text);
+    font-weight: 400;
+    letter-spacing: -0.006em;
+    line-height: 1.5;
+  }
+  .apple-callout {
+    font-family: var(--font-apple-text);
+    font-weight: 500;
+    letter-spacing: -0.005em;
+  }
+  .apple-footnote {
+    font-family: var(--font-apple-text);
+    font-weight: 400;
+    letter-spacing: 0em;
+  }
+  .apple-eyebrow {
+    font-family: var(--font-apple-text);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
+@keyframes aurora-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+

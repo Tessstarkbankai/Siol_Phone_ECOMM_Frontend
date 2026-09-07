@@ -53,63 +53,64 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
   return (
     <section className="py-6 space-y-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-        {/* 1. Top Flagship Magic Series Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#d5dcce] via-[#e2e7de] to-[#dfe5dc] border border-[#c3ccbe] shadow-sm p-8 sm:p-12 lg:p-14 min-h-[320px] flex flex-col md:flex-row items-center justify-between gap-8">
+        {/* 1. Top Flagship Titanium Series Banner */}
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border border-blue-200/80 shadow-lg p-8 sm:p-12 lg:p-14 min-h-[340px] flex flex-col md:flex-row items-center justify-between gap-8 text-slate-900">
           {/* Left Text Presentation */}
           <div className="space-y-3 max-w-md text-center md:text-left z-10">
-            <p className="text-xs font-black tracking-[0.35em] uppercase text-neutral-700">
-              THE
-            </p>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black tracking-widest text-neutral-900 leading-none">
-              MAGIC
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3.5 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
+              <Sparkles className="h-3.5 w-3.5 text-primary" />
+              <span>THE 2026 FLAGSHIPS</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-none">
+              TITANIUM <span className="text-primary">PRO</span>
             </h2>
-            <p className="text-base sm:text-2xl font-sans font-black tracking-[0.4em] text-neutral-800 uppercase">
-              SERIES
+            <p className="text-sm sm:text-base font-normal text-slate-600">
+              Supreme computing power meets aerospace-grade durability.
             </p>
 
             {/* Star Divider Line */}
-            <div className="flex items-center justify-center md:justify-start gap-3 py-1 text-neutral-600">
-              <div className="h-[1px] w-12 bg-neutral-500/60" />
-              <Star className="h-3 w-3 fill-neutral-700 text-neutral-700" />
-              <div className="h-[1px] w-12 bg-neutral-500/60" />
+            <div className="flex items-center justify-center md:justify-start gap-3 py-1 text-slate-400">
+              <div className="h-[1px] w-12 bg-blue-200" />
+              <Star className="h-3 w-3 fill-primary text-primary" />
+              <div className="h-[1px] w-12 bg-blue-200" />
             </div>
 
-            <div className="space-y-0.5 text-xs sm:text-sm text-neutral-700 font-medium">
-              <p>Where Innovation Meets Tradition.</p>
-              <p>Crafting Magic in Every Meal.</p>
+            <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium">
+              <p>• Snapdragon 8 Elite & Apple A18 Pro Bionic</p>
+              <p>• 200MP Quad Matrix Optical Nightography</p>
             </div>
           </div>
 
-          {/* Right Composite Appliance Lineup with Fixed-Ratio Cards */}
+          {/* Right Composite Smartphone Lineup with Fixed-Ratio Cards */}
           <div className="relative z-10 flex items-center justify-center gap-3 sm:gap-4 max-w-xl w-full">
             <div className="flex items-end justify-center gap-3 sm:gap-4 w-full">
               {products.slice(0, 3).map((p, idx) => (
                 <Link
                   key={p._id}
                   to={`/collection/${p._id}`}
-                  className={`group relative rounded-3xl bg-white/90 backdrop-blur-sm p-3 sm:p-4 border border-neutral-200/80 shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
+                  className={`group relative rounded-3xl bg-white/95 backdrop-blur-md p-3 sm:p-4 border border-blue-100 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
                     idx === 1
-                      ? "h-44 w-36 sm:h-56 sm:w-48 z-10 shadow-lg"
-                      : "h-36 w-28 sm:h-44 sm:w-36 opacity-95"
+                      ? "h-48 w-40 sm:h-60 sm:w-52 z-10 ring-2 ring-primary/30 shadow-blue-500/10"
+                      : "h-38 w-32 sm:h-48 sm:w-40 opacity-95"
                   }`}
                 >
-                  <div className="h-full w-full flex items-center justify-center overflow-hidden">
+                  <div className="h-full w-full flex items-center justify-center overflow-hidden rounded-2xl">
                     <img
                       src={p.image}
                       alt={p.title}
-                      className="max-h-full max-w-full object-contain filter drop-shadow-md transition-transform duration-500 group-hover:scale-110"
+                      className="max-h-full max-w-full object-contain filter drop-shadow-md rounded-2xl transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
-                  <span className="absolute bottom-1.5 px-2 py-0.5 rounded-full bg-neutral-900/80 text-[9px] font-bold text-white uppercase tracking-wider backdrop-blur-xs truncate max-w-[90%]">
-                    {p.title.split(" ")[0]} {p.title.split(" ")[1] || ""}
+                  <span className="absolute bottom-2 px-2.5 py-0.5 rounded-full bg-slate-900/90 text-[10px] font-bold text-white uppercase tracking-wider backdrop-blur-md border border-white/20 truncate max-w-[90%]">
+                    {p.brand} {p.title.split(" ")[1] || ""}
                   </span>
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Subtle Background Lighting Element */}
-          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-white/40 blur-3xl pointer-events-none" />
+          {/* Subtle Frosty Blue Glow */}
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-blue-300/30 blur-3xl pointer-events-none" />
         </div>
 
         {/* 2. Hero Products Dynamic Small Cards Rail / Carousel from Database */}
@@ -132,34 +133,40 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
           >
             {products.map((item) => {
               const hasDiscount = item.salePercentage > 0;
+              const defaultStorage = item.sizes && item.sizes.length > 0 ? item.sizes[0] : "256GB";
 
               return (
                 <div
                   key={item._id}
-                  className="w-[320px] sm:w-[380px] shrink-0 rounded-3xl bg-[#faf5ef] p-6 border border-amber-900/5 shadow-xs transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col justify-between"
+                  className="w-[320px] sm:w-[380px] shrink-0 rounded-3xl bg-white p-6 border border-neutral-200/90 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-primary/40 hover:-translate-y-1 flex flex-col justify-between"
                 >
                   <div className="flex gap-4 items-start">
                     {/* Left: Product Image in Fixed Uniform Square Card */}
                     <Link
                       to={`/collection/${item._id}`}
-                      className="relative h-28 w-28 sm:h-32 sm:w-32 shrink-0 rounded-2xl bg-white p-2.5 border border-neutral-200/70 shadow-xs flex items-center justify-center overflow-hidden group hover:border-primary/40 transition"
+                      className="relative h-28 w-28 sm:h-32 sm:w-32 shrink-0 rounded-2xl bg-neutral-50 p-2.5 border border-neutral-200/70 shadow-xs flex items-center justify-center overflow-hidden group hover:border-primary/40 transition"
                     >
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                        className="max-h-full max-w-full object-contain filter drop-shadow-md rounded-xl transition-transform duration-300 group-hover:scale-105"
                       />
                     </Link>
 
                     {/* Right: Product Info & Dynamic Badge */}
                     <div className="space-y-1.5 flex-1 min-w-0">
-                      <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#0f9f6e] text-white">
-                        {item.salePercentage >= 50
-                          ? "PREBOOK"
-                          : item.salePercentage > 0
-                          ? `${item.salePercentage}% OFF`
-                          : "SPOTLIGHT"}
-                      </span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-primary text-white">
+                          {item.salePercentage >= 50
+                            ? "PREBOOK"
+                            : item.salePercentage > 0
+                            ? `${item.salePercentage}% OFF`
+                            : "FLAGSHIP"}
+                        </span>
+                        <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-700">
+                          {defaultStorage}
+                        </span>
+                      </div>
 
                       <Link
                         to={`/collection/${item._id}`}
@@ -169,37 +176,42 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
                         {item.title}
                       </Link>
 
-                      <p className="text-xs font-semibold text-neutral-700 line-clamp-1">
-                        {item.brand} • Flagship Series
+                      <p className="text-xs font-semibold text-neutral-600 line-clamp-1">
+                        {item.brand} • 5G Flagship
                       </p>
 
                       {item.description ? (
-                        <p className="text-[11px] text-neutral-600 line-clamp-2 leading-snug pt-0.5">
+                        <p className="text-[11px] text-neutral-500 line-clamp-2 leading-snug pt-0.5">
                           {item.description}
                         </p>
                       ) : null}
                     </div>
                   </div>
 
-                  {/* Bottom: Price & Quick Add Button */}
-                  <div className="flex items-end justify-between pt-4 mt-3 border-t border-amber-900/10">
+                  {/* Bottom: Price, EMI & Quick Add Button */}
+                  <div className="flex items-end justify-between pt-4 mt-3 border-t border-neutral-100">
                     <div>
                       <p className="text-lg font-black text-neutral-900">
                         {formatPrice(item.finalPrice)}
                       </p>
-                      {hasDiscount ? (
-                        <p className="text-[11px] text-neutral-500 line-through font-medium">
-                          MRP: {formatPrice(item.price)}
-                        </p>
-                      ) : null}
+                      <div className="flex items-center gap-2">
+                        {hasDiscount ? (
+                          <p className="text-[11px] text-neutral-400 line-through font-medium">
+                            MRP: {formatPrice(item.price)}
+                          </p>
+                        ) : null}
+                        <span className="text-[10px] text-emerald-600 font-bold">
+                          No-Cost EMI
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Circular Peach Shopping Cart Button */}
+                    {/* Blue Shopping Cart Button */}
                     <button
                       type="button"
                       onClick={() => void handleQuickAdd(item)}
                       aria-label={`Add ${item.title} to cart`}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f8d7b7] text-neutral-900 shadow-xs transition-transform duration-200 hover:bg-[#f3caa1] hover:scale-110 active:scale-95"
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-md shadow-primary/20 transition-transform duration-200 hover:bg-primary/90 hover:scale-110 active:scale-95"
                     >
                       <ShoppingCart className="h-4.5 w-4.5" />
                     </button>

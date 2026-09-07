@@ -27,8 +27,8 @@ export function ContactPage() {
     <div className="min-h-screen bg-background pb-20">
       <section className="bg-[#09090b] text-white py-14 border-b border-white/10 text-center">
         <div className="mx-auto max-w-4xl px-4 space-y-2">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">Get In Touch</p>
-          <h1 className="text-3xl font-black sm:text-5xl text-white">Contact Customer Support</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Get In Touch</p>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-white">Contact Customer Support</h1>
           <p className="text-sm text-neutral-300">We're here to assist you 7 days a week.</p>
         </div>
       </section>
@@ -38,7 +38,7 @@ export function ContactPage() {
           {/* Contact Details */}
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-black text-foreground">How Can We Help You?</h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-foreground">How Can We Help You?</h2>
               <p className="text-sm text-muted-foreground mt-1">
                 Have a question regarding your order, delivery status, or warranty? Reach out to our priority team.
               </p>

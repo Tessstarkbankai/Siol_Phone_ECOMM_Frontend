@@ -20,6 +20,7 @@ import { SpotlightBanners } from "@/components/home/spotlight-banners";
 import { PortraitVideoStrip } from "@/components/home/portrait-video-strip";
 import { TestimonialsCarousel } from "@/components/home/testimonials-carousel";
 import { StoreLocator } from "@/components/home/store-locator";
+import { InteractivePhoneCompare } from "@/components/home/interactive-phone-compare";
 import { CustomerProductCard } from "@/components/customer/products/customer-product-card";
 import type { CustomerProduct } from "@/features/customer/products/types";
 
@@ -49,7 +50,7 @@ export function StoreHome() {
     stock: p.stock ?? 20,
     images: [{ url: p.image, publicId: "img", isCover: true }],
     colors: p.colors || [],
-    sizes: (p.sizes as any) || ["M"],
+    sizes: (p.sizes as any) || ["256GB"],
     price: p.price,
     salePercentage: p.salePercentage,
     status: "active",
@@ -59,35 +60,38 @@ export function StoreHome() {
 
   return (
     <div className="min-h-screen bg-[#ffffff] pb-4 sm:pb-6">
-      {/* 1. Round Appliance Collection Strip (Below Navbar, Above Hero Banner) */}
-      <CircularCollectionStrip categories={data.categories} />
-
-      {/* 2. Rotating Hero Banner Carousel */}
+      {/* 1. Rotating Keynote Hero Banner Carousel with Video First Slide */}
       <HeroCarousel banners={data.banners} />
 
-      {/* 3. Trust Credibility Strip */}
+      {/* 2. Hardware Category Strip (Moved Below Hero Section) */}
+      <CircularCollectionStrip categories={data.categories} />
+
+      {/* 3. Official Brand Sealed Trust Strip */}
       <TrustStrip />
 
-      {/* 4. Magic Series Hero Products Banner & Small Cards from DB */}
+      {/* 4. Titanium Pro Flagship Banner & Live Small Cards Rail */}
       <HeroProductsBanner products={data.spotlightProducts} />
 
-      {/* 5. Best Sellers & Trending Appliances */}
+      {/* 5. Interactive Side-by-Side Phone Comparison Matrix */}
+      <InteractivePhoneCompare />
+
+      {/* 6. Trending Flagships & New Arrivals */}
       {mappedProducts.length > 0 ? (
-        <section className="py-4">
+        <section className="py-8">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-8">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.25em] text-primary">
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
                   <Flame className="h-3.5 w-3.5" />
-                  <span>Chef's Choice</span>
+                  <span>Flagship Lineup</span>
                 </div>
-                <h2 className="text-2xl font-black tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl mt-1">
-                  Trending & Best Selling Appliances
+                <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl mt-1">
+                  Trending 5G Flagships & AI Smartphones
                 </h2>
               </div>
               <Link
                 to="/collections"
-                className="inline-flex items-center gap-1 text-sm font-bold text-primary hover:text-primary/80 transition"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition"
               >
                 <span>View Full Catalogue</span>
                 <ArrowRight className="h-4 w-4" />
@@ -103,31 +107,31 @@ export function StoreHome() {
         </section>
       ) : null}
 
-      {/* 6. Spotlight Feature Banners */}
+      {/* 7. Spotlight Feature Banners (AI Camera & Titanium Build) */}
       <SpotlightBanners />
 
-      {/* 7. Portrait Community Video Reels ("See What Everyone's Talking About") */}
+      {/* 8. 4K Video Performance & Camera Tests */}
       <PortraitVideoStrip videos={data.videos} />
 
-      {/* 8. Live Coupons & Promo Offers (Clean Light Theme) */}
+      {/* 9. Live Coupons & Exchange Vouchers */}
       {data.coupons.length > 0 ? (
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-10 rounded-3xl bg-neutral-50 border border-neutral-200 shadow-xs">
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6">
+          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-blue-50/70 via-white to-sky-50/50 border border-blue-100/90 shadow-sm">
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
               <div>
-                <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
                   <TicketPercent className="h-3.5 w-3.5" />
-                  <span>Instant Savings</span>
+                  <span>Instant Checkout Savings</span>
                 </div>
-                <h2 className="text-2xl font-black tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl mt-2">
-                  Exclusive Festive Discount Coupons
+                <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl mt-2">
+                  Exclusive Flagship Discount Codes
                 </h2>
-                <p className="text-sm text-neutral-600 mt-1">
-                  Click any coupon to copy and apply directly at checkout for instant discount.
+                <p className="text-sm text-slate-600 mt-1">
+                  Click any voucher code to copy and apply directly at checkout for instant discounts.
                 </p>
               </div>
-              <span className="text-xs text-neutral-500 font-medium">
-                Valid on all prepaid orders across India
+              <span className="text-xs text-slate-500 font-medium">
+                Valid on all prepaid & EMI orders across India
               </span>
             </div>
 
@@ -136,28 +140,28 @@ export function StoreHome() {
                 <Card
                   key={coupon._id}
                   onClick={() => handleCopyCoupon(coupon.code)}
-                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-dashed border-primary/40 bg-white p-5 shadow-xs transition-all duration-300 hover:border-primary hover:shadow-md hover:-translate-y-1"
+                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-dashed border-blue-300 bg-white p-5 shadow-xs transition-all duration-300 hover:border-primary hover:shadow-xl hover:-translate-y-1"
                 >
                   <CardContent className="p-0 space-y-4">
                     <div className="flex items-start justify-between">
-                      <span className="rounded-md bg-primary text-white text-xs font-black px-2.5 py-1">
+                      <span className="rounded-md bg-primary text-white text-xs font-bold px-2.5 py-1">
                         {coupon.percentage}% OFF
                       </span>
-                      <span className="text-neutral-400 group-hover:text-primary transition">
+                      <span className="text-slate-400 group-hover:text-primary transition">
                         <Copy className="h-4 w-4" />
                       </span>
                     </div>
 
                     <div>
-                      <p className="text-xs text-neutral-500 font-semibold uppercase tracking-wider">
+                      <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider">
                         Use Code
                       </p>
-                      <p className="text-2xl font-black tracking-widest text-neutral-900 mt-0.5 group-hover:text-primary transition">
+                      <p className="text-2xl font-bold font-mono tracking-wider text-slate-900 mt-0.5 group-hover:text-primary transition">
                         {coupon.code}
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-neutral-100 flex items-center justify-between text-[11px] text-neutral-500">
+                    <div className="pt-2 border-t border-blue-50 flex items-center justify-between text-[11px] text-slate-500">
                       <span>Min. Order: ₹{coupon.minimumOrderValue}</span>
                       <span className="text-primary font-bold">Copy Code</span>
                     </div>

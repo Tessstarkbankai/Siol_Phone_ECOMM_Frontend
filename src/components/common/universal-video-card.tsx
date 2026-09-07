@@ -196,7 +196,7 @@ export function UniversalVideoCard({
           crossOrigin="anonymous"
           preload="metadata"
           onError={() => setHasError(true)}
-          className="h-full w-full object-cover cursor-pointer"
+          className="h-full w-full object-cover rounded-3xl cursor-pointer"
         />
       )}
 

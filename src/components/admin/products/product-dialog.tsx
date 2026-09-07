@@ -24,6 +24,7 @@ import type {
 import { ColorPicker } from "./color-picker";
 import { SizeSelector } from "./size-selector";
 import { ImagePicker } from "./image-picker";
+import { BannerPicker } from "./banner-picker";
 import { Button } from "@/components/ui/button";
 import { useProductForm } from "@/features/admin/products/use-product-form";
 
@@ -70,6 +71,9 @@ export function ProductDialog({
     addColor,
     removeColor,
     addFiles,
+    addBannerFiles,
+    removeNewBannerFile,
+    removeExistingBanner,
     submit,
     removeExistingImage,
     changeCoverImage,
@@ -248,6 +252,14 @@ export function ProductDialog({
             onFilesAdd={addFiles}
             onExistingRemove={removeExistingImage}
             onCoverImageChange={changeCoverImage}
+          />
+
+          <BannerPicker
+            existingBanners={form.existingBanners}
+            newBannerFiles={form.newBannerFiles}
+            onFilesAdd={addBannerFiles}
+            onExistingRemove={removeExistingBanner}
+            onNewFileRemove={removeNewBannerFile}
           />
 
           <div className={actionsRowClass}>

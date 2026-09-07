@@ -32,6 +32,9 @@ export type Product = {
   isSpotlight?: boolean;
   stock: number;
   status: ProductStatus;
+  showcaseBanners?: Array<{ url: string; publicId: string }>;
+  rating?: number;
+  reviewCount?: number;
   createdAt: string;
   updatedAt: string;
 };
@@ -56,6 +59,7 @@ export type CreateProductBody = {
   isSpotlight?: boolean;
   stock: number;
   status: ProductStatus;
+  existingBanners?: Array<{ url: string; publicId: string }>;
 };
 
 export type UpdateProductBody = {
@@ -72,6 +76,7 @@ export type UpdateProductBody = {
   status: ProductStatus;
   existingImages?: ProductImage[];
   coverImagePublicId?: string;
+  existingBanners?: Array<{ url: string; publicId: string }>;
 };
 
 export type ProductFormState = {
@@ -89,4 +94,6 @@ export type ProductFormState = {
   existingImages: ProductImage[];
   newFiles: File[];
   coverImagePublicId: string;
+  existingBanners: Array<{ url: string; publicId: string }>;
+  newBannerFiles: File[];
 };

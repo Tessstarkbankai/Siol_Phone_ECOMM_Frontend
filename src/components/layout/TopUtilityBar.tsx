@@ -13,7 +13,7 @@ export function TopUtilityBar() {
         <div className="hidden items-center gap-4 md:flex text-neutral-400">
           <span className="inline-flex items-center gap-1.5 hover:text-white transition">
             <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-            100% Genuine & Warranty Backed
+            Official Brand Sealed • IMEI Verified
           </span>
           <span className="text-white/20">|</span>
           <a
@@ -21,15 +21,15 @@ export function TopUtilityBar() {
             className="inline-flex items-center gap-1.5 hover:text-white transition"
           >
             <Phone className="h-3.5 w-3.5 text-primary" />
-            Support: +91 98765 43210
+            Tech Concierge: +91 98765 43210
           </a>
         </div>
 
         <div className="flex flex-1 items-center justify-center text-center font-semibold text-white tracking-wide">
           <Truck className="mr-1.5 h-3.5 w-3.5 text-primary animate-pulse hidden sm:inline" />
           <span>
-            ⚡ FREE Pan-India Delivery on orders over ₹999 • Use Code{" "}
-            <span className="text-primary font-bold">WELCOME20</span>
+            🚀 Get up to ₹15,000 Extra on Phone Exchange + 0% No-Cost EMI • Use Code{" "}
+            <span className="text-primary font-bold">NEXUS20</span>
           </span>
         </div>
 

@@ -13,9 +13,20 @@ import AdminCoupons from "./pages/admin/Promos";
 import AdminOrders from "./pages/admin/Orders";
 import AdminSettings from "./pages/admin/Settings";
 import AdminVideos from "./pages/admin/Videos";
+import AdminVendors from "./pages/admin/Vendors";
+import AdminModeration from "./pages/admin/Moderation";
+import AdminPayouts from "./pages/admin/Payouts";
 import Collections from "./pages/customer/Collections";
 import CollectionDetails from "./pages/customer/Collection-Details";
 import CustomerOrderSuccessPage from "./pages/customer/Order-Sucess";
+import BecomeSellerPage from "./pages/customer/BecomeSeller";
+import StorefrontPage from "./pages/customer/Storefront";
+import VendorLayout from "./components/layout/VendorLayout";
+import VendorDashboard from "./pages/vendor/Dashboard";
+import VendorProducts from "./pages/vendor/Products";
+import VendorOrders from "./pages/vendor/Orders";
+import VendorPayouts from "./pages/vendor/Payouts";
+import VendorProfile from "./pages/vendor/Profile";
 import AboutPage from "./pages/customer/About";
 import ContactPage from "./pages/customer/Contact";
 import FAQPage from "./pages/customer/FAQ";
@@ -61,6 +72,14 @@ export const router = createBrowserRouter([
       {
         path: "terms",
         element: <TermsPage />,
+      },
+      {
+        path: "become-seller",
+        element: <BecomeSellerPage />,
+      },
+      {
+        path: "store/:slug",
+        element: <StorefrontPage />,
       },
       {
         element: <PublicOnlyLayout />,
@@ -117,6 +136,18 @@ export const router = createBrowserRouter([
                 element: <AdminProducts />,
               },
               {
+                path: "moderation",
+                element: <AdminModeration />,
+              },
+              {
+                path: "vendors",
+                element: <AdminVendors />,
+              },
+              {
+                path: "payouts",
+                element: <AdminPayouts />,
+              },
+              {
                 path: "videos",
                 element: <AdminVideos />,
               },
@@ -131,6 +162,37 @@ export const router = createBrowserRouter([
               {
                 path: "settings",
                 element: <AdminSettings />,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        element: <RoleGuardLayout allow={["vendor", "admin"]} />,
+        children: [
+          {
+            path: "/vendor",
+            element: <VendorLayout />,
+            children: [
+              {
+                index: true,
+                element: <VendorDashboard />,
+              },
+              {
+                path: "products",
+                element: <VendorProducts />,
+              },
+              {
+                path: "orders",
+                element: <VendorOrders />,
+              },
+              {
+                path: "payouts",
+                element: <VendorPayouts />,
+              },
+              {
+                path: "profile",
+                element: <VendorProfile />,
               },
             ],
           },

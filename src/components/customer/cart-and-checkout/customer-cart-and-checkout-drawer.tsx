@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -109,10 +110,13 @@ export function CustomerCartAndCheckoutDrawer() {
             <div className="flex h-full min-h-0 flex-col p-4 sm:p-6">
               <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
                 <DrawerHeader className="border-b border-border px-5 py-4 flex items-center justify-between">
-                  <DrawerTitle className="text-base font-black text-foreground flex items-center gap-2">
+                  <DrawerTitle className="text-base font-semibold text-foreground flex items-center gap-2">
                     <CreditCard className="h-4.5 w-4.5 text-primary" />
                     <span>Order Summary</span>
                   </DrawerTitle>
+                  <DrawerDescription className="sr-only">
+                    Shopping cart items and checkout summary
+                  </DrawerDescription>
                 </DrawerHeader>
 
                 {isSignedIn ? (
@@ -230,8 +234,8 @@ export function CustomerCartAndCheckoutDrawer() {
                           ) : null}
 
                           <div className="flex items-center justify-between border-t border-border pt-3 mt-2">
-                            <span className="text-base font-black text-foreground">Total Payable</span>
-                            <span className="text-xl font-black text-foreground">
+                            <span className="text-base font-semibold text-foreground">Total Payable</span>
+                            <span className="text-xl font-bold tracking-tight text-foreground">
                               {formatPrice(totalAmount)}
                             </span>
                           </div>
@@ -299,7 +303,7 @@ export function CustomerCartAndCheckoutDrawer() {
                       <LogIn className="h-7 w-7" />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-base font-black text-foreground">Sign In to Checkout</h3>
+                      <h3 className="text-base font-semibold text-foreground">Sign In to Checkout</h3>
                       <p className="text-xs text-muted-foreground max-w-xs">
                         Sign in with your account to access saved delivery addresses, apply reward points, and checkout securely.
                       </p>

@@ -31,8 +31,8 @@ export function FAQPage() {
     <div className="min-h-screen bg-background pb-20">
       <section className="bg-[#09090b] text-white py-14 border-b border-white/10 text-center">
         <div className="mx-auto max-w-4xl px-4 space-y-2">
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">Help Center</p>
-          <h1 className="text-3xl font-black sm:text-5xl text-white">Frequently Asked Questions</h1>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Help Center</p>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-white">Frequently Asked Questions</h1>
           <p className="text-sm text-neutral-300">Quick answers to common questions about orders, shipping, and returns.</p>
         </div>
       </section>

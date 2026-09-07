@@ -1,22 +1,22 @@
 import { getSwatchColor } from "@/features/customer/products/product-list.shared";
 import type { ProductSize } from "@/features/customer/products/types";
 
-const wrapClass = "flex flex-wrap gap-2";
+const wrapClass = "flex flex-wrap gap-2.5";
 
 const baseButtonClass =
-  "inline-flex items-center justify-center gap-2 border px-4 py-2 text-sm font-medium transition";
+  "inline-flex items-center justify-center gap-2 border px-4 py-2.5 text-xs font-bold transition-all rounded-xl shadow-2xs";
 
 const activeButtonClass =
-  "border-primary bg-primary/15 text-primary ring-2 ring-primary/20";
+  "border-primary bg-primary/10 text-primary ring-2 ring-primary/30 font-semibold";
 
 const inactiveButtonClass =
-  "border-border bg-secondary text-secondary-foreground hover:border-primary/40";
+  "border-border/80 bg-card text-foreground hover:border-primary/50 hover:bg-neutral-50";
 
-const sizeButtonClass = "min-w-12 rounded-none";
+const sizeButtonClass = "min-w-16 h-10";
 
-const colorButtonClass = "rounded-none";
+const colorButtonClass = "h-10 px-3.5";
 
-const swatchClass = "h-4 w-4 border border-border";
+const swatchClass = "h-4 w-4 rounded-full border border-black/20 shadow-xs";
 
 type CustomerProductOptionsGroupProps = {
   values: string[];

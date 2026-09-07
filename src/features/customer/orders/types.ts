@@ -5,6 +5,19 @@ export type CustomerOrderStatus =
   | "returned";
 export type CustomerPaymentStatus = "pending" | "paid" | "failed";
 
+export type CustomerOrderItem = {
+  product: {
+    _id: string;
+    title: string;
+    images?: Array<{ url: string; publicId: string; isCover?: boolean }>;
+    price?: number;
+  } | string;
+  quantity: number;
+  price: number;
+  color?: string;
+  size?: string;
+};
+
 export type CustomerOrder = {
   _id: string;
   code: string;
@@ -16,6 +29,7 @@ export type CustomerOrder = {
   deliveredAt?: string | null;
   returnedAt?: string | null;
   createdAt: string;
+  items?: CustomerOrderItem[];
 };
 
 export type CustomerOrdersResponse = {

@@ -16,7 +16,10 @@ import {
   ShoppingCart,
   Sparkles,
   Store,
+  Tag,
   User,
+  ArrowRight,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,6 +49,23 @@ export function CustomerNavbar() {
 
   const [categories, setCategories] = useState<ProductCategory[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isMegaPanelOpen, setIsMegaPanelOpen] = useState(false);
+  const [closeTimeout, setCloseTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+      setCloseTimeout(null);
+    }
+    setIsMegaPanelOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsMegaPanelOpen(false);
+    }, 200);
+    setCloseTimeout(timeout);
+  };
 
   const {
     items: wishlistItems,
@@ -105,21 +125,74 @@ export function CustomerNavbar() {
     cart?.items?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white text-neutral-900 shadow-xs">
+    <header className="sticky top-0 z-50 border-b border-neutral-200 bg-white text-neutral-900 shadow-xs relative">
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Left: Mobile Nav & Brand Logo */}
         <div className="flex items-center gap-3 sm:gap-4 shrink-0">
           <CustomerMobileNavbar isSignedIn={!!isSignedIn} />
 
-          <Link to="/" className="flex items-center gap-2 group">
-            {/* Red Star Icon */}
+          <Link to="/" className="flex items-center gap-2.5 group">
+            {/* High-tech Icon */}
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white shadow-xs transition-transform duration-300 group-hover:scale-105">
               <Sparkles className="h-5 w-5" />
             </div>
-            <span className="text-2xl font-black tracking-tight text-primary uppercase">
-              WONDERCHEF<span className="text-neutral-900">.</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold tracking-tight text-neutral-900 leading-none">
+                NEXUS<span className="text-primary">.MOBILE</span>
+              </span>
+              <span className="text-[9px] font-semibold tracking-widest text-neutral-500 uppercase">
+                Flagship Store
+              </span>
+            </div>
           </Link>
+
+          {/* Desktop Navigation Links / Mega Menu Trigger */}
+          <div className="hidden lg:flex items-center gap-1 ml-4">
+            <button
+              type="button"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => setIsMegaPanelOpen((v) => !v)}
+              className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${
+                isMegaPanelOpen
+                  ? "bg-primary/10 text-primary"
+                  : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
+              }`}
+            >
+              <Grid2X2 className="h-4 w-4 text-primary" />
+              <span>Explore</span>
+              <ChevronDown
+                className={`h-3 w-3 transition-transform duration-200 ${
+                  isMegaPanelOpen ? "rotate-180 text-primary" : "text-neutral-500"
+                }`}
+              />
+            </button>
+
+            <Link
+              to="/collections"
+              className="px-3 py-2 text-xs font-semibold rounded-xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition"
+            >
+              All Phones
+            </Link>
+
+            <Link
+              to="/collections?sort=recent"
+              className="px-3 py-2 text-xs font-semibold rounded-xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition"
+            >
+              Flagships
+            </Link>
+
+            <Link
+              to="/collections?sort=price-low"
+              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition"
+            >
+              <Tag className="h-3.5 w-3.5 text-rose-500" />
+              <span>Deals</span>
+              <span className="bg-rose-100 text-rose-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                20% OFF
+              </span>
+            </Link>
+          </div>
         </div>
 
         {/* Center: Wide Search Bar */}
@@ -206,6 +279,28 @@ export function CustomerNavbar() {
                   </DropdownMenuItem>
                 ) : null}
 
+                {user?.role === "vendor" || user?.role === "admin" ? (
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/vendor"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-emerald-600 hover:bg-emerald-50 transition cursor-pointer"
+                    >
+                      <Store className="h-4 w-4 text-emerald-600" />
+                      <span>Seller Portal</span>
+                    </Link>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/become-seller"
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-primary hover:bg-primary/10 transition cursor-pointer"
+                    >
+                      <Store className="h-4 w-4 text-primary" />
+                      <span>Become a Seller</span>
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+
                 <DropdownMenuItem
                   onClick={() => void openProfile()}
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 hover:bg-neutral-100 transition cursor-pointer"
@@ -251,7 +346,7 @@ export function CustomerNavbar() {
             className="relative flex h-10 w-10 items-center justify-center rounded-xl text-neutral-800 hover:bg-neutral-100 transition"
           >
             <ShoppingCart className="h-5.5 w-5.5" />
-            <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-neutral-900 px-1 text-[11px] font-black text-white shadow-xs">
+            <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-neutral-900 px-1 text-[11px] font-semibold text-white shadow-xs">
               {cartItemCount}
             </span>
           </button>
@@ -263,6 +358,181 @@ export function CustomerNavbar() {
         {showSignInUi ? <CustomerOrdersDialog /> : null}
         <CustomerCartAndCheckoutDrawer />
       </div>
+
+      {/* Horizontal Dropdown Mega Panel on Desktop Nav Hover */}
+      {isMegaPanelOpen ? (
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="absolute left-0 right-0 top-full z-50 border-b border-neutral-200 bg-white/98 backdrop-blur-md shadow-2xl animate-in fade-in-0 slide-in-from-top-2 duration-200"
+        >
+          <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* Column 1: Store Categories */}
+            <div>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
+                <Grid2X2 className="h-4 w-4 text-primary" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                  Categories
+                </h4>
+              </div>
+              <div className="space-y-1 max-h-60 overflow-y-auto pr-2">
+                {categories.length > 0 ? (
+                  categories.map((c) => (
+                    <Link
+                      key={c._id}
+                      to={`/collections?category=${c._id}`}
+                      onClick={() => setIsMegaPanelOpen(false)}
+                      className="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium text-neutral-600 hover:bg-primary/5 hover:text-primary transition"
+                    >
+                      <span>{c.name}</span>
+                      <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  ))
+                ) : (
+                  <p className="text-xs text-neutral-400 italic">
+                    Loading categories...
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Column 2: Highlights & Series */}
+            <div>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
+                <Sparkles className="h-4 w-4 text-amber-500" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                  Highlights & Series
+                </h4>
+              </div>
+              <div className="space-y-1.5">
+                <Link
+                  to="/collections"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
+                >
+                  <ShoppingBag className="h-4 w-4 text-primary" />
+                  <div>
+                    <p className="font-semibold text-neutral-900">All Smartphones</p>
+                    <p className="text-[11px] text-neutral-500">Explore complete catalog</p>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/collections?sort=recent"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
+                >
+                  <Grid2X2 className="h-4 w-4 text-primary" />
+                  <div>
+                    <p className="font-semibold text-neutral-900">Flagship & Pro Series</p>
+                    <p className="text-[11px] text-neutral-500">Top-tier mobile performance</p>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/collections"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
+                >
+                  <Sparkles className="h-4 w-4 text-purple-600" />
+                  <div>
+                    <p className="font-semibold text-neutral-900">Foldables & AI Phones</p>
+                    <p className="text-[11px] text-neutral-500">Next-gen folding form factors</p>
+                  </div>
+                </Link>
+
+                <Link
+                  to="/collections?sort=price-low"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-rose-50 transition"
+                >
+                  <Tag className="h-4 w-4 text-rose-500" />
+                  <div>
+                    <p className="font-semibold text-rose-600">Special Exchange Deals</p>
+                    <p className="text-[11px] text-rose-500">Save up to 20% instant off</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Column 3: Seller Hub & Customer Services */}
+            <div>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
+                <Store className="h-4 w-4 text-emerald-600" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                  Seller & Services
+                </h4>
+              </div>
+              <div className="space-y-1.5">
+                <Link
+                  to="/become-seller"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-emerald-50 transition"
+                >
+                  <Store className="h-4 w-4 text-emerald-600" />
+                  <div>
+                    <p className="font-semibold text-emerald-700">Become a Seller</p>
+                    <p className="text-[11px] text-emerald-600">Start selling to millions</p>
+                  </div>
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMegaPanelOpen(false);
+                    openOrders();
+                  }}
+                  className="w-full text-left flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition cursor-pointer"
+                >
+                  <ShoppingBasket className="h-4 w-4 text-neutral-600" />
+                  <div>
+                    <p className="font-semibold text-neutral-900">Track Orders</p>
+                    <p className="text-[11px] text-neutral-500">View real-time shipments</p>
+                  </div>
+                </button>
+
+                <Link
+                  to="/shipping-policy"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
+                >
+                  <ShieldCheck className="h-4 w-4 text-neutral-600" />
+                  <div>
+                    <p className="font-semibold text-neutral-900">Free Express Delivery</p>
+                    <p className="text-[11px] text-neutral-500">Safe, insured transit</p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Column 4: Premium Showcase Banner */}
+            <div className="rounded-2xl p-5 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-950 text-white flex flex-col justify-between shadow-xl relative overflow-hidden">
+              <div className="space-y-2 relative z-10">
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white uppercase tracking-wider">
+                  Exclusive Hub
+                </span>
+                <h3 className="text-base font-bold leading-snug">
+                  Next-Gen Flagships Live on Nexus
+                </h3>
+                <p className="text-xs text-neutral-300 leading-relaxed">
+                  Explore ultra-tier performance, cinematic cameras & multi-vendor warranty.
+                </p>
+              </div>
+
+              <Link
+                to="/collections"
+                onClick={() => setIsMegaPanelOpen(false)}
+                className="mt-4 inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-white text-neutral-950 hover:bg-neutral-100 transition relative z-10 shadow-md"
+              >
+                <span>Shop Flagships</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+
+              <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-primary/20 rounded-full blur-2xl pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }

@@ -9,8 +9,8 @@ export function NotFoundPage() {
         <Store className="h-10 w-10" />
       </div>
 
-      <p className="text-sm font-bold uppercase tracking-widest text-primary mb-2">404 Error</p>
-      <h1 className="text-3xl font-black text-foreground sm:text-5xl tracking-tight mb-3">
+      <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-2">404 Error</p>
+      <h1 className="text-3xl font-bold text-foreground sm:text-5xl tracking-tight mb-3">
         Page Not Found
       </h1>
       <p className="text-base text-muted-foreground max-w-md mb-8">
@@ -18,7 +18,7 @@ export function NotFoundPage() {
       </p>
 
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <Button asChild size="lg" className="bg-primary text-white font-bold h-12 px-7 rounded-xl shadow-md gap-2">
+        <Button asChild size="lg" className="bg-primary text-white font-semibold h-12 px-7 rounded-xl shadow-md gap-2">
           <Link to="/">
             <Home className="h-4 w-4" />
             Back to Homepage

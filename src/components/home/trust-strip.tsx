@@ -3,50 +3,50 @@ import { Award, CheckCircle2, Star, Truck, Users } from "lucide-react";
 export function TrustStrip() {
   const stats = [
     {
-      icon: Users,
-      value: "50,000+",
-      title: "Happy Verified Customers",
-      desc: "Delivering satisfaction nationwide",
+      icon: Award,
+      value: "Official Brand Sealed",
+      title: "100% Genuine & IMEI Verified",
+      desc: "Direct Apple & Samsung brand warranty",
     },
     {
-      icon: Award,
-      value: "2-Year",
-      title: "Comprehensive Warranty",
-      desc: "Genuine direct brand coverage",
+      icon: Users,
+      value: "Instant Trade-In",
+      title: "Up to ₹25,000 Exchange Value",
+      desc: "Doorstep evaluation & pickup",
     },
     {
       icon: Truck,
-      value: "Pan-India",
-      title: "Free Express Shipping",
-      desc: "Dispatched within 24 hours",
+      value: "No-Cost EMI",
+      title: "0% Interest up to 24 Months",
+      desc: "Starting at ₹2,499/mo across all banks",
     },
     {
       icon: Star,
-      value: "4.9 / 5",
-      title: "Top-Rated Quality",
-      desc: "From 12,000+ customer reviews",
+      value: "Screen Protection",
+      title: "1-Yr Free Damage Cover",
+      desc: "Complimentary on all flagship orders",
     },
   ];
 
   return (
-    <div className="bg-white border-y border-border/80 shadow-sm">
+    <div className="bg-gradient-to-r from-blue-50/40 via-white to-blue-50/40 border-y border-blue-100/70 shadow-xs mb-8">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (
               <div key={i} className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-primary border border-blue-200/50 shadow-2xs">
                   <Icon className="h-6 w-6" />
                 </div>
                 <div>
-                  <p className="text-xl font-black tracking-tight text-foreground sm:text-2xl">
+                  <p className="text-lg font-black tracking-tight text-slate-900 sm:text-xl">
                     {stat.value}
                   </p>
-                  <p className="text-sm font-semibold text-foreground">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700">
                     {stat.title}
                   </p>
-                  <p className="text-xs text-muted-foreground">{stat.desc}</p>
+                  <p className="text-xs text-slate-500">{stat.desc}</p>
                 </div>
               </div>
             );

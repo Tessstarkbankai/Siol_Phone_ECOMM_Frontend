@@ -6,67 +6,67 @@ export function StoreLocator() {
   const googleMapsUrl = "https://maps.app.goo.gl/ctr7doUyvwsXoYM26";
 
   return (
-    <section className="pt-6 pb-2 sm:pt-8 sm:pb-4 bg-[#ffffff]">
+    <section className="pt-6 pb-2 sm:pt-8 sm:pb-4 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-neutral-50/80 border border-neutral-200/90 shadow-sm p-6 sm:p-8 lg:p-10">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50/80 via-white to-sky-50/70 border border-blue-100/90 shadow-lg shadow-blue-500/5 p-6 sm:p-8 lg:p-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Side: Store Information & Locate Button */}
             <div className="lg:col-span-6 space-y-6">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
                   <Store className="h-3.5 w-3.5" />
-                  <span>Flagship Experience Center</span>
+                  <span>Flagship Smartphone Lounge</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900 leading-tight">
-                  Experience Innovation in Person
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+                  Experience Flagships in Person
                 </h2>
-                <p className="text-sm sm:text-base text-neutral-600 leading-relaxed">
-                  Visit our flagship store to touch, feel, and witness live culinary demonstrations of our smart cooking appliances with in-house chefs.
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                  Visit our premier experience lounges in Mumbai, Delhi, Bengaluru, and Hyderabad to test 100x zoom cameras, foldable displays, and receive hands-on device setup by certified specialists.
                 </p>
               </div>
 
               {/* Store Details Box */}
-              <div className="space-y-4 rounded-2xl bg-white p-5 sm:p-6 border border-neutral-200 shadow-xs">
+              <div className="space-y-4 rounded-2xl bg-white p-5 sm:p-6 border border-blue-100 shadow-sm">
                 {/* Store Name & City */}
                 <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-primary border border-blue-200/50">
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div className="space-y-0.5">
-                    <h4 className="text-base font-black text-neutral-900">
-                      Wonderchef Exclusive Experience Store
+                    <h4 className="text-base font-black text-slate-900">
+                      NEXUS Flagship Experience Center & Tech Hub
                     </h4>
-                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                      Shop No. 12 & 13, Ground Floor, Central Market, Prime Plaza, Main Avenue
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      Shop 101-104, Cyber Galleria Mall, High Street Phoenix, Lower Parel, Mumbai
                     </p>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-neutral-100 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-blue-50 text-xs">
                   {/* Hours */}
-                  <div className="flex items-center gap-2 text-neutral-600">
-                    <Clock className="h-4 w-4 text-neutral-400 shrink-0" />
-                    <span>Mon - Sun: 10:30 AM – 9:30 PM</span>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Clock className="h-4 w-4 text-slate-400 shrink-0" />
+                    <span>Mon - Sun: 10:00 AM – 10:00 PM</span>
                   </div>
 
                   {/* Contact */}
-                  <div className="flex items-center gap-2 text-neutral-600">
-                    <Phone className="h-4 w-4 text-neutral-400 shrink-0" />
-                    <span>+91 1800 266 0788 (Toll Free)</span>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <Phone className="h-4 w-4 text-slate-400 shrink-0" />
+                    <span>+91 1800 123 4567 (Toll Free)</span>
                   </div>
                 </div>
               </div>
 
               {/* Highlights Strip */}
-              <div className="flex flex-wrap gap-2 text-xs font-semibold text-neutral-700">
-                <span className="px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200">
-                  ✨ Live Cooking Demos
+              <div className="flex flex-wrap gap-2 text-xs font-semibold text-slate-700">
+                <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-slate-800">
+                  📱 Live Camera & Gaming Demos
                 </span>
-                <span className="px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200">
-                  🛡️ Instant Warranty Registration
+                <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-slate-800">
+                  ⚡ Instant Trade-in Diagnostics
                 </span>
-                <span className="px-3 py-1 rounded-full bg-neutral-100 border border-neutral-200">
-                  🎁 Exclusive Store Discounts
+                <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-slate-800">
+                  🛡️ Same-Day Screen Replacement
                 </span>
               </div>
 

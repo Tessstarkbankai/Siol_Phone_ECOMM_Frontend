@@ -25,6 +25,8 @@ function getEmptyForm(): ProductFormState {
     existingImages: [],
     newFiles: [],
     coverImagePublicId: "",
+    existingBanners: [],
+    newBannerFiles: [],
   };
 }
 
@@ -50,6 +52,8 @@ function mapProductToFormValues(product: Product): ProductFormState {
     existingImages: product.images ?? [],
     newFiles: [],
     coverImagePublicId: cover?.publicId ?? "",
+    existingBanners: product.showcaseBanners ?? [],
+    newBannerFiles: [],
   };
 }
 
@@ -100,6 +104,29 @@ export function useProductForm({
     }));
   }
 
+  function addBannerFiles(files: FileList | null) {
+    if (!files?.length) return;
+
+    setForm((prev) => ({
+      ...prev,
+      newBannerFiles: [...prev.newBannerFiles, ...Array.from(files)],
+    }));
+  }
+
+  function removeNewBannerFile(index: number) {
+    setForm((prev) => ({
+      ...prev,
+      newBannerFiles: prev.newBannerFiles.filter((_, i) => i !== index),
+    }));
+  }
+
+  function removeExistingBanner(publicId: string) {
+    setForm((prev) => ({
+      ...prev,
+      existingBanners: prev.existingBanners.filter((b) => b.publicId !== publicId),
+    }));
+  }
+
   function updateField<K extends keyof ProductFormState>(
     key: K,
     value: ProductFormState[K],
@@ -134,15 +161,11 @@ export function useProductForm({
   }
 
   async function submit() {
-    // if (!form.title.trim() || !form.description.trim() || !form.category.trim())
-    //   return;
-
     try {
       setSaving(true);
 
       if (product) {
         //edit
-
         await updateAdminProduct(
           product._id,
           {
@@ -159,8 +182,10 @@ export function useProductForm({
             status: form.status,
             existingImages: form.existingImages,
             coverImagePublicId: form.coverImagePublicId || undefined,
+            existingBanners: form.existingBanners,
           },
           form.newFiles,
+          form.newBannerFiles,
         );
       } else {
         await createAdminProduct(
@@ -178,6 +203,7 @@ export function useProductForm({
             status: form.status,
           },
           form.newFiles,
+          form.newBannerFiles,
         );
       }
 
@@ -196,6 +222,9 @@ export function useProductForm({
     addColor,
     removeColor,
     addFiles,
+    addBannerFiles,
+    removeNewBannerFile,
+    removeExistingBanner,
     submit,
     updateField,
     removeExistingImage,

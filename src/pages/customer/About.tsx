@@ -8,15 +8,15 @@ export function AboutPage() {
       {/* Hero Header */}
       <section className="bg-[#09090b] text-white py-16 sm:py-20 border-b border-white/10">
         <div className="mx-auto max-w-5xl px-4 text-center space-y-4">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/20 border border-primary/30 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-primary">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/20 border border-primary/30 px-3.5 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
             <Sparkles className="h-3.5 w-3.5" />
-            <span>Our Heritage & Philosophy</span>
+            <span>NEXUS MOBILE • The Flagship Destination</span>
           </div>
-          <h1 className="text-3xl font-black tracking-tight sm:text-5xl lg:text-6xl text-white">
-            Engineered for Modern Everyday Life
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-white">
+            Pioneering the Next Generation of Mobile Tech
           </h1>
           <p className="text-base text-neutral-300 max-w-2xl mx-auto sm:text-lg leading-relaxed">
-            We build high-performance essentials, everyday apparel, and lifestyle accessories designed without compromise on build quality, durability, or aesthetics.
+            NEXUS MOBILE is India’s premier destination for genuine, brand-sealed flagship smartphones, foldables, and pro ecosystem accessories from Apple, Samsung, Google, and OnePlus.
           </p>
         </div>
       </section>
@@ -28,9 +28,9 @@ export function AboutPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <Award className="h-6 w-6" />
             </div>
-            <h3 className="text-xl font-bold text-foreground">Surgical Precision & Materials</h3>
+            <h3 className="text-xl font-bold text-foreground">100% Brand Sealed & IMEI Verified</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Every sneaker, hoodie, watch, and backpack is crafted using heavy-duty textiles, premium Japanese movements, and reinforced stitching.
+              Every iPhone, Galaxy, and Pixel handset comes factory sealed directly with direct official manufacturer warranty and free screen protection.
             </p>
           </div>
 
@@ -38,9 +38,9 @@ export function AboutPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <ShieldCheck className="h-6 w-6" />
             </div>
-            <h3 className="text-xl font-bold text-foreground">2-Year Comprehensive Warranty</h3>
+            <h3 className="text-xl font-bold text-foreground">Instant Trade-in & 0% EMI</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              We stand behind every item we produce with a full 2-year warranty and a dedicated support team ready to assist.
+              Seamless trade-in evaluations with up to ₹25,000 extra exchange bonuses and flexible 0% No-Cost EMI across major banks.
             </p>
           </div>
 
@@ -48,9 +48,9 @@ export function AboutPage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <Users className="h-6 w-6" />
             </div>
-            <h3 className="text-xl font-bold text-foreground">50,000+ Happy Customers</h3>
+            <h3 className="text-xl font-bold text-foreground">50,000+ Verified Buyers</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              From metro capitals to every pin code in India, our products have earned a trusted 4.9/5 star satisfaction record.
+              Serving tech enthusiasts, creators, and professionals nationwide with same-day metro dispatch and dedicated tech concierge support.
             </p>
           </div>
         </div>

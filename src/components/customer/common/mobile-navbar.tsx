@@ -67,18 +67,19 @@ export function CustomerMobileNavbar({
   }
 
   const shopItems: NavItem[] = [
-    { label: "All Collections", href: "/collections", icon: ShoppingBag },
-    { label: "New Arrivals", href: "/collections?sort=recent", icon: Grid2X2 },
+    { label: "All Smartphones", href: "/collections", icon: ShoppingBag },
+    { label: "Flagship & Pro Series", href: "/collections?sort=recent", icon: Grid2X2 },
+    { label: "Foldables & AI Phones", href: "/collections", icon: Sparkles },
     {
-      label: "Special Offers",
+      label: "Exchange & Special Offers",
       href: "/collections?sort=price-low",
       icon: Tag,
-      badge: "SALE",
+      badge: "SAVE 20%",
     },
   ];
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center md:hidden">
       {/* Hamburger Sheet */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
@@ -110,9 +111,14 @@ export function CustomerMobileNavbar({
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white">
                   <Sparkles className="h-5 w-5" />
                 </div>
-                <span className="text-xl font-black tracking-tight text-primary uppercase">
-                  WONDERCHEF<span className="text-neutral-900">.</span>
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold tracking-tight text-neutral-900 leading-none">
+                    NEXUS<span className="text-primary">.MOBILE</span>
+                  </span>
+                  <span className="text-[9px] font-semibold tracking-widest text-neutral-500 uppercase">
+                    Flagship Store
+                  </span>
+                </div>
               </Link>
             </div>
 

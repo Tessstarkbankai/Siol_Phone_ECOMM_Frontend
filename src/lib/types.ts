@@ -1,4 +1,4 @@
-export type UserRole = "user" | "admin";
+export type UserRole = "user" | "admin" | "vendor";
 
 export type AppUser = {
   id: string;
@@ -6,6 +6,9 @@ export type AppUser = {
   email?: string;
   name?: string;
   role: UserRole;
+  vendorId?: string;
+  vendorStatus?: "pending" | "approved" | "rejected" | "suspended";
+  storeSlug?: string;
 };
 
 export type ApiErrorItem = {

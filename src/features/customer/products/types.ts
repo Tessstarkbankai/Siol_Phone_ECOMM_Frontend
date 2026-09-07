@@ -1,6 +1,17 @@
-export type ProductSort = "recent" | "price-low" | "price-high";
+export type ProductSize =
+  | "64GB"
+  | "128GB"
+  | "256GB"
+  | "512GB"
+  | "1TB"
+  | "2TB"
+  | "S"
+  | "M"
+  | "L"
+  | "XL"
+  | string;
 
-export type ProductSize = "S" | "M" | "L" | "XL";
+export type ProductSort = "price-low" | "price-high" | "recent" | string;
 
 export type ProductCategory = {
   _id: string;
@@ -26,6 +37,9 @@ export type CustomerProduct = {
   price: number;
   salePercentage: number;
   status: "active" | "inactive";
+  showcaseBanners?: Array<{ url: string; publicId: string }>;
+  rating?: number;
+  reviewCount?: number;
   createdAt: string;
   updatedAt: string;
 };

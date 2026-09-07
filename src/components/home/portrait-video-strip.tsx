@@ -7,44 +7,44 @@ type PortraitVideoStripProps = {
   videos?: CustomerHomeVideo[];
 };
 
-// Bulletproof, high-bandwidth CORS-enabled sample kitchen video reels
+// High-bandwidth CORS-enabled tech smartphone video reels
 const defaultSampleVideos: CustomerHomeVideo[] = [
   {
     _id: "sample-1",
-    title: "Air Fryer Crispy Recipe Showcase",
-    caption: "Crimson Edge 4.5L",
+    title: "iPhone 16 Pro Max 4K 120fps Cinematic Test",
+    caption: "A18 Pro Camera Review",
     videoUrl:
-      "https://www.instagram.com/reel/DK11c5-ziIW/?igsi=MTJpOTM5bXFjZ2dncA==",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     createdAt: new Date().toISOString(),
   },
   {
     _id: "sample-2",
-    title: "Nutri-blend 22,000 RPM Smoothie Maker",
-    caption: "Nutri-blend 500W",
-    videoUrl:
-      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4",
-    createdAt: new Date().toISOString(),
-  },
-  {
-    _id: "sample-3",
-    title: "Barista Italian Espresso Brewing",
-    caption: "Regalia 15-Bar Espresso",
+    title: "Galaxy S25 Ultra 100x Space Zoom & AI Nightography",
+    caption: "Galaxy AI Zoom Test",
     videoUrl:
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     createdAt: new Date().toISOString(),
   },
   {
+    _id: "sample-3",
+    title: "Galaxy Z Fold6 Multitasking & S-Pen Experience",
+    caption: "Dual Display Productivity",
+    videoUrl:
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyBlazes.mp4",
+    createdAt: new Date().toISOString(),
+  },
+  {
     _id: "sample-4",
-    title: "Royal Velvet Non-Stick Pan Sauté",
-    caption: "Royal Velvet Cookware",
+    title: "Pixel 9 Pro XL Gemini Live & Magic Audio Eraser",
+    caption: "Google Tensor G4 AI",
     videoUrl:
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
     createdAt: new Date().toISOString(),
   },
   {
     _id: "sample-5",
-    title: "Chef Magic Automatic Cooking Robot",
-    caption: "Chef Magic 200+ Recipes",
+    title: "OnePlus 13 120Hz Ray Tracing Gaming Benchmark",
+    caption: "Snapdragon 8 Elite 6000mAh",
     videoUrl:
       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
     createdAt: new Date().toISOString(),
@@ -65,19 +65,19 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
   }
 
   return (
-    <section className="py-14 bg-neutral-50/70 border-y border-neutral-200">
+    <section className="py-14 bg-gradient-to-b from-blue-50/50 via-white to-blue-50/50 text-slate-900 border-y border-blue-100/70 mb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.25em] text-primary">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-primary">
             <Film className="h-3.5 w-3.5" />
-            <span>Community Spotlight</span>
+            <span>Real-World Performance</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-neutral-900">
-            See What Everyone’s Talking About
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
+            See Flagships In Action
           </h2>
-          <p className="text-sm sm:text-base text-neutral-600">
-            Discover how home chefs and creators use Wonderchef appliances to craft delicious meals every day.
+          <p className="text-sm sm:text-base text-slate-600">
+            Witness 4K 120fps cinema camera tests, ray-tracing gaming speed runs, and AI live demonstrations.
           </p>
         </div>
 
@@ -88,7 +88,7 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
             type="button"
             onClick={() => scroll("left")}
             aria-label="Scroll left"
-            className="absolute -left-3 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-11 w-11 items-center justify-center rounded-full bg-white/90 border border-neutral-300 text-neutral-800 shadow-xl transition hover:bg-white hover:text-primary hover:scale-110 backdrop-blur-md"
+            className="absolute -left-3 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-11 w-11 items-center justify-center rounded-full bg-white border border-blue-200/80 text-slate-800 shadow-lg transition hover:bg-neutral-50 hover:text-primary hover:scale-110"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -119,7 +119,7 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
             type="button"
             onClick={() => scroll("right")}
             aria-label="Scroll right"
-            className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-11 w-11 items-center justify-center rounded-full bg-white/90 border border-neutral-300 text-neutral-800 shadow-xl transition hover:bg-white hover:text-primary hover:scale-110 backdrop-blur-md"
+            className="absolute -right-3 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-11 w-11 items-center justify-center rounded-full bg-white border border-blue-200/80 text-slate-800 shadow-lg transition hover:bg-neutral-50 hover:text-primary hover:scale-110"
           >
             <ChevronRight className="h-5 w-5" />
           </button>

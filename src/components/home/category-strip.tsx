@@ -40,17 +40,17 @@ export function CategoryStrip({ categories }: CategoryStripProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.25em] text-primary">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
               <Sparkles className="h-3.5 w-3.5" />
               <span>Explore Departments</span>
             </div>
-            <h2 className="text-2xl font-black tracking-tight text-foreground sm:text-3xl lg:text-4xl mt-1">
+            <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl lg:text-4xl mt-1">
               Shop by Category
             </h2>
           </div>
           <Link
             to="/collections"
-            className="inline-flex items-center gap-1 text-sm font-bold text-primary hover:text-primary/80 transition"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition"
           >
             View All <ArrowRight className="h-4 w-4" />
           </Link>

@@ -44,6 +44,7 @@ export async function getAdminProductById(productId: string) {
 function buildProductFormData(
   body: CreateProductBody | UpdateProductBody,
   files: File[],
+  bannerFiles?: File[],
 ) {
   const formData = new FormData();
   formData.append("title", body.title);
@@ -69,7 +70,15 @@ function buildProductFormData(
     formData.append("coverImagePublicId", body.coverImagePublicId);
   }
 
+  if (body.existingBanners) {
+    formData.append("existingBanners", JSON.stringify(body.existingBanners));
+  }
+
   files.forEach((file) => formData.append("images", file));
+
+  if (bannerFiles && bannerFiles.length > 0) {
+    bannerFiles.forEach((file) => formData.append("bannerImages", file));
+  }
 
   return formData;
 }
@@ -77,8 +86,9 @@ function buildProductFormData(
 export async function createAdminProduct(
   body: CreateProductBody,
   files: File[],
+  bannerFiles?: File[],
 ) {
-  const formData = buildProductFormData(body, files);
+  const formData = buildProductFormData(body, files, bannerFiles);
 
   return apiPost<Product, FormData>("/admin/products", formData);
 }
@@ -87,8 +97,9 @@ export async function updateAdminProduct(
   productId: string,
   body: UpdateProductBody,
   files: File[],
+  bannerFiles?: File[],
 ) {
-  const formData = buildProductFormData(body, files);
+  const formData = buildProductFormData(body, files, bannerFiles);
 
   return apiPut<Product, FormData>(`/admin/products/${productId}`, formData);
 }
