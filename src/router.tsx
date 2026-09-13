@@ -112,6 +112,10 @@ export const router = createBrowserRouter([
             path: "collection/:id",
             element: <CollectionDetails />,
           },
+          {
+            path: "collections/:id",
+            element: <CollectionDetails />,
+          },
         ],
       },
       {
