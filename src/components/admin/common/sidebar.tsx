@@ -1,6 +1,7 @@
 import {
   BadgePercent,
   BarChart3,
+  Building2,
   Film,
   IndianRupee,
   LayoutDashboard,
@@ -10,7 +11,8 @@ import {
   Store,
   type LucideIcon,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { isMultiVendorEnabled, isDistributorProgramEnabled } from "@/config/features";
 
 type AdminNavItem = {
   label: string;
@@ -21,9 +23,16 @@ type AdminNavItem = {
 const items: AdminNavItem[] = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Products", href: "/admin/products", icon: Package },
-  { label: "Moderation", href: "/admin/moderation", icon: ShieldCheck },
-  { label: "Vendors", href: "/admin/vendors", icon: Store },
-  { label: "Payouts", href: "/admin/payouts", icon: IndianRupee },
+  ...(isDistributorProgramEnabled()
+    ? [{ label: "Distributor Requests", href: "/admin/distributors", icon: Building2 }]
+    : []),
+  ...(isMultiVendorEnabled()
+    ? [
+        { label: "Moderation", href: "/admin/moderation", icon: ShieldCheck },
+        { label: "Vendors", href: "/admin/vendors", icon: Store },
+        { label: "Payouts", href: "/admin/payouts", icon: IndianRupee },
+      ]
+    : []),
   { label: "Orders", href: "/admin/orders", icon: BarChart3 },
   { label: "Coupons", href: "/admin/coupons", icon: BadgePercent },
   { label: "Videos", href: "/admin/videos", icon: Film },
@@ -75,12 +84,16 @@ export function AdminSidebar() {
   return (
     <aside className={sidebarRoot}>
       <div className={brandRow}>
-        <div className="flex items-center gap-3">
-          <Store className="w-10 h-10" />
+        <Link
+          to="/"
+          className="flex items-center gap-3 transition-opacity hover:opacity-80"
+          title="Return to Customer Storefront"
+        >
+          <Store className="w-10 h-10 text-primary" />
           <span className="text-[25px] font-semibold text-foreground">
             E-Shopify
           </span>
-        </div>
+        </Link>
       </div>
 
       <div className="flex-1 overflow-y-auto">

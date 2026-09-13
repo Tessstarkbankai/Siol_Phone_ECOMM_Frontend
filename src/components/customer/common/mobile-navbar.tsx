@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import {
+  Building2,
   Grid2X2,
   Heart,
   LayoutDashboard,
@@ -12,10 +13,12 @@ import {
   ShoppingBag,
   ShoppingCart,
   Sparkles,
+  Store,
   Tag,
   User,
   type LucideIcon,
 } from "lucide-react";
+import { isMultiVendorEnabled, isDistributorProgramEnabled } from "@/config/features";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -164,6 +167,34 @@ export function CustomerMobileNavbar({
                   </Link>
                 );
               })}
+            </div>
+
+            <Separator className="bg-neutral-200" />
+
+            {/* B2B / Partner Program */}
+            <div className="p-4 space-y-1">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 px-3 py-1">
+                B2B & Partnerships
+              </p>
+              {isMultiVendorEnabled() ? (
+                <Link
+                  to="/become-seller"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-emerald-700 hover:bg-emerald-50 transition"
+                >
+                  <Store className="h-4 w-4 text-emerald-600" />
+                  <span>Become a Seller</span>
+                </Link>
+              ) : isDistributorProgramEnabled() ? (
+                <Link
+                  to="/become-distributor"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-primary hover:bg-primary/10 transition"
+                >
+                  <Building2 className="h-4 w-4 text-primary" />
+                  <span>Become a Distributor</span>
+                </Link>
+              ) : null}
             </div>
 
             <Separator className="bg-neutral-200" />

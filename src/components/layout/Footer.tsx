@@ -13,6 +13,7 @@ import {
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { isMultiVendorEnabled, isDistributorProgramEnabled } from "@/config/features";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -159,11 +160,19 @@ export function Footer() {
                   7-Day Replacement Policy
                 </Link>
               </li>
-              <li>
-                <Link to="/become-seller" className="text-primary font-bold hover:underline transition">
-                  Sell on Nexus Marketplace →
-                </Link>
-              </li>
+              {isMultiVendorEnabled() ? (
+                <li>
+                  <Link to="/become-seller" className="text-primary font-bold hover:underline transition">
+                    Sell on Nexus Marketplace →
+                  </Link>
+                </li>
+              ) : isDistributorProgramEnabled() ? (
+                <li>
+                  <Link to="/become-distributor" className="text-primary font-bold hover:underline transition">
+                    Become an Official Distributor →
+                  </Link>
+                </li>
+              ) : null}
             </ul>
           </div>
 

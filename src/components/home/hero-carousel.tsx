@@ -133,6 +133,13 @@ const FLAGSHIP_SLIDES: SlideItem[] = [
 
 const AUTO_PLAY_INTERVAL = 8000;
 
+const AURORA_PALETTES = [
+  ["#ffffff", "#38bdf8", "#818cf8", "#c084fc", "#38bdf8", "#ffffff"],
+  ["#ffffff", "#60a5fa", "#a78bfa", "#f472b6", "#60a5fa", "#ffffff"],
+  ["#ffffff", "#22d3ee", "#38bdf8", "#818cf8", "#22d3ee", "#ffffff"],
+  ["#ffffff", "#34d399", "#38bdf8", "#a78bfa", "#34d399", "#ffffff"],
+];
+
 export function HeroCarousel({ banners }: HeroCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -140,12 +147,76 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
   const [progress, setProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const slides = FLAGSHIP_SLIDES;
-  const slide = slides[current];
+  // If banners are uploaded from admin panel, use them; otherwise fallback to default FLAGSHIP_SLIDES
+  const dynamicSlides: SlideItem[] =
+    banners && banners.length > 0
+      ? banners.map((b, idx) => {
+          const isVideo =
+            b.mediaType === "video" ||
+            Boolean(b.videoUrl) ||
+            Boolean(b.imageUrl && /\.(mp4|webm|mov|mkv)$/i.test(b.imageUrl));
+
+          const videoUrl = isVideo ? (b.videoUrl || b.imageUrl) : undefined;
+          const imageUrl = !isVideo ? (b.imageUrl || b.videoUrl) : undefined;
+          const defaultLabel = isVideo ? `Video ${idx + 1}` : `Slide ${idx + 1}`;
+          const defaultTitle = isVideo ? "Featured Showcase" : "Flagship Collection";
+
+          return {
+            _id: b._id || `admin-banner-${idx}`,
+            tabLabel: b.title || defaultLabel,
+            videoUrl,
+            imageUrl,
+            eyebrow: isVideo ? "Featured Showcase" : "Special Highlight",
+            title: b.title || defaultTitle,
+            auroraColors: AURORA_PALETTES[idx % AURORA_PALETTES.length],
+            tagline:
+              b.tagline ||
+              "Discover exclusive flagship technology, premium power & special offers.",
+            priceNote: "",
+            ctaText: "Explore Now",
+            ctaLink: b.link || "/collections",
+            secondaryCtaText: "Learn more",
+            secondaryCtaLink: b.link || "/collections",
+            specChips: isVideo
+              ? ["4K Ultra HD", "Official Showcase"]
+              : ["Exclusive Offer", "Top Rated"],
+          };
+        })
+      : [];
+
+  const slides = dynamicSlides.length > 0 ? dynamicSlides : FLAGSHIP_SLIDES;
+  const slide = slides[current] || slides[0];
+
+  const isCurrentSlideHtml5Video = Boolean(
+    slide?.videoUrl && !getYouTubeId(slide.videoUrl),
+  );
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (current >= slides.length) {
+      setCurrent(0);
+    }
+  }, [slides.length, current]);
 
+  // Handle slide timing: HTML5 videos drive their own timing via onTimeUpdate & onEnded
+  useEffect(() => {
+    if (!isPlaying) {
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+      return;
+    }
+
+    // When an HTML5 video is active, let the video's actual playback time & onEnded event drive the carousel
+    if (isCurrentSlideHtml5Video) {
+      setProgress(0);
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {});
+      }
+      return;
+    }
+
+    // For photo banners or YouTube embeds, run standard timer
     setProgress(0);
     const startTime = Date.now();
 
@@ -160,14 +231,32 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [current, isPlaying, slides.length]);
+  }, [current, isPlaying, slides.length, isCurrentSlideHtml5Video]);
 
   useEffect(() => {
-    if (slide.videoUrl && !getYouTubeId(slide.videoUrl) && videoRef.current) {
+    if (isCurrentSlideHtml5Video && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      if (isPlaying) {
+        videoRef.current.play().catch(() => {});
+      }
+    }
+  }, [current, isCurrentSlideHtml5Video, isPlaying]);
+
+  function handleVideoTimeUpdate(e: React.SyntheticEvent<HTMLVideoElement>) {
+    const v = e.currentTarget;
+    if (v.duration && !isNaN(v.duration) && v.duration > 0) {
+      setProgress(Math.min(100, (v.currentTime / v.duration) * 100));
+    }
+  }
+
+  function handleVideoEnded() {
+    if (slides.length > 1) {
+      handleNext();
+    } else if (videoRef.current) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {});
     }
-  }, [current, slide.videoUrl]);
+  }
 
   function handleNext() {
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -182,7 +271,17 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
   }
 
   function togglePlayPause() {
-    setIsPlaying((prev) => !prev);
+    setIsPlaying((prev) => {
+      const next = !prev;
+      if (videoRef.current) {
+        if (next) {
+          videoRef.current.play().catch(() => {});
+        } else {
+          videoRef.current.pause();
+        }
+      }
+      return next;
+    });
   }
 
   function toggleMute() {
@@ -205,29 +304,43 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
                 isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
               }`}
             >
-              {/* Media Render (YouTube Embed, HTML5 MP4 Video, or Fallback Image) */}
+              {/* Media Render: YouTube Embed, HTML5 MP4 Video, or Photo Banner */}
               {ytId ? (
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none bg-black">
                   <iframe
                     src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=${
                       isMuted ? 1 : 0
                     }&loop=1&playlist=${ytId}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&playsinline=1&enablejsapi=1`}
                     title={s.title}
-                    className="absolute top-1/2 left-1/2 w-[160vw] h-[160vh] min-w-[100%] min-h-[100%] -translate-x-1/2 -translate-y-1/2 object-cover border-0 scale-125 pointer-events-none"
+                    className="w-full h-full min-w-full min-h-full object-cover border-0 pointer-events-none"
                     allow="autoplay; encrypted-media; picture-in-picture"
                     allowFullScreen
                   />
                 </div>
               ) : s.videoUrl ? (
-                <video
-                  ref={isActive ? videoRef : undefined}
-                  src={s.videoUrl}
-                  autoPlay
-                  loop
-                  muted={isMuted}
-                  playsInline
-                  className="h-full w-full object-cover object-center"
-                />
+                <div className="relative h-full w-full overflow-hidden bg-black flex items-center justify-center">
+                  {/* Subtle blurred ambient backdrop so aspect ratio differences never show harsh bars */}
+                  <video
+                    src={s.videoUrl}
+                    aria-hidden="true"
+                    tabIndex={-1}
+                    autoPlay
+                    muted
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover blur-2xl opacity-35 pointer-events-none"
+                  />
+                  {/* Full uncropped crisp video playing complete duration */}
+                  <video
+                    ref={isActive ? videoRef : undefined}
+                    src={s.videoUrl}
+                    autoPlay
+                    muted={isMuted}
+                    playsInline
+                    onTimeUpdate={isActive ? handleVideoTimeUpdate : undefined}
+                    onEnded={isActive ? handleVideoEnded : undefined}
+                    className="relative z-10 h-full w-full object-contain md:object-cover object-center"
+                  />
+                </div>
               ) : (
                 <img
                   src={s.imageUrl}
@@ -236,14 +349,14 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
                 />
               )}
 
-              {/* Gentle Top & Bottom Vignettes (Phone Visual Stays Crisp) */}
-              <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/20 to-slate-950/70 pointer-events-none" />
+              {/* Gentle Top & Bottom Vignettes (Phone Visual Stays Crisp & Middle is never darkened) */}
+              <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/60 pointer-events-none" />
             </div>
           );
         })}
 
         {/* Audio Toggle Button */}
-        {slide.videoUrl ? (
+        {slide?.videoUrl ? (
           <button
             type="button"
             onClick={toggleMute}
@@ -253,6 +366,7 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
             {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4 text-cyan-300" />}
           </button>
         ) : null}
+
 
         {/* CENTER ALIGNED KEYNOTE CONTENT (Vertically & Horizontally Centered) */}
         <div className="relative z-20 mx-auto w-full max-w-4xl px-4 sm:px-6 text-center flex flex-col items-center justify-center space-y-4 pb-14 sm:pb-16 pointer-events-auto">

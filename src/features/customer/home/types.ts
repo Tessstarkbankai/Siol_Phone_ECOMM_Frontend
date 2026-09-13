@@ -1,6 +1,12 @@
 export type CustomerHomeBanner = {
   _id: string;
-  imageUrl: string;
+  mediaType?: "image" | "video";
+  imageUrl?: string;
+  videoUrl?: string;
+  title?: string;
+  tagline?: string;
+  link?: string;
+  order?: number;
   createdAt: string;
 };
 

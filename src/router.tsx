@@ -36,6 +36,10 @@ import PrivacyPolicyPage from "./pages/customer/PrivacyPolicy";
 import TermsPage from "./pages/customer/Terms";
 import NotFoundPage from "./pages/NotFound";
 
+import { isMultiVendorEnabled } from "./config/features";
+import BecomeDistributorPage from "./pages/customer/BecomeDistributor";
+import AdminDistributorsPage from "./pages/admin/Distributors";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -74,13 +78,21 @@ export const router = createBrowserRouter([
         element: <TermsPage />,
       },
       {
-        path: "become-seller",
-        element: <BecomeSellerPage />,
+        path: "become-distributor",
+        element: <BecomeDistributorPage />,
       },
-      {
-        path: "store/:slug",
-        element: <StorefrontPage />,
-      },
+      ...(isMultiVendorEnabled()
+        ? [
+            {
+              path: "become-seller",
+              element: <BecomeSellerPage />,
+            },
+            {
+              path: "store/:slug",
+              element: <StorefrontPage />,
+            },
+          ]
+        : []),
       {
         element: <PublicOnlyLayout />,
         children: [
@@ -136,17 +148,25 @@ export const router = createBrowserRouter([
                 element: <AdminProducts />,
               },
               {
-                path: "moderation",
-                element: <AdminModeration />,
+                path: "distributors",
+                element: <AdminDistributorsPage />,
               },
-              {
-                path: "vendors",
-                element: <AdminVendors />,
-              },
-              {
-                path: "payouts",
-                element: <AdminPayouts />,
-              },
+              ...(isMultiVendorEnabled()
+                ? [
+                    {
+                      path: "moderation",
+                      element: <AdminModeration />,
+                    },
+                    {
+                      path: "vendors",
+                      element: <AdminVendors />,
+                    },
+                    {
+                      path: "payouts",
+                      element: <AdminPayouts />,
+                    },
+                  ]
+                : []),
               {
                 path: "videos",
                 element: <AdminVideos />,
@@ -167,37 +187,41 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      {
-        element: <RoleGuardLayout allow={["vendor", "admin"]} />,
-        children: [
-          {
-            path: "/vendor",
-            element: <VendorLayout />,
-            children: [
-              {
-                index: true,
-                element: <VendorDashboard />,
-              },
-              {
-                path: "products",
-                element: <VendorProducts />,
-              },
-              {
-                path: "orders",
-                element: <VendorOrders />,
-              },
-              {
-                path: "payouts",
-                element: <VendorPayouts />,
-              },
-              {
-                path: "profile",
-                element: <VendorProfile />,
-              },
-            ],
-          },
-        ],
-      },
+      ...(isMultiVendorEnabled()
+        ? [
+            {
+              element: <RoleGuardLayout allow={["vendor", "admin"]} />,
+              children: [
+                {
+                  path: "/vendor",
+                  element: <VendorLayout />,
+                  children: [
+                    {
+                      index: true,
+                      element: <VendorDashboard />,
+                    },
+                    {
+                      path: "products",
+                      element: <VendorProducts />,
+                    },
+                    {
+                      path: "orders",
+                      element: <VendorOrders />,
+                    },
+                    {
+                      path: "payouts",
+                      element: <VendorPayouts />,
+                    },
+                    {
+                      path: "profile",
+                      element: <VendorProfile />,
+                    },
+                  ],
+                },
+              ],
+            },
+          ]
+        : []),
     ],
   },
 ]);

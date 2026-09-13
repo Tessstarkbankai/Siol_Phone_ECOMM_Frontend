@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import {
+  ArrowRight,
+  Building2,
   ChevronDown,
   Grid2X2,
   Heart,
@@ -11,6 +13,7 @@ import {
   Menu,
   Mic,
   Search,
+  ShieldCheck,
   ShoppingBag,
   ShoppingBasket,
   ShoppingCart,
@@ -18,9 +21,8 @@ import {
   Store,
   Tag,
   User,
-  ArrowRight,
-  ShieldCheck,
 } from "lucide-react";
+import { isMultiVendorEnabled, isDistributorProgramEnabled } from "@/config/features";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -279,27 +281,39 @@ export function CustomerNavbar() {
                   </DropdownMenuItem>
                 ) : null}
 
-                {user?.role === "vendor" || user?.role === "admin" ? (
+                {isMultiVendorEnabled() ? (
+                  user?.role === "vendor" || user?.role === "admin" ? (
+                    <DropdownMenuItem asChild>
+                      <Link
+                        to="/vendor"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-emerald-600 hover:bg-emerald-50 transition cursor-pointer"
+                      >
+                        <Store className="h-4 w-4 text-emerald-600" />
+                        <span>Seller Portal</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ) : (
+                    <DropdownMenuItem asChild>
+                      <Link
+                        to="/become-seller"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-primary hover:bg-primary/10 transition cursor-pointer"
+                      >
+                        <Store className="h-4 w-4 text-primary" />
+                        <span>Become a Seller</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  )
+                ) : isDistributorProgramEnabled() ? (
                   <DropdownMenuItem asChild>
                     <Link
-                      to="/vendor"
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-emerald-600 hover:bg-emerald-50 transition cursor-pointer"
-                    >
-                      <Store className="h-4 w-4 text-emerald-600" />
-                      <span>Seller Portal</span>
-                    </Link>
-                  </DropdownMenuItem>
-                ) : (
-                  <DropdownMenuItem asChild>
-                    <Link
-                      to="/become-seller"
+                      to="/become-distributor"
                       className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-primary hover:bg-primary/10 transition cursor-pointer"
                     >
-                      <Store className="h-4 w-4 text-primary" />
-                      <span>Become a Seller</span>
+                      <Building2 className="h-4 w-4 text-primary" />
+                      <span>Become a Distributor</span>
                     </Link>
                   </DropdownMenuItem>
-                )}
+                ) : null}
 
                 <DropdownMenuItem
                   onClick={() => void openProfile()}
@@ -455,26 +469,51 @@ export function CustomerNavbar() {
               </div>
             </div>
 
-            {/* Column 3: Seller Hub & Customer Services */}
+            {/* Column 3: Distributor Hub / Seller Services */}
             <div>
               <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
-                <Store className="h-4 w-4 text-emerald-600" />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                  Seller & Services
-                </h4>
+                {isMultiVendorEnabled() ? (
+                  <>
+                    <Store className="h-4 w-4 text-emerald-600" />
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                      Seller & Services
+                    </h4>
+                  </>
+                ) : (
+                  <>
+                    <Building2 className="h-4 w-4 text-primary" />
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                      B2B & Distribution
+                    </h4>
+                  </>
+                )}
               </div>
               <div className="space-y-1.5">
-                <Link
-                  to="/become-seller"
-                  onClick={() => setIsMegaPanelOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-emerald-50 transition"
-                >
-                  <Store className="h-4 w-4 text-emerald-600" />
-                  <div>
-                    <p className="font-semibold text-emerald-700">Become a Seller</p>
-                    <p className="text-[11px] text-emerald-600">Start selling to millions</p>
-                  </div>
-                </Link>
+                {isMultiVendorEnabled() ? (
+                  <Link
+                    to="/become-seller"
+                    onClick={() => setIsMegaPanelOpen(false)}
+                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-emerald-50 transition"
+                  >
+                    <Store className="h-4 w-4 text-emerald-600" />
+                    <div>
+                      <p className="font-semibold text-emerald-700">Become a Seller</p>
+                      <p className="text-[11px] text-emerald-600">Start selling to millions</p>
+                    </div>
+                  </Link>
+                ) : isDistributorProgramEnabled() ? (
+                  <Link
+                    to="/become-distributor"
+                    onClick={() => setIsMegaPanelOpen(false)}
+                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-primary/10 transition"
+                  >
+                    <Building2 className="h-4 w-4 text-primary" />
+                    <div>
+                      <p className="font-semibold text-primary">Become a Distributor</p>
+                      <p className="text-[11px] text-neutral-500">Apply for exclusive territory rights</p>
+                    </div>
+                  </Link>
+                ) : null}
 
                 <button
                   type="button"
