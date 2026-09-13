@@ -108,7 +108,7 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
                   videoUrl={video.videoUrl}
                   title={video.title}
                   caption={video.caption}
-                  autoPlay={true}
+                  autoPlay={false}
                 />
               </div>
             ))}

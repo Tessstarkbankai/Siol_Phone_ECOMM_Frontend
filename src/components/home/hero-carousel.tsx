@@ -190,6 +190,7 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
   const isCurrentSlideHtml5Video = Boolean(
     slide?.videoUrl && !getYouTubeId(slide.videoUrl),
   );
+  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     if (current >= slides.length) {
@@ -199,20 +200,24 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
 
   // Handle slide timing: HTML5 videos drive their own timing via onTimeUpdate & onEnded
   useEffect(() => {
-    if (!isPlaying) {
+    if (isCurrentSlideHtml5Video) {
+      setProgress(0);
+      lastProgressRef.current = 0;
       if (videoRef.current) {
-        videoRef.current.pause();
+        if (isPlaying) {
+          videoRef.current.currentTime = 0;
+          const playPromise = videoRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {});
+          }
+        } else {
+          videoRef.current.pause();
+        }
       }
       return;
     }
 
-    // When an HTML5 video is active, let the video's actual playback time & onEnded event drive the carousel
-    if (isCurrentSlideHtml5Video) {
-      setProgress(0);
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0;
-        videoRef.current.play().catch(() => {});
-      }
+    if (!isPlaying) {
       return;
     }
 
@@ -233,19 +238,14 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
     return () => clearInterval(interval);
   }, [current, isPlaying, slides.length, isCurrentSlideHtml5Video]);
 
-  useEffect(() => {
-    if (isCurrentSlideHtml5Video && videoRef.current) {
-      videoRef.current.currentTime = 0;
-      if (isPlaying) {
-        videoRef.current.play().catch(() => {});
-      }
-    }
-  }, [current, isCurrentSlideHtml5Video, isPlaying]);
-
   function handleVideoTimeUpdate(e: React.SyntheticEvent<HTMLVideoElement>) {
     const v = e.currentTarget;
     if (v.duration && !isNaN(v.duration) && v.duration > 0) {
-      setProgress(Math.min(100, (v.currentTime / v.duration) * 100));
+      const pct = Math.floor((v.currentTime / v.duration) * 100);
+      if (Math.abs(pct - lastProgressRef.current) >= 2) {
+        lastProgressRef.current = pct;
+        setProgress(pct);
+      }
     }
   }
 
@@ -306,56 +306,69 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
             >
               {/* Media Render: YouTube Embed, HTML5 MP4 Video, or Photo Banner */}
               {ytId ? (
-                <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none bg-black">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=${
-                      isMuted ? 1 : 0
-                    }&loop=1&playlist=${ytId}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&playsinline=1&enablejsapi=1`}
-                    title={s.title}
-                    className="w-full h-full min-w-full min-h-full object-cover border-0 pointer-events-none"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
+                isActive ? (
+                  <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none bg-black">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=${
+                        isMuted ? 1 : 0
+                      }&loop=1&playlist=${ytId}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&playsinline=1&enablejsapi=1`}
+                      title={s.title}
+                      className="w-full h-full min-w-full min-h-full object-cover border-0 pointer-events-none"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                ) : null
               ) : s.videoUrl ? (
-                <div className="relative h-full w-full overflow-hidden bg-black flex items-center justify-center">
-                  {/* Subtle blurred ambient backdrop so aspect ratio differences never show harsh bars */}
-                  <video
-                    src={s.videoUrl}
-                    aria-hidden="true"
-                    tabIndex={-1}
-                    autoPlay
-                    muted
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-cover blur-2xl opacity-35 pointer-events-none"
-                  />
-                  {/* Full uncropped crisp video playing complete duration */}
+                <div className="relative h-full w-full overflow-hidden bg-black">
+                  {/* Video full-width / full-height using object-cover */}
                   <video
                     ref={isActive ? videoRef : undefined}
                     src={s.videoUrl}
-                    autoPlay
+                    autoPlay={isActive && isPlaying}
                     muted={isMuted}
                     playsInline
+                    preload="auto"
+                    loop={slides.length === 1}
                     onTimeUpdate={isActive ? handleVideoTimeUpdate : undefined}
                     onEnded={isActive ? handleVideoEnded : undefined}
-                    className="relative z-10 h-full w-full object-contain md:object-cover object-center"
+                    className="h-full w-full object-cover object-center pointer-events-none"
                   />
                 </div>
               ) : (
                 <img
                   src={s.imageUrl}
                   alt={s.title}
+                  loading={isActive ? "eager" : "lazy"}
                   className="h-full w-full object-cover object-center"
                 />
               )}
-
-              {/* Gentle Top & Bottom Vignettes (Phone Visual Stays Crisp & Middle is never darkened) */}
-              <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/60 pointer-events-none" />
             </div>
           );
         })}
 
-        {/* Audio Toggle Button */}
+        {/* Premium Left-Side Dark Navy Gradient Overlay (z-20: on top of video, below text at z-30)
+            Lightened slightly per feedback: starts around rgba(2,12,30,0.86), gently feathers through 36%,
+            and dissolves to transparent by 56% so video remains completely clear.
+        */}
+        <div
+          className="absolute inset-0 z-20 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(2, 12, 30, 0.86) 0%, rgba(2, 12, 30, 0.80) 22%, rgba(2, 12, 30, 0.60) 36%, rgba(2, 12, 30, 0.22) 47%, rgba(2, 12, 30, 0.04) 52%, rgba(2, 12, 30, 0) 56%)",
+          }}
+        />
+
+        {/* Very subtle bottom vignette for depth (z-20, lightweight, no bottom info bar) */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-24 z-20 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(0deg, rgba(2, 12, 30, 0.35) 0%, rgba(2, 12, 30, 0) 100%)",
+          }}
+        />
+
+        {/* Audio Toggle Button (z-30) */}
         {slide?.videoUrl ? (
           <button
             type="button"
@@ -367,67 +380,96 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
           </button>
         ) : null}
 
+        {/* PRECISE LEFT-ALIGNED HERO CONTENT COLUMN (z-30)
+            - Shifted closer to the top (-translate-y-8 to -translate-y-12)
+            - Left spacing: 58-64px
+            - Max content width: 480-520px
+            - Text breaks cleanly after the first word
+        */}
+        <div className="relative z-30 w-full h-full flex items-center justify-start pointer-events-none pl-6 sm:pl-[58px] lg:pl-[64px] pr-6">
+          <div className="w-full max-w-[490px] lg:max-w-[520px] flex flex-col items-start text-left space-y-4 sm:space-y-5 pointer-events-auto -translate-y-6 sm:-translate-y-10 lg:-translate-y-12">
+            
+            {/* 1. Glass Pill */}
+            {slide.eyebrow ? (
+              <div className="inline-flex items-center gap-2 rounded-full bg-[rgba(2,12,30,0.65)] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#38bdf8] border border-cyan-400/25 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
+                <Sparkles className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                <span>{slide.eyebrow}</span>
+              </div>
+            ) : null}
 
-        {/* CENTER ALIGNED KEYNOTE CONTENT (Vertically & Horizontally Centered) */}
-        <div className="relative z-20 mx-auto w-full max-w-4xl px-4 sm:px-6 text-center flex flex-col items-center justify-center space-y-4 pb-14 sm:pb-16 pointer-events-auto">
-          {/* Eyebrow badge */}
-          <div className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-white/90 drop-shadow-sm bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20">
-            <Sparkles className="h-3.5 w-3.5 text-cyan-300 animate-pulse shrink-0" />
-            <AuroraText colors={["#38bdf8", "#818cf8", "#67e8f9", "#38bdf8"]}>
-              {slide.eyebrow}
-            </AuroraText>
-          </div>
+            {/* 2. Main Headline: breaks cleanly after first word, with electric-blue → cyan gradient on remaining words */}
+            {(() => {
+              const title = slide.title || "Siol Collection";
+              const words = title.trim().split(" ");
+              const firstWord = words[0];
+              const remainingWords = words.slice(1).join(" ");
 
-          {/* Headline with MagicUI AuroraText Effect */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.06] drop-shadow-xl text-center w-full">
-            <AuroraText
-              colors={slide.auroraColors}
-              className="font-bold tracking-tight drop-shadow-2xl text-center"
-              speed={1.2}
-            >
-              {slide.title}
-            </AuroraText>
-          </h1>
+              return (
+                <h1 className="text-4xl sm:text-6xl lg:text-[66px] xl:text-[72px] font-bold tracking-tight leading-[1.04] text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.6)]">
+                  <span className="block text-white">{firstWord}</span>
+                  {remainingWords ? (
+                    <span className="block bg-gradient-to-r from-[#2563eb] via-[#38bdf8] to-[#00f2fe] bg-clip-text text-transparent drop-shadow-[0_2px_18px_rgba(56,189,248,0.35)]">
+                      {remainingWords}
+                    </span>
+                  ) : null}
+                </h1>
+              );
+            })()}
 
-          {/* Subtitle / Tagline (Slight clean translucency text-slate-200/85) */}
-          <p className="text-sm sm:text-base lg:text-lg text-slate-200/90 font-normal max-w-xl mx-auto drop-shadow-md text-center leading-relaxed">
-            {slide.tagline}
-          </p>
+            {/* 3. Subtitle (22-26px, medium weight, soft white/light gray) */}
+            {slide.tagline ? (
+              <p className="text-lg sm:text-xl lg:text-[23px] font-medium text-slate-200/90 leading-snug drop-shadow-sm max-w-[480px]">
+                {slide.tagline}
+              </p>
+            ) : null}
 
-          {/* Dual Pill CTA Buttons (Centered) */}
-          <div className="flex items-center justify-center gap-3 pt-1">
-            <Button
-              asChild
-              size="sm"
-              className="bg-[#0071e3] hover:bg-[#0077ed] text-white font-semibold h-11 px-7 rounded-full shadow-lg shadow-blue-500/25 text-xs sm:text-sm transition-transform hover:scale-105"
-            >
-              <Link to={slide.ctaLink} className="inline-flex items-center gap-1.5">
-                <span>{slide.ctaText}</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </Button>
+            {/* Optional price / promotion note */}
+            {slide.priceNote ? (
+              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-amber-300/90 bg-[rgba(2,12,30,0.6)] border border-amber-400/25 backdrop-blur-md px-3.5 py-1.5 rounded-lg shadow-xs">
+                <Sparkles className="h-3.5 w-3.5 text-amber-400 shrink-0" />
+                <span>{slide.priceNote}</span>
+              </div>
+            ) : null}
 
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="border-white/30 bg-white/10 hover:bg-white/20 text-white/95 font-semibold h-11 px-6 rounded-full backdrop-blur-xl text-xs sm:text-sm transition-transform hover:scale-105"
-            >
-              <Link to={slide.secondaryCtaLink}>{slide.secondaryCtaText}</Link>
-            </Button>
-          </div>
-
-          {/* Spec Chips Row (Centered) */}
-          <div className="hidden sm:flex items-center justify-center gap-2 pt-2">
-            {slide.specChips.map((spec) => (
-              <span
-                key={spec}
-                className="inline-flex items-center gap-1.5 rounded-full bg-black/40 backdrop-blur-xl px-3.5 py-1 text-[11px] font-medium text-slate-200/90 border border-white/15 shadow-sm"
+            {/* 4. CTA Row (52-56px high, rounded-full, 14-18px spacing) */}
+            <div className="flex flex-wrap items-center gap-4 pt-1 sm:pt-2">
+              <Button
+                asChild
+                size="lg"
+                className="h-[52px] sm:h-[54px] px-8 rounded-full bg-[#0071e3] hover:bg-[#0077ed] text-white font-semibold text-[15px] sm:text-base shadow-[0_0_24px_rgba(0,113,227,0.5)] hover:shadow-[0_0_32px_rgba(0,113,227,0.7)] transition-all hover:scale-105 active:scale-95"
               >
-                <Zap className="h-3 w-3 text-cyan-400 shrink-0" />
-                {spec}
-              </span>
-            ))}
+                <Link to={slide.ctaLink} className="inline-flex items-center gap-2.5">
+                  <span>{slide.ctaText || "Explore Now"}</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+
+              {slide.secondaryCtaText && slide.secondaryCtaLink ? (
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="h-[52px] sm:h-[54px] px-7 rounded-full bg-[rgba(2,12,30,0.55)] hover:bg-[rgba(2,12,30,0.8)] text-white/95 font-medium text-[15px] sm:text-base border border-white/20 hover:border-cyan-400/40 backdrop-blur-xl transition-all hover:scale-105 active:scale-95"
+                >
+                  <Link to={slide.secondaryCtaLink}>{slide.secondaryCtaText}</Link>
+                </Button>
+              ) : null}
+            </div>
+
+            {/* 5. Feature Chips Below CTAs (Small dark translucent chips with cyan icons) */}
+            {slide.specChips && slide.specChips.length > 0 ? (
+              <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                {slide.specChips.map((spec) => (
+                  <span
+                    key={spec}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[rgba(2,12,30,0.6)] backdrop-blur-md px-3.5 py-1.5 text-xs font-medium text-slate-200 border border-white/15 shadow-xs"
+                  >
+                    <Zap className="h-3.5 w-3.5 text-cyan-400 fill-cyan-400 shrink-0" />
+                    {spec}
+                  </span>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
 

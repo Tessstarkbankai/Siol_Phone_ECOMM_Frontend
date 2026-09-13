@@ -71,7 +71,7 @@ export function CustomerProductDetailsSummary({
   }
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-5 sm:space-y-6">
       {/* Brand & Title */}
       <div className="space-y-2">
         <div className="flex items-center justify-between gap-3">
@@ -85,11 +85,11 @@ export function CustomerProductDetailsSummary({
           <RatingStars rating={4.9} count={94} size="md" />
         </div>
 
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-snug">
           {product?.title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-2 pt-1">
+        <div className="flex flex-wrap items-center gap-2 pt-0.5">
           <Badge variant="secondary" className="bg-neutral-100 text-neutral-800 text-xs font-medium px-2.5 py-0.5 rounded-md">
             {product?.category?.name || "Flagship Smartphone"}
           </Badge>
@@ -108,7 +108,7 @@ export function CustomerProductDetailsSummary({
       </div>
 
       {/* Price Block with EMI tag */}
-      <div className="p-5 rounded-3xl bg-neutral-50 dark:bg-neutral-900 border border-border/80 space-y-3">
+      <div className="p-4 sm:p-5 rounded-2xl bg-neutral-50/80 dark:bg-neutral-900/60 border border-border/80 space-y-2.5">
         <div className="flex items-baseline justify-between gap-4 flex-wrap">
           <PriceBlock
             price={product.price}

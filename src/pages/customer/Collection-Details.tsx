@@ -86,33 +86,37 @@ export function CollectionDetails() {
       </section>
 
       {/* Main PDP 2-Column Grid */}
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <CustomerProductDetailsGallery
-            product={product}
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
-          />
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-12 items-start">
+          <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24">
+            <CustomerProductDetailsGallery
+              product={product}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+            />
+          </div>
 
-          <CustomerProductDetailsSummary
-            product={product}
-            selectedColor={selectedColor}
-            selectedSize={selectedSize}
-            setSelectedColor={setSelectedColor}
-            setSelectedSize={setSelectedSize}
-            toggleWishlist={() =>
-              toggleWishlist(
-                isLoaded,
-                isBootstrapped,
-                Boolean(isSignedIn),
-                isWishlistActive,
-              )
-            }
-            isWishlistActive={isWishlistActive}
-            onAddToCart={() =>
-              addToCart(isLoaded, isBootstrapped, Boolean(isSignedIn))
-            }
-          />
+          <div className="lg:col-span-7 xl:col-span-7">
+            <CustomerProductDetailsSummary
+              product={product}
+              selectedColor={selectedColor}
+              selectedSize={selectedSize}
+              setSelectedColor={setSelectedColor}
+              setSelectedSize={setSelectedSize}
+              toggleWishlist={() =>
+                toggleWishlist(
+                  isLoaded,
+                  isBootstrapped,
+                  Boolean(isSignedIn),
+                  isWishlistActive,
+                )
+              }
+              isWishlistActive={isWishlistActive}
+              onAddToCart={() =>
+                addToCart(isLoaded, isBootstrapped, Boolean(isSignedIn))
+              }
+            />
+          </div>
         </div>
 
         {/* Product Showcase Banners (wide banner format below product card, above review card) */}

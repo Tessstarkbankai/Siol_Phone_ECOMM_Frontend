@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Sparkles, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type CustomerShowcaseBannersProps = {
@@ -35,15 +35,17 @@ export function CustomerShowcaseBanners({
     setCurrentIndex((prev) => (prev === imagesToShow.length - 1 ? 0 : prev + 1));
   };
 
+  const currentBanner = imagesToShow[currentIndex];
+
   return (
-    <section className="mt-14 space-y-4">
+    <section className="mt-12 space-y-3.5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
             <Sparkles className="h-4 w-4" />
           </div>
           <div>
-            <h3 className="text-lg font-bold tracking-tight text-foreground">
+            <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground">
               Official Feature Showcase
             </h3>
             <p className="text-[11px] text-muted-foreground">
@@ -58,7 +60,8 @@ export function CustomerShowcaseBanners({
               variant="outline"
               size="icon"
               onClick={handlePrev}
-              className="h-8 w-8 rounded-full border-neutral-300 hover:bg-neutral-100 cursor-pointer"
+              className="h-8 w-8 rounded-full border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer"
+              title="Previous showcase image"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -69,7 +72,8 @@ export function CustomerShowcaseBanners({
               variant="outline"
               size="icon"
               onClick={handleNext}
-              className="h-8 w-8 rounded-full border-neutral-300 hover:bg-neutral-100 cursor-pointer"
+              className="h-8 w-8 rounded-full border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer"
+              title="Next showcase image"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -77,23 +81,36 @@ export function CustomerShowcaseBanners({
         ) : null}
       </div>
 
-      {/* Main Wide Banner Display */}
-      <div className="relative overflow-hidden rounded-3xl border border-border bg-neutral-950 aspect-[21/9] sm:aspect-[24/9] shadow-lg group">
+      {/* Main Wide Showcase Banner Frame */}
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-[#09090b] shadow-md flex items-center justify-center min-h-[280px] sm:min-h-[380px] max-h-[540px] aspect-[16/9] sm:aspect-[16/8] group">
+        {/* Ambient blurred glow background that dynamically blends banner colors */}
         <img
-          src={imagesToShow[currentIndex].url}
+          src={currentBanner.url}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 h-full w-full object-cover blur-2xl opacity-35 scale-110 pointer-events-none"
+        />
+
+        {/* Ambient Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+
+        {/* Main Banner Image: object-contain guarantees NO cropping or slicing of phone graphics */}
+        <img
+          src={currentBanner.url}
           alt={`${productTitle} Showcase Banner ${currentIndex + 1}`}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-102"
+          className="relative z-10 max-h-full max-w-full w-auto h-auto object-contain mx-auto transition-transform duration-500 group-hover:scale-[1.01]"
         />
 
         {/* Subtle Bottom Vignette */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none z-20" />
 
-        <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between text-white pointer-events-none">
+        {/* Floating Details & Dots Overlay */}
+        <div className="absolute bottom-3.5 left-5 right-5 flex items-end justify-between text-white z-30 pointer-events-none">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-widest bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white inline-block mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-white inline-block mb-1">
               Design & Precision
             </span>
-            <p className="text-sm font-semibold drop-shadow-md line-clamp-1">
+            <p className="text-xs sm:text-sm font-semibold drop-shadow-md line-clamp-1">
               {productTitle}
             </p>
           </div>
@@ -105,11 +122,12 @@ export function CustomerShowcaseBanners({
                   key={idx}
                   type="button"
                   onClick={() => setCurrentIndex(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                     idx === currentIndex
-                      ? "w-6 bg-white"
+                      ? "w-6 bg-white shadow-sm"
                       : "w-2 bg-white/40 hover:bg-white/70"
                   }`}
+                  aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
             </div>
