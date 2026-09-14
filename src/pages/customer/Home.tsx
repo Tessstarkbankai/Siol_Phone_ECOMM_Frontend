@@ -17,10 +17,12 @@ import { HeroCarousel } from "@/components/home/hero-carousel";
 import { TrustStrip } from "@/components/home/trust-strip";
 import { HeroProductsBanner } from "@/components/home/hero-products-banner";
 import { SpotlightBanners } from "@/components/home/spotlight-banners";
+import { ComingSoonSpotlight } from "@/components/home/coming-soon-spotlight";
 import { PortraitVideoStrip } from "@/components/home/portrait-video-strip";
 import { TestimonialsCarousel } from "@/components/home/testimonials-carousel";
 import { StoreLocator } from "@/components/home/store-locator";
 import { InteractivePhoneCompare } from "@/components/home/interactive-phone-compare";
+import { SiolTeaserBanner } from "@/components/home/siol-teaser-banner";
 import { CustomerProductCard } from "@/components/customer/products/customer-product-card";
 import type { CustomerProduct } from "@/features/customer/products/types";
 
@@ -72,8 +74,11 @@ export function StoreHome() {
       {/* 4. Titanium Pro Flagship Banner & Live Small Cards Rail */}
       <HeroProductsBanner products={data.spotlightProducts} />
 
-      {/* 5. Interactive Side-by-Side Phone Comparison Matrix */}
-      <InteractivePhoneCompare />
+      {/* 5. Interactive Side-by-Side Phone Comparison Matrix (Commented out per request) */}
+      {/* <InteractivePhoneCompare /> */}
+
+      {/* 5. SiOL Smartphone Teaser Showcase Banner */}
+      <SiolTeaserBanner />
 
       {/* 6. Trending Flagships & New Arrivals */}
       {mappedProducts.length > 0 ? (
@@ -107,8 +112,11 @@ export function StoreHome() {
         </section>
       ) : null}
 
-      {/* 7. Spotlight Feature Banners (AI Camera & Titanium Build) */}
-      <SpotlightBanners />
+      {/* 7. Spotlight Feature Banners (AI Camera & Titanium Build) (Commented out per request) */}
+      {/* <SpotlightBanners /> */}
+
+      {/* 7. Next-Gen Smartphone Coming Soon Teaser Banner */}
+      <ComingSoonSpotlight />
 
       {/* 8. 4K Video Performance & Camera Tests */}
       <PortraitVideoStrip videos={data.videos} />
