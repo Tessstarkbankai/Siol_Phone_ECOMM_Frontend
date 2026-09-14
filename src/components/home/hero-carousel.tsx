@@ -131,7 +131,7 @@ const FLAGSHIP_SLIDES: SlideItem[] = [
   },
 ];
 
-const AUTO_PLAY_INTERVAL = 8000;
+const AUTO_PLAY_INTERVAL = 4000;
 
 const AURORA_PALETTES = [
   ["#ffffff", "#38bdf8", "#818cf8", "#c084fc", "#38bdf8", "#ffffff"],

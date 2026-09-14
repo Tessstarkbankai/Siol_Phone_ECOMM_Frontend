@@ -125,96 +125,117 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
             <ChevronLeft className="h-5 w-5" />
           </button>
 
-          {/* Cards Rail Container */}
+          {/* Horizontal Product Cards Rail */}
           <div
             ref={scrollRef}
-            className="flex items-stretch gap-5 overflow-x-auto py-2 px-1 scrollbar-none scroll-smooth"
+            className="flex items-stretch gap-5 overflow-x-auto py-3 px-1 scrollbar-none scroll-smooth"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {products.map((item) => {
-              const hasDiscount = item.salePercentage > 0;
-              const defaultStorage = item.sizes && item.sizes.length > 0 ? item.sizes[0] : "256GB";
+              const originalPrice =
+                item.price > item.finalPrice
+                  ? item.price
+                  : Math.round(item.finalPrice * 1.25);
+              const savings = originalPrice - item.finalPrice;
+              const exchangeDiscount = item.finalPrice >= 120000 ? 8000 : 7000;
+              const emiMonths = item.finalPrice >= 120000 ? 24 : 18;
 
               return (
                 <div
                   key={item._id}
-                  className="w-[320px] sm:w-[380px] shrink-0 rounded-3xl bg-white p-6 border border-neutral-200/90 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-primary/40 hover:-translate-y-1 flex flex-col justify-between"
+                  className="group relative w-[280px] sm:w-[310px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200 flex flex-col justify-between"
                 >
-                  <div className="flex gap-4 items-start">
-                    {/* Left: Product Image in Fixed Uniform Square Card */}
+                  {/* Top: Image, Swatches, Eyebrow & Title */}
+                  <div>
+                    {/* Pure Image - NO BOX CONTAINER */}
                     <Link
                       to={`/collection/${item._id}`}
-                      className="relative h-28 w-28 sm:h-32 sm:w-32 shrink-0 rounded-2xl bg-neutral-50 p-2.5 border border-neutral-200/70 shadow-xs flex items-center justify-center overflow-hidden group hover:border-primary/40 transition"
+                      className="relative aspect-square max-h-[190px] w-full flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300"
                     >
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-md rounded-xl transition-transform duration-300 group-hover:scale-105"
+                        className="max-h-full max-w-full object-contain filter drop-shadow-sm select-none"
                       />
                     </Link>
 
-                    {/* Right: Product Info & Dynamic Badge */}
-                    <div className="space-y-1.5 flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-primary text-white">
-                          {item.salePercentage >= 50
-                            ? "PREBOOK"
-                            : item.salePercentage > 0
-                            ? `${item.salePercentage}% OFF`
-                            : "FLAGSHIP"}
+                    {/* Color Swatches (Centered) */}
+                    <div className="flex items-center justify-center gap-2 my-3 h-5">
+                      <span className="h-4 w-4 rounded-full border border-neutral-700 p-0.5 flex items-center justify-center">
+                        <span className="h-full w-full rounded-full bg-[#f5d0b5]" />
+                      </span>
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#374151]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#e5e7eb]" />
+                    </div>
+
+                    {/* Eyebrow */}
+                    <p className="text-xs font-normal text-neutral-500 mb-1">
+                      With Gift
+                    </p>
+
+                    {/* Title */}
+                    <Link
+                      to={`/collection/${item._id}`}
+                      className="block text-lg sm:text-xl font-normal text-neutral-900 tracking-tight leading-tight line-clamp-2 min-h-[50px] hover:text-neutral-700 transition-colors"
+                      title={item.title}
+                    >
+                      {item.title}
+                    </Link>
+                  </div>
+
+                  {/* Bottom: Price, Bullets & Buy Now Button */}
+                  <div className="pt-2">
+                    <div>
+                      <div className="flex items-baseline gap-2 flex-wrap">
+                        <span className="text-base sm:text-lg font-bold text-neutral-900">
+                          From {formatPrice(item.finalPrice)}
                         </span>
-                        <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-700">
-                          {defaultStorage}
-                        </span>
+                        {originalPrice > item.finalPrice ? (
+                          <span className="text-xs text-neutral-400 line-through font-normal">
+                            {formatPrice(originalPrice)}
+                          </span>
+                        ) : null}
                       </div>
-
-                      <Link
-                        to={`/collection/${item._id}`}
-                        className="block font-black text-neutral-900 leading-tight truncate hover:text-primary transition-colors text-base sm:text-lg"
-                        title={item.title}
-                      >
-                        {item.title}
-                      </Link>
-
-                      <p className="text-xs font-semibold text-neutral-600 line-clamp-1">
-                        {item.brand} • 5G Flagship
-                      </p>
-
-                      {item.description ? (
-                        <p className="text-[11px] text-neutral-500 line-clamp-2 leading-snug pt-0.5">
-                          {item.description}
+                      {savings > 0 ? (
+                        <p className="text-xs font-semibold text-[#e11d48] mt-0.5">
+                          Save Up To {formatPrice(savings)}
                         </p>
                       ) : null}
                     </div>
-                  </div>
 
-                  {/* Bottom: Price, EMI & Quick Add Button */}
-                  <div className="flex items-end justify-between pt-4 mt-3 border-t border-neutral-100">
-                    <div>
-                      <p className="text-lg font-black text-neutral-900">
-                        {formatPrice(item.finalPrice)}
-                      </p>
-                      <div className="flex items-center gap-2">
-                        {hasDiscount ? (
-                          <p className="text-[11px] text-neutral-400 line-through font-medium">
-                            MRP: {formatPrice(item.price)}
-                          </p>
-                        ) : null}
-                        <span className="text-[10px] text-emerald-600 font-bold">
-                          No-Cost EMI
-                        </span>
-                      </div>
+                    {/* Subtle Divider */}
+                    <hr className="my-3 border-neutral-100" />
+
+                    {/* Bullets */}
+                    <ul className="space-y-1 text-xs text-neutral-600 font-normal">
+                      <li className="flex items-center gap-2 truncate">
+                        <span className="h-1 w-1 rounded-full bg-neutral-600 shrink-0" />
+                        <span>₹{exchangeDiscount.toLocaleString("en-IN")} Off on Exchange</span>
+                      </li>
+                      <li className="flex items-center gap-2 truncate">
+                        <span className="h-1 w-1 rounded-full bg-neutral-600 shrink-0" />
+                        <span>Up to {emiMonths} Months No Cost EMI</span>
+                      </li>
+                    </ul>
+
+                    {/* Action: Buy now black pill & quick add */}
+                    <div className="mt-4 pt-1 flex items-center justify-between">
+                      <Link
+                        to={`/collection/${item._id}`}
+                        className="inline-flex items-center justify-center rounded-full bg-black hover:bg-neutral-800 text-white font-medium text-xs px-5 py-2 h-9 shadow-xs transition-colors cursor-pointer"
+                      >
+                        Buy now
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => void handleQuickAdd(item)}
+                        aria-label={`Add ${item.title} to cart`}
+                        className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors"
+                      >
+                        <ShoppingCart className="h-4 w-4" />
+                      </button>
                     </div>
-
-                    {/* Blue Shopping Cart Button */}
-                    <button
-                      type="button"
-                      onClick={() => void handleQuickAdd(item)}
-                      aria-label={`Add ${item.title} to cart`}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-md shadow-primary/20 transition-transform duration-200 hover:bg-primary/90 hover:scale-110 active:scale-95"
-                    >
-                      <ShoppingCart className="h-4.5 w-4.5" />
-                    </button>
                   </div>
                 </div>
               );

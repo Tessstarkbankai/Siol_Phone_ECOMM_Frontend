@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, ShoppingBag } from "lucide-react";
 import { useAuth } from "@clerk/react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { PriceBlock } from "@/components/ui/price-block";
-import { RatingStars } from "@/components/ui/rating-stars";
 import {
   extractSalePrice,
   getCoverImage,
@@ -23,7 +19,7 @@ type CustomerProductCardProps = {
 export function CustomerProductCard({ product }: CustomerProductCardProps) {
   const navigate = useNavigate();
   const { isSignedIn } = useAuth();
-  const [addingCart, setAddingCart] = useState(false);
+  const [selectedColorIdx, setSelectedColorIdx] = useState(0);
 
   const { items: wishlistItems, addItem: addToWishlist, removeItem: removeFromWishlist } =
     useCustomerWishlistStore((state) => state);
@@ -33,6 +29,20 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
   const isWishlisted = wishlistItems.some((w) => w.productId === product._id);
   const coverImage = getCoverImage(product);
   const salePrice = extractSalePrice(product);
+
+  const originalPrice =
+    product.price > salePrice
+      ? product.price
+      : Math.round(salePrice * (1 + (product.salePercentage > 0 ? product.salePercentage / 100 : 0.25)));
+  const savings = originalPrice - salePrice;
+  const exchangeDiscount = salePrice >= 120000 ? 8000 : 7000;
+  const emiMonths = salePrice >= 120000 ? 24 : 18;
+
+  // Swatch colors (use product colors or curated aesthetic neutrals)
+  const colors =
+    product.colors && product.colors.length > 0
+      ? product.colors
+      : ["#f5d0b5", "#374151", "#e5e7eb"];
 
   async function handleWishlistToggle(e: React.MouseEvent) {
     e.preventDefault();
@@ -56,8 +66,7 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
     e.stopPropagation();
 
     try {
-      setAddingCart(true);
-      const chosenColor = product.colors && product.colors.length > 0 ? product.colors[0] : undefined;
+      const chosenColor = colors[selectedColorIdx] || colors[0];
       const chosenSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : undefined;
 
       await addToCart(
@@ -77,137 +86,150 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
       setCartOpen(true);
     } catch {
       toast.error("Failed to add product to cart");
-    } finally {
-      setAddingCart(false);
     }
   }
 
-  const defaultStorage = product.sizes && product.sizes.length > 0 ? product.sizes[0] : "";
-  const monthlyEmi = Math.round(salePrice / 24);
-
   return (
-    <Card className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-blue-500/10">
-      {/* Product Image Area: Proportional & Compact */}
-      <Link
-        to={`/collection/${product._id}`}
-        className="relative aspect-square max-h-[210px] sm:max-h-[220px] w-full overflow-hidden rounded-t-2xl bg-gradient-to-b from-slate-50/70 via-white to-blue-50/20 block p-3.5 sm:p-4 flex items-center justify-center"
-      >
-        {coverImage ? (
-          <img
-            src={coverImage}
-            alt={product.title}
-            loading="lazy"
-            className="h-full w-full object-contain object-center transition-transform duration-500 group-hover:scale-105 select-none filter drop-shadow-xs"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center text-xs text-muted-foreground bg-neutral-50 rounded-xl w-full">
-            No Image Available
-          </div>
-        )}
-
-        {/* Top Badges */}
-        <div className="absolute top-2.5 left-2.5 flex flex-col gap-1 z-10">
-          {product.salePercentage > 0 ? (
-            <span className="rounded-md bg-primary text-white text-[10px] font-bold px-2 py-0.5 shadow-xs uppercase tracking-wider">
-              {product.salePercentage}% OFF
-            </span>
-          ) : null}
-          {defaultStorage ? (
-            <span className="rounded-md bg-white/95 backdrop-blur-md text-primary text-[10px] font-semibold px-2 py-0.5 border border-blue-200 shadow-2xs">
-              {defaultStorage}
-            </span>
-          ) : null}
-          {product.stock <= 5 && product.stock > 0 ? (
-            <span className="rounded-md bg-amber-500 text-white text-[9px] font-semibold px-2 py-0.5 shadow-xs">
-              Only {product.stock} Left
-            </span>
-          ) : null}
-        </div>
-
-        {/* Wishlist Heart Button */}
-        <button
-          type="button"
-          onClick={handleWishlistToggle}
-          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-          className="absolute top-2.5 right-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-neutral-700 shadow-sm backdrop-blur-sm transition-transform hover:scale-110 hover:bg-white border border-neutral-200 cursor-pointer"
-        >
-          <Heart
-            className={`h-3.5 w-3.5 transition-colors ${
-              isWishlisted
-                ? "fill-red-500 text-red-500"
-                : "text-neutral-600 hover:text-red-500"
-            }`}
-          />
-        </button>
-      </Link>
-
-      {/* Product Information */}
-      <CardContent className="flex flex-1 flex-col justify-between p-3.5 sm:p-4 space-y-2">
-        <div className="space-y-1">
-          <div className="flex items-center justify-between gap-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-primary truncate max-w-[120px]">
-              {product.brand}
-            </span>
-            <RatingStars rating={4.9} count={68} size="sm" />
-          </div>
+    <div className="group relative flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200">
+      {/* Top Half: Image & Color Swatches */}
+      <div>
+        {/* Product Image: Isolated product render, NO BOX CONTAINER */}
+        <div className="relative aspect-square max-h-[200px] sm:max-h-[230px] w-full flex items-center justify-center p-2">
+          {/* Subtle Wishlist Heart */}
+          <button
+            type="button"
+            onClick={handleWishlistToggle}
+            aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+            className="absolute top-1 right-1 z-10 flex h-7 w-7 items-center justify-center rounded-full text-neutral-400 hover:text-red-500 hover:bg-neutral-50 transition-colors"
+          >
+            <Heart
+              className={`h-4 w-4 transition-colors ${
+                isWishlisted ? "fill-red-500 text-red-500" : "text-neutral-400"
+              }`}
+            />
+          </button>
 
           <Link
             to={`/collection/${product._id}`}
-            className="block"
-            title={product.title}
+            className="h-full w-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
           >
-            <h3 className="line-clamp-1 text-sm font-bold text-neutral-900 transition-colors group-hover:text-primary tracking-tight">
-              {product.title}
-            </h3>
+            {coverImage ? (
+              <img
+                src={coverImage}
+                alt={product.title}
+                loading="lazy"
+                className="max-h-full max-w-full object-contain select-none filter drop-shadow-sm"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-xs text-neutral-400">
+                No Image Available
+              </div>
+            )}
           </Link>
         </div>
 
-        {/* Price & Action */}
-        <div className="space-y-2 pt-1.5 border-t border-neutral-100">
-          <div className="flex items-baseline justify-between gap-1 flex-wrap">
-            <PriceBlock
-              price={product.price}
-              finalPrice={salePrice}
-              salePercentage={product.salePercentage}
-              size="sm"
-            />
-            <span className="text-[10px] font-semibold text-emerald-600">
-              EMI from ₹{monthlyEmi.toLocaleString("en-IN")}/mo
-            </span>
-          </div>
+        {/* Color Swatches (Centered directly below image) */}
+        <div className="flex items-center justify-center gap-2.5 my-3 h-5">
+          {colors.slice(0, 4).map((color, idx) => {
+            const isSelected = selectedColorIdx === idx;
+            const bg = getSwatchColor(color);
 
-          {/* Color Swatches if any */}
-          {product.colors && product.colors.length > 0 ? (
-            <div className="flex items-center gap-1">
-              {product.colors.slice(0, 4).map((color) => (
+            return (
+              <button
+                key={color + idx}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectedColorIdx(idx);
+                }}
+                className={`rounded-full transition-all flex items-center justify-center ${
+                  isSelected
+                    ? "h-4 w-4 border border-neutral-700 p-0.5"
+                    : "h-2.5 w-2.5 hover:scale-125"
+                }`}
+                title={color}
+              >
                 <span
-                  key={color}
-                  className="h-3 w-3 rounded-full border border-neutral-300 shadow-2xs"
-                  style={{ backgroundColor: getSwatchColor(color) }}
-                  title={color}
+                  className="h-full w-full rounded-full border border-black/10 shadow-2xs"
+                  style={{ backgroundColor: bg }}
                 />
-              ))}
-              {product.colors.length > 4 ? (
-                <span className="text-[9px] text-muted-foreground">
-                  +{product.colors.length - 4}
-                </span>
-              ) : null}
-            </div>
-          ) : null}
-
-          {/* Quick Add to Cart CTA */}
-          <Button
-            onClick={handleQuickAddToCart}
-            disabled={addingCart || product.stock === 0}
-            size="sm"
-            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl h-9 shadow-xs transition gap-1.5 mt-1 text-xs cursor-pointer"
-          >
-            <ShoppingCart className="h-3.5 w-3.5" />
-            <span>{product.stock === 0 ? "Out of Stock" : "Add to Cart"}</span>
-          </Button>
+              </button>
+            );
+          })}
         </div>
-      </CardContent>
-    </Card>
+
+        {/* Eyebrow / Promotion Tag */}
+        <p className="text-xs sm:text-[13px] font-normal text-neutral-500 mb-1">
+          With Gift
+        </p>
+
+        {/* Product Title */}
+        <Link
+          to={`/collection/${product._id}`}
+          className="block text-xl sm:text-2xl font-normal text-neutral-900 tracking-tight leading-tight line-clamp-2 min-h-[56px] hover:text-neutral-700 transition-colors"
+          title={product.title}
+        >
+          {product.title}
+        </Link>
+      </div>
+
+      {/* Bottom Half: Price, Bullets & Buy Now Button */}
+      <div className="pt-2">
+        {/* Price Row */}
+        <div>
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <span className="text-base sm:text-lg md:text-xl font-bold text-neutral-900">
+              From ₹{salePrice.toLocaleString("en-IN")}
+            </span>
+            {originalPrice > salePrice ? (
+              <span className="text-xs sm:text-sm text-neutral-400 line-through font-normal">
+                ₹{originalPrice.toLocaleString("en-IN")}
+              </span>
+            ) : null}
+          </div>
+          {savings > 0 ? (
+            <p className="text-xs sm:text-sm font-semibold text-[#e11d48] mt-0.5">
+              Save Up To ₹{savings.toLocaleString("en-IN")}
+            </p>
+          ) : null}
+        </div>
+
+        {/* Subtle Horizontal Divider */}
+        <hr className="my-3.5 border-neutral-100" />
+
+        {/* Offer Bullet Points */}
+        <ul className="space-y-1 text-xs sm:text-[13px] text-neutral-600 font-normal">
+          <li className="flex items-center gap-2 truncate">
+            <span className="h-1 w-1 rounded-full bg-neutral-600 shrink-0" />
+            <span>₹{exchangeDiscount.toLocaleString("en-IN")} Off on Exchange</span>
+          </li>
+          <li className="flex items-center gap-2 truncate">
+            <span className="h-1 w-1 rounded-full bg-neutral-600 shrink-0" />
+            <span>Up to {emiMonths} Months No Cost EMI</span>
+          </li>
+        </ul>
+
+        {/* Action Row: Buy Now Black Pill & Quick Add Bag */}
+        <div className="mt-4 pt-1 flex items-center justify-between">
+          <Link
+            to={`/collection/${product._id}`}
+            className="inline-flex items-center justify-center rounded-full bg-black hover:bg-neutral-800 text-white font-medium text-xs sm:text-sm px-6 py-2.5 h-9 shadow-xs transition-colors cursor-pointer"
+          >
+            Buy now
+          </Link>
+
+          <button
+            type="button"
+            onClick={handleQuickAddToCart}
+            aria-label={`Add ${product.title} to cart`}
+            className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors"
+          >
+            <ShoppingBag className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
