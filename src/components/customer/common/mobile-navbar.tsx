@@ -109,19 +109,14 @@ export function CustomerMobileNavbar({
               <Link
                 to="/"
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-2.5"
+                className="flex items-center py-0.5"
+                title="SiOL - Home"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-lg font-bold tracking-tight text-neutral-900 leading-none">
-                    NEXUS<span className="text-primary">.MOBILE</span>
-                  </span>
-                  <span className="text-[9px] font-semibold tracking-widest text-neutral-500 uppercase">
-                    Flagship Store
-                  </span>
-                </div>
+                <img
+                  src="/siol-logo-black.png"
+                  alt="SiOL"
+                  className="h-7 w-auto object-contain select-none"
+                />
               </Link>
             </div>
 

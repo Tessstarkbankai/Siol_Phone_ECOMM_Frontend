@@ -85,15 +85,19 @@ export function UniversalVideoCard({
       const vid = videoRef.current;
       vid.muted = true;
       if (autoPlay) {
-        const playPromise = vid.play();
-        if (playPromise !== undefined) {
-          playPromise
+        const tryPlay = () => {
+          vid
+            .play()
             .then(() => setIsPlaying(true))
             .catch(() => {
-              // Autoplay policy prevented playback, video will play on click
-              setIsPlaying(false);
+              // Autoplay policy fallback
             });
-        }
+        };
+        tryPlay();
+        vid.addEventListener("canplay", tryPlay, { once: true });
+        return () => {
+          vid.removeEventListener("canplay", tryPlay);
+        };
       }
     }
   }, [parsed.embedUrl, autoPlay, parsed.type]);
@@ -177,7 +181,6 @@ export function UniversalVideoCard({
   return (
     <div
       className={`relative aspect-[9/16] w-full bg-black overflow-hidden rounded-3xl group/player ${className}`}
-      onClick={togglePlay}
     >
       {hasError ? (
         <div className="h-full w-full flex flex-col items-center justify-center p-6 text-center text-neutral-400 bg-neutral-900 space-y-2">
@@ -196,7 +199,7 @@ export function UniversalVideoCard({
           crossOrigin="anonymous"
           preload="metadata"
           onError={() => setHasError(true)}
-          className="h-full w-full object-cover rounded-3xl cursor-pointer"
+          className="h-full w-full object-cover rounded-3xl"
         />
       )}
 

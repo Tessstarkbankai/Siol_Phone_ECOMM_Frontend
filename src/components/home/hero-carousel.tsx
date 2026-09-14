@@ -347,10 +347,8 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
           );
         })}
 
-        {/* Premium Left-Side Dark Navy Gradient Overlay (z-20: on top of video, below text at z-30)
-            Lightened slightly per feedback: starts around rgba(2,12,30,0.86), gently feathers through 36%,
-            and dissolves to transparent by 56% so video remains completely clear.
-        */}
+        {/* Premium Left-Side Dark Navy Gradient Overlay (COMMENTED OUT PER REQUEST - DO NOT REMOVE) */}
+        {/*
         <div
           className="absolute inset-0 z-20 pointer-events-none"
           style={{
@@ -358,8 +356,10 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               "linear-gradient(90deg, rgba(2, 12, 30, 0.86) 0%, rgba(2, 12, 30, 0.80) 22%, rgba(2, 12, 30, 0.60) 36%, rgba(2, 12, 30, 0.22) 47%, rgba(2, 12, 30, 0.04) 52%, rgba(2, 12, 30, 0) 56%)",
           }}
         />
+        */}
 
-        {/* Very subtle bottom vignette for depth (z-20, lightweight, no bottom info bar) */}
+        {/* Very subtle bottom vignette for depth (COMMENTED OUT PER REQUEST - DO NOT REMOVE) */}
+        {/*
         <div
           className="absolute inset-x-0 bottom-0 h-24 z-20 pointer-events-none"
           style={{
@@ -367,6 +367,7 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               "linear-gradient(0deg, rgba(2, 12, 30, 0.35) 0%, rgba(2, 12, 30, 0) 100%)",
           }}
         />
+        */}
 
         {/* Audio Toggle Button (z-30) */}
         {slide?.videoUrl ? (
@@ -380,16 +381,16 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
           </button>
         ) : null}
 
-        {/* PRECISE LEFT-ALIGNED HERO CONTENT COLUMN (z-30)
+        {/* PRECISE LEFT-ALIGNED HERO CONTENT COLUMN (COMMENTED OUT PER REQUEST - DO NOT REMOVE)
             - Shifted closer to the top (-translate-y-8 to -translate-y-12)
             - Left spacing: 58-64px
             - Max content width: 480-520px
             - Text breaks cleanly after the first word
         */}
+        {/*
         <div className="relative z-30 w-full h-full flex items-center justify-start pointer-events-none pl-6 sm:pl-[58px] lg:pl-[64px] pr-6">
           <div className="w-full max-w-[490px] lg:max-w-[520px] flex flex-col items-start text-left space-y-4 sm:space-y-5 pointer-events-auto -translate-y-6 sm:-translate-y-10 lg:-translate-y-12">
             
-            {/* 1. Glass Pill */}
             {slide.eyebrow ? (
               <div className="inline-flex items-center gap-2 rounded-full bg-[rgba(2,12,30,0.65)] px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#38bdf8] border border-cyan-400/25 backdrop-blur-md shadow-[0_2px_10px_rgba(0,0,0,0.3)]">
                 <Sparkles className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
@@ -397,7 +398,6 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               </div>
             ) : null}
 
-            {/* 2. Main Headline: breaks cleanly after first word, with electric-blue → cyan gradient on remaining words */}
             {(() => {
               const title = slide.title || "Siol Collection";
               const words = title.trim().split(" ");
@@ -416,14 +416,12 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               );
             })()}
 
-            {/* 3. Subtitle (22-26px, medium weight, soft white/light gray) */}
             {slide.tagline ? (
               <p className="text-lg sm:text-xl lg:text-[23px] font-medium text-slate-200/90 leading-snug drop-shadow-sm max-w-[480px]">
                 {slide.tagline}
               </p>
             ) : null}
 
-            {/* Optional price / promotion note */}
             {slide.priceNote ? (
               <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-amber-300/90 bg-[rgba(2,12,30,0.6)] border border-amber-400/25 backdrop-blur-md px-3.5 py-1.5 rounded-lg shadow-xs">
                 <Sparkles className="h-3.5 w-3.5 text-amber-400 shrink-0" />
@@ -431,7 +429,6 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               </div>
             ) : null}
 
-            {/* 4. CTA Row (52-56px high, rounded-full, 14-18px spacing) */}
             <div className="flex flex-wrap items-center gap-4 pt-1 sm:pt-2">
               <Button
                 asChild
@@ -456,7 +453,6 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               ) : null}
             </div>
 
-            {/* 5. Feature Chips Below CTAs (Small dark translucent chips with cyan icons) */}
             {slide.specChips && slide.specChips.length > 0 ? (
               <div className="flex flex-wrap items-center gap-2.5 pt-1">
                 {slide.specChips.map((spec) => (
@@ -472,6 +468,7 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
             ) : null}
           </div>
         </div>
+        */}
 
         {/* BOTTOM SAMSUNG-STYLE TAB DOCK (Centered at Bottom) */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 max-w-fit px-4">

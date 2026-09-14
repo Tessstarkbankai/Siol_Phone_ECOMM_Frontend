@@ -133,19 +133,12 @@ export function CustomerNavbar() {
         <div className="flex items-center gap-3 sm:gap-4 shrink-0">
           <CustomerMobileNavbar isSignedIn={!!isSignedIn} />
 
-          <Link to="/" className="flex items-center gap-2.5 group">
-            {/* High-tech Icon */}
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white shadow-xs transition-transform duration-300 group-hover:scale-105">
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-neutral-900 leading-none">
-                NEXUS<span className="text-primary">.MOBILE</span>
-              </span>
-              <span className="text-[9px] font-semibold tracking-widest text-neutral-500 uppercase">
-                Flagship Store
-              </span>
-            </div>
+          <Link to="/" className="flex items-center group py-1" title="SiOL - Home">
+            <img
+              src="/siol-logo-black.png"
+              alt="SiOL"
+              className="h-7 sm:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none"
+            />
           </Link>
 
           {/* Desktop Navigation Links / Mega Menu Trigger */}

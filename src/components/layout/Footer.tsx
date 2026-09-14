@@ -30,47 +30,71 @@ export function Footer() {
 
   return (
     <footer className="bg-[#f8fafc] text-neutral-900 border-t border-neutral-200 mt-4 sm:mt-6">
-      {/* 4-Pillar Trust Strip */}
-      <div className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            <div className="flex items-center gap-3.5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <Truck className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-neutral-900">Express Insured Transit</p>
-                <p className="text-xs text-neutral-500">Same-day dispatch nationwide</p>
-              </div>
-            </div>
+      {/* Visual Trust Banner with footer.png */}
+      <div className="relative w-full overflow-hidden border-b border-neutral-200 bg-[#cdd5e7]">
+        <div className="relative mx-auto max-w-7xl">
+          <div className="relative aspect-[16/7] sm:aspect-[2148/732] min-h-[220px] sm:min-h-[280px] md:min-h-[320px] w-full flex items-center">
+            {/* Background Graphic: 5 phones aligned to the right, open pastel gradient on the left */}
+            <img
+              src="/footer.png"
+              alt="SiOL Flagship Fleet"
+              className="absolute inset-0 h-full w-full object-cover object-right select-none pointer-events-none"
+              loading="lazy"
+            />
 
-            <div className="flex items-center gap-3.5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <RotateCcw className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-neutral-900">7-Day Replacement</p>
-                <p className="text-xs text-neutral-500">Hassle-free doorstep exchange</p>
-              </div>
-            </div>
+            {/* Left Content Area: Small, elegant, non-crowded trust points */}
+            <div className="relative z-10 w-full max-w-[52%] sm:max-w-[42%] md:max-w-[36%] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-2 py-3 sm:py-6">
+              <div className="flex flex-col gap-2 sm:gap-2.5">
+                {/* 1. Express Insured Transit */}
+                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
+                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
+                    <Truck className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                      Express Insured Transit
+                    </p>
+                  </div>
+                </div>
 
-            <div className="flex items-center gap-3.5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <ShieldCheck className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-neutral-900">Official Brand Sealed</p>
-                <p className="text-xs text-neutral-500">IMEI verified brand warranty</p>
-              </div>
-            </div>
+                {/* 2. 7-Day Replacement / Hassle-free doorstep exchange */}
+                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
+                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
+                    <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                      7-Day Replacement
+                    </p>
+                    <p className="text-[9px] sm:text-[10px] md:text-[11px] text-slate-600 leading-tight truncate">
+                      Hassle-free doorstep exchange
+                    </p>
+                  </div>
+                </div>
 
-            <div className="flex items-center gap-3.5">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <Headphones className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm font-bold text-neutral-900">24/7 Tech Concierge</p>
-                <p className="text-xs text-neutral-500">Device setup & live support</p>
+                {/* 3. Official Brand Sealed */}
+                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
+                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
+                    <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                      Official Brand Sealed
+                    </p>
+                  </div>
+                </div>
+
+                {/* 4. Device setup & live support */}
+                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
+                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
+                    <Headphones className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                      Device setup &amp; live support
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -82,18 +106,12 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <Link to="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-white shadow-xs">
-                <Sparkles className="h-5 w-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-black tracking-tight text-neutral-900 leading-none">
-                  NEXUS<span className="text-primary">.MOBILE</span>
-                </span>
-                <span className="text-[9px] font-bold tracking-[0.2em] text-neutral-500 uppercase">
-                  Flagship Store
-                </span>
-              </div>
+            <Link to="/" className="flex items-center group py-1" title="SiOL - Home">
+              <img
+                src="/siol-logo-black.png"
+                alt="SiOL"
+                className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none"
+              />
             </Link>
             <p className="text-sm text-neutral-600 max-w-sm leading-relaxed">
               India's premier flagship mobile store. Authorized retail partner for Apple, Samsung, Google, and OnePlus delivering 100% brand-sealed hardware nationwide.
