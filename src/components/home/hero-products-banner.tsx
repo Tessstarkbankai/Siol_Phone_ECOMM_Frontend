@@ -54,7 +54,7 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
     <section className="py-6 space-y-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
         {/* 1. Top Flagship Titanium Series Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border border-blue-200/80 shadow-lg p-8 sm:p-12 lg:p-14 min-h-[340px] flex flex-col md:flex-row items-center justify-between gap-8 text-slate-900">
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border border-blue-200/80 shadow-lg p-5 sm:p-8 md:p-12 lg:p-14 min-h-[280px] sm:min-h-[340px] flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 text-slate-900">
           {/* Left Text Presentation */}
           <div className="space-y-3 max-w-md text-center md:text-left z-10">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3.5 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
@@ -82,16 +82,16 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
           </div>
 
           {/* Right Composite Smartphone Lineup with Fixed-Ratio Cards */}
-          <div className="relative z-10 flex items-center justify-center gap-3 sm:gap-4 max-w-xl w-full">
-            <div className="flex items-end justify-center gap-3 sm:gap-4 w-full">
+          <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3 md:gap-4 max-w-xl w-full">
+            <div className="flex items-end justify-center gap-2 sm:gap-3 md:gap-4 w-full">
               {products.slice(0, 3).map((p, idx) => (
                 <Link
                   key={p._id}
                   to={`/collection/${p._id}`}
-                  className={`group relative rounded-3xl bg-white/95 backdrop-blur-md p-3 sm:p-4 border border-blue-100 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
+                  className={`group relative rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-md p-2 sm:p-3 md:p-4 border border-blue-100 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
                     idx === 1
-                      ? "h-48 w-40 sm:h-60 sm:w-52 z-10 ring-2 ring-primary/30 shadow-blue-500/10"
-                      : "h-38 w-32 sm:h-48 sm:w-40 opacity-95"
+                      ? "h-36 w-28 sm:h-48 sm:w-40 md:h-60 md:w-52 z-10 ring-2 ring-primary/30 shadow-blue-500/10"
+                      : "h-28 w-22 sm:h-38 sm:w-32 md:h-48 md:w-40 opacity-95"
                   }`}
                 >
                   <div className="h-full w-full flex items-center justify-center overflow-hidden rounded-2xl">
@@ -143,7 +143,7 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
               return (
                 <div
                   key={item._id}
-                  className="group relative w-[280px] sm:w-[310px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200 flex flex-col justify-between"
+                  className="group relative w-[240px] sm:w-[280px] md:w-[310px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200 flex flex-col justify-between"
                 >
                   {/* Top: Image, Swatches, Eyebrow & Title */}
                   <div>

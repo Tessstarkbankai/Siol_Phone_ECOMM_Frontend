@@ -34,7 +34,7 @@ export function ComingSoonSpotlight() {
         </div>
 
         {/* Main Showcase Teaser Card */}
-        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-purple-100/90 bg-white shadow-xl shadow-purple-950/5 aspect-[1440/724] min-h-[300px] sm:min-h-[400px] md:min-h-[480px] lg:min-h-[540px] flex items-center justify-center">
+        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-purple-100/90 bg-white shadow-xl shadow-purple-950/5 aspect-[4/3] sm:aspect-[1440/724] min-h-[220px] sm:min-h-[400px] md:min-h-[480px] lg:min-h-[540px] flex items-center justify-center">
           <img
             src="/Frame 1984079647.png"
             alt="SiOL Flagship Smartphone - Coming Soon"
@@ -42,10 +42,10 @@ export function ComingSoonSpotlight() {
           />
 
           {/* Floating Live Teaser Pill */}
-          <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 pointer-events-none">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-md border border-purple-200/80 px-3.5 py-1.5 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-purple-600 animate-pulse" />
-              <span className="text-[10px] sm:text-xs font-bold text-slate-800 tracking-wider uppercase">
+          <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-auto pointer-events-none">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/90 backdrop-blur-md border border-purple-200/80 px-2.5 sm:px-3.5 py-1 sm:py-1.5 shadow-sm max-w-full">
+              <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-purple-600 animate-pulse shrink-0" />
+              <span className="text-[9px] sm:text-xs font-bold text-slate-800 tracking-wider uppercase truncate">
                 Official Design Teaser • Aerospace Titanium & Amethyst
               </span>
             </div>

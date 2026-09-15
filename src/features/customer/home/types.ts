@@ -48,6 +48,14 @@ export type CustomerHomeVideo = {
   createdAt: string;
 };
 
+export type CustomerHomeCommunityImage = {
+  _id: string;
+  imageUrl: string;
+  title: string;
+  hashtag?: string;
+  link?: string;
+};
+
 export type CustomerHomeResponse = {
   banners: CustomerHomeBanner[];
   categories: CustomerHomeCategory[];
@@ -55,4 +63,5 @@ export type CustomerHomeResponse = {
   spotlightProducts: CustomerHomeProduct[];
   coupons: CustomerHomeCoupon[];
   videos: CustomerHomeVideo[];
+  communityImages?: CustomerHomeCommunityImage[];
 };

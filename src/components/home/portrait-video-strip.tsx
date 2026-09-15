@@ -65,15 +65,15 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
   }
 
   return (
-    <section className="py-14 bg-gradient-to-b from-blue-50/50 via-white to-blue-50/50 text-slate-900 border-y border-blue-100/70 mb-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
+    <section className="py-8 sm:py-14 bg-gradient-to-b from-blue-50/50 via-white to-blue-50/50 text-slate-900 border-y border-blue-100/70 mb-8 sm:mb-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-2">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-primary">
             <Film className="h-3.5 w-3.5" />
             <span>Real-World Performance</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
             See Flagships In Action
           </h2>
           <p className="text-sm sm:text-base text-slate-600">
@@ -102,7 +102,7 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
             {displayVideos.map((video) => (
               <div
                 key={video._id}
-                className="w-[240px] sm:w-[260px] md:w-[280px] shrink-0 transition-all duration-300 hover:-translate-y-1.5"
+                className="w-[200px] sm:w-[240px] md:w-[260px] lg:w-[280px] shrink-0 transition-all duration-300 hover:-translate-y-1.5"
               >
                 <UniversalVideoCard
                   videoUrl={video.videoUrl}

@@ -90,7 +90,7 @@ const secondRow = testimonials.slice(4);
 
 function ReviewCard({ item }: { item: (typeof testimonials)[0] }) {
   return (
-    <div className="relative w-[320px] sm:w-[380px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-primary/40 flex flex-col justify-between space-y-4 cursor-pointer">
+    <div className="relative w-[280px] sm:w-[320px] md:w-[380px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-200/80 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-primary/40 flex flex-col justify-between space-y-3 sm:space-y-4 cursor-pointer">
       <div className="space-y-2.5">
         <div className="flex items-center justify-between">
           <RatingStars rating={item.rating} showCount={false} size="sm" />
@@ -120,8 +120,8 @@ function ReviewCard({ item }: { item: (typeof testimonials)[0] }) {
 
 export function TestimonialsCarousel() {
   return (
-    <section className="relative py-14 sm:py-16 bg-gradient-to-b from-white via-blue-50/25 to-white border-y border-neutral-200/70 overflow-hidden my-8 select-none">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-2">
+    <section className="relative py-8 sm:py-14 md:py-16 bg-gradient-to-b from-white via-blue-50/25 to-white border-y border-neutral-200/70 overflow-hidden my-4 sm:my-8 select-none">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-6 sm:mb-10 text-center space-y-2">
         <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.2em] text-primary">
           <Quote className="h-3.5 w-3.5" />
           <span>Verified Buyer Feedback</span>

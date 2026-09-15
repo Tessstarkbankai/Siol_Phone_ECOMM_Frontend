@@ -16,3 +16,18 @@ export type AdminBannersResponse = {
   items: AdminBanner[];
 };
 
+export type AdminCommunityImage = {
+  _id: string;
+  imageUrl: string;
+  imagePublicId?: string;
+  title: string;
+  hashtag?: string;
+  link?: string;
+  order: number;
+  createdAt: string;
+};
+
+export type AdminCommunityResponse = {
+  items: AdminCommunityImage[];
+};
+

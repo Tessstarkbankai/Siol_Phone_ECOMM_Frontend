@@ -90,11 +90,11 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
   }
 
   return (
-    <div className="group relative flex h-full flex-col justify-between rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200">
+    <div className="group relative flex h-full flex-col justify-between rounded-xl sm:rounded-2xl md:rounded-3xl border border-neutral-100 bg-white p-3 sm:p-4 md:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200">
       {/* Top Half: Image & Color Swatches */}
       <div>
         {/* Product Image: Isolated product render, NO BOX CONTAINER */}
-        <div className="relative aspect-square max-h-[200px] sm:max-h-[230px] w-full flex items-center justify-center p-2">
+        <div className="relative aspect-square max-h-[150px] sm:max-h-[200px] md:max-h-[230px] w-full flex items-center justify-center p-1 sm:p-2">
           {/* Subtle Wishlist Heart */}
           <button
             type="button"
@@ -167,7 +167,7 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
         {/* Product Title */}
         <Link
           to={`/collection/${product._id}`}
-          className="block text-xl sm:text-2xl font-normal text-neutral-900 tracking-tight leading-tight line-clamp-2 min-h-[56px] hover:text-neutral-700 transition-colors"
+          className="block text-base sm:text-xl md:text-2xl font-normal text-neutral-900 tracking-tight leading-tight line-clamp-2 min-h-[40px] sm:min-h-[56px] hover:text-neutral-700 transition-colors"
           title={product.title}
         >
           {product.title}

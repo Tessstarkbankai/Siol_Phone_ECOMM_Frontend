@@ -34,3 +34,34 @@ export async function reorderAdminBanners(bannerIds: string[]) {
   );
 }
 
+export async function getAdminCommunityImages() {
+  return apiGet<AdminCommunityResponse>("/admin/settings/community");
+}
+
+export async function uploadAdminCommunityImages(formData: FormData) {
+  return apiPost<AdminCommunityResponse, FormData>(
+    "/admin/settings/community",
+    formData,
+  );
+}
+
+export async function createAdminCommunityImageUrl(data: {
+  imageUrl: string;
+  title?: string;
+  hashtag?: string;
+  link?: string;
+}) {
+  return apiPost<AdminCommunityResponse>("/admin/settings/community", data);
+}
+
+export async function deleteAdminCommunityImage(id: string) {
+  return apiDelete<AdminCommunityResponse>(`/admin/settings/community/${id}`);
+}
+
+export async function reorderAdminCommunityImages(imageIds: string[]) {
+  return apiPatch<AdminCommunityResponse, { imageIds: string[] }>(
+    "/admin/settings/community/reorder",
+    { imageIds },
+  );
+}
+

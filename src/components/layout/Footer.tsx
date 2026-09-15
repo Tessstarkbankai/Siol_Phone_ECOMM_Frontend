@@ -33,71 +33,135 @@ export function Footer() {
       {/* Visual Trust Banner with footer.png */}
       <div className="relative w-full overflow-hidden border-b border-neutral-200 bg-[#cdd5e7]">
         <div className="relative mx-auto max-w-7xl">
-          <div className="relative aspect-[16/7] sm:aspect-[2148/732] min-h-[220px] sm:min-h-[280px] md:min-h-[320px] w-full flex items-center">
-            {/* Background Graphic: 5 phones aligned to the right, open pastel gradient on the left */}
-            <img
-              src="/footer.png"
-              alt="SiOL Flagship Fleet"
-              className="absolute inset-0 h-full w-full object-cover object-right select-none pointer-events-none"
-              loading="lazy"
-            />
 
-            {/* Left Content Area: Small, elegant, non-crowded trust points */}
-            <div className="relative z-10 w-full max-w-[52%] sm:max-w-[42%] md:max-w-[36%] pl-4 sm:pl-8 md:pl-12 lg:pl-16 pr-2 py-3 sm:py-6">
-              <div className="flex flex-col gap-2 sm:gap-2.5">
+          {/* ===== MOBILE LAYOUT (< sm): Stacked — Trust cards on top, Image below ===== */}
+          <div className="block sm:hidden">
+            {/* Trust Points Grid */}
+            <div className="px-4 pt-6 pb-4">
+              <div className="grid grid-cols-2 gap-2">
                 {/* 1. Express Insured Transit */}
-                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
-                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
-                    <Truck className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <div className="flex items-center gap-2 rounded-xl bg-white/80 backdrop-blur-md px-3 py-2.5 border border-white/70 shadow-xs">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                    <Truck className="h-3.5 w-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
-                      Express Insured Transit
-                    </p>
+                    <p className="text-[11px] font-bold text-slate-900 leading-tight">Express Insured Transit</p>
                   </div>
                 </div>
 
-                {/* 2. 7-Day Replacement / Hassle-free doorstep exchange */}
-                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
-                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
-                    <RotateCcw className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                {/* 2. 7-Day Replacement */}
+                <div className="flex items-center gap-2 rounded-xl bg-white/80 backdrop-blur-md px-3 py-2.5 border border-white/70 shadow-xs">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                    <RotateCcw className="h-3.5 w-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
-                      7-Day Replacement
-                    </p>
-                    <p className="text-[9px] sm:text-[10px] md:text-[11px] text-slate-600 leading-tight truncate">
-                      Hassle-free doorstep exchange
-                    </p>
+                    <p className="text-[11px] font-bold text-slate-900 leading-tight">7-Day Replacement</p>
+                    <p className="text-[9px] text-slate-600 leading-tight">Doorstep exchange</p>
                   </div>
                 </div>
 
                 {/* 3. Official Brand Sealed */}
-                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
-                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
-                    <ShieldCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <div className="flex items-center gap-2 rounded-xl bg-white/80 backdrop-blur-md px-3 py-2.5 border border-white/70 shadow-xs">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                    <ShieldCheck className="h-3.5 w-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
-                      Official Brand Sealed
-                    </p>
+                    <p className="text-[11px] font-bold text-slate-900 leading-tight">Official Brand Sealed</p>
                   </div>
                 </div>
 
                 {/* 4. Device setup & live support */}
-                <div className="flex items-center gap-2 sm:gap-2.5 rounded-lg sm:rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-2.5 py-1.5 sm:px-3 sm:py-2 border border-white/70 shadow-xs transition-all">
-                  <div className="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-md sm:rounded-lg bg-slate-900/10 text-slate-800">
-                    <Headphones className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <div className="flex items-center gap-2 rounded-xl bg-white/80 backdrop-blur-md px-3 py-2.5 border border-white/70 shadow-xs">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                    <Headphones className="h-3.5 w-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] sm:text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
-                      Device setup &amp; live support
-                    </p>
+                    <p className="text-[11px] font-bold text-slate-900 leading-tight">Device setup & support</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Phone Fleet Image — natural wide aspect ratio */}
+            <div className="w-full">
+              <img
+                src="/footer.png"
+                alt="SiOL Flagship Fleet"
+                className="w-full h-auto object-contain select-none pointer-events-none"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          {/* ===== DESKTOP LAYOUT (sm+): Image with overlay trust cards ===== */}
+          <div className="hidden sm:block">
+            <div className="relative aspect-[2148/732] min-h-[280px] md:min-h-[320px] w-full flex items-center">
+              {/* Background Graphic */}
+              <img
+                src="/footer.png"
+                alt="SiOL Flagship Fleet"
+                className="absolute inset-0 h-full w-full object-cover object-right select-none pointer-events-none"
+                loading="lazy"
+              />
+
+              {/* Left Content Area: Trust points overlaid on image */}
+              <div className="relative z-10 w-full max-w-[42%] md:max-w-[36%] pl-8 md:pl-12 lg:pl-16 pr-2 py-6">
+                <div className="flex flex-col gap-2.5">
+                  {/* 1. Express Insured Transit */}
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-3 py-2 border border-white/70 shadow-xs transition-all">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                      <Truck className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                        Express Insured Transit
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 2. 7-Day Replacement */}
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-3 py-2 border border-white/70 shadow-xs transition-all">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                      <RotateCcw className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                        7-Day Replacement
+                      </p>
+                      <p className="text-[10px] md:text-[11px] text-slate-600 leading-tight truncate">
+                        Hassle-free doorstep exchange
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 3. Official Brand Sealed */}
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-3 py-2 border border-white/70 shadow-xs transition-all">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                      <ShieldCheck className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                        Official Brand Sealed
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 4. Device setup & live support */}
+                  <div className="flex items-center gap-2.5 rounded-xl bg-white/75 hover:bg-white/90 backdrop-blur-md px-3 py-2 border border-white/70 shadow-xs transition-all">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-slate-900/10 text-slate-800">
+                      <Headphones className="h-3.5 w-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs md:text-[13px] font-bold text-slate-900 leading-tight truncate">
+                        Device setup &amp; live support
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 

@@ -25,9 +25,9 @@ export function TopUtilityBar() {
           </a>
         </div>
 
-        <div className="flex flex-1 items-center justify-center text-center font-semibold text-white tracking-wide">
-          <Truck className="mr-1.5 h-3.5 w-3.5 text-primary animate-pulse hidden sm:inline" />
-          <span>
+        <div className="flex flex-1 items-center justify-center text-center font-semibold text-white tracking-wide min-w-0 overflow-hidden">
+          <Truck className="mr-1.5 h-3.5 w-3.5 text-primary animate-pulse hidden sm:inline shrink-0" />
+          <span className="truncate text-[10px] sm:text-xs">
             🚀 Get up to ₹15,000 Extra on Phone Exchange + 0% No-Cost EMI • Use Code{" "}
             <span className="text-primary font-bold">NEXUS20</span>
           </span>

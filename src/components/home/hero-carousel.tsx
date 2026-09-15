@@ -471,10 +471,34 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
         */}
 
         {/* BOTTOM SAMSUNG-STYLE TAB DOCK (Centered at Bottom) */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 max-w-fit px-4">
-          <div className="flex items-center gap-2 sm:gap-4 rounded-full bg-black/50 backdrop-blur-2xl border border-white/20 px-4 py-2 shadow-2xl">
-            {/* Tabs */}
-            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-none">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-2rem)] sm:w-auto max-w-fit px-0 sm:px-4">
+          <div className="flex items-center gap-2 sm:gap-4 rounded-full bg-black/50 backdrop-blur-2xl border border-white/20 px-3 sm:px-4 py-2 shadow-2xl">
+            {/* Mobile: Compact dot/dash indicators */}
+            <div className="flex items-center gap-1.5 sm:hidden">
+              {slides.map((s, idx) => {
+                const isCurrent = idx === current;
+                return (
+                  <button
+                    key={s._id}
+                    type="button"
+                    onClick={() => handleSelectSlide(idx)}
+                    className="relative flex items-center justify-center p-0.5"
+                    aria-label={`Go to slide ${idx + 1}`}
+                  >
+                    <span
+                      className={`block rounded-full transition-all duration-300 ${
+                        isCurrent
+                          ? "w-6 h-1.5 bg-cyan-400"
+                          : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"
+                      }`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Desktop: Full text tabs with progress */}
+            <div className="hidden sm:flex items-center gap-2 sm:gap-3 overflow-x-auto scrollbar-none">
               {slides.map((s, idx) => {
                 const isCurrent = idx === current;
 

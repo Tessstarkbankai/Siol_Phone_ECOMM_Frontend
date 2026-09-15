@@ -5,7 +5,7 @@ import { Footer } from "./Footer";
 
 export function CustomerLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary overflow-x-hidden">
       {/* Top Utility Bar */}
       <TopUtilityBar />
 

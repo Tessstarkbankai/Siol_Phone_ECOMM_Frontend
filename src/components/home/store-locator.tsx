@@ -8,7 +8,7 @@ export function StoreLocator() {
   return (
     <section className="pt-6 pb-2 sm:pt-8 sm:pb-4 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-50/80 via-white to-sky-50/70 border border-blue-100/90 shadow-lg shadow-blue-500/5 p-6 sm:p-8 lg:p-10">
+        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-50/80 via-white to-sky-50/70 border border-blue-100/90 shadow-lg shadow-blue-500/5 p-4 sm:p-6 md:p-8 lg:p-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Side: Store Information & Locate Button */}
             <div className="lg:col-span-6 space-y-6">
@@ -17,7 +17,7 @@ export function StoreLocator() {
                   <Store className="h-3.5 w-3.5" />
                   <span>Flagship Smartphone Lounge</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
                   Experience Flagships in Person
                 </h2>
                 <p className="text-sm sm:text-base text-slate-600 leading-relaxed">

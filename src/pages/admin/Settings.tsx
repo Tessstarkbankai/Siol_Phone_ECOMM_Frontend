@@ -1,4 +1,5 @@
 import AdminSettingsBannersTable from "@/components/admin/settings/admin-settings-banner-table";
+import { CommunityGalleryManager } from "@/components/admin/settings/community-gallery-manager";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -286,6 +287,10 @@ export function AdminSettings() {
               )}
             </CardContent>
           </Card>
+        </div>
+
+        <div className="border-t border-border/60 pt-6">
+          <CommunityGalleryManager />
         </div>
       </div>
     </div>

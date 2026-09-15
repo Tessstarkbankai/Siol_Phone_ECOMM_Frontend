@@ -21,6 +21,7 @@ import { ComingSoonSpotlight } from "@/components/home/coming-soon-spotlight";
 import { PortraitVideoStrip } from "@/components/home/portrait-video-strip";
 import { TestimonialsCarousel } from "@/components/home/testimonials-carousel";
 import { StoreLocator } from "@/components/home/store-locator";
+import { CommunityCarousel } from "@/components/home/community-carousel";
 import { InteractivePhoneCompare } from "@/components/home/interactive-phone-compare";
 import { SiolTeaserBanner } from "@/components/home/siol-teaser-banner";
 import { CustomerProductCard } from "@/components/customer/products/customer-product-card";
@@ -84,13 +85,13 @@ export function StoreHome() {
       {mappedProducts.length > 0 ? (
         <section className="py-8">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex items-end justify-between mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
               <div>
                 <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
                   <Flame className="h-3.5 w-3.5" />
                   <span>Flagship Lineup</span>
                 </div>
-                <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 sm:text-3xl lg:text-4xl mt-1">
+                <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral-900 md:text-3xl lg:text-4xl mt-1">
                   Trending 5G Flagships & AI Smartphones
                 </h2>
               </div>
@@ -122,9 +123,9 @@ export function StoreHome() {
       <PortraitVideoStrip videos={data.videos} />
 
       {/* 9. Live Coupons & Exchange Vouchers */}
-      {data.coupons.length > 0 ? (
+      {/* {data.coupons.length > 0 ? (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-6">
-          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-blue-50/70 via-white to-sky-50/50 border border-blue-100/90 shadow-sm">
+          <div className="p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-50/70 via-white to-sky-50/50 border border-blue-100/90 shadow-sm">
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8">
               <div>
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
@@ -179,12 +180,19 @@ export function StoreHome() {
             </div>
           </div>
         </section>
-      ) : null}
+      ) : null} */}
+      {/* 10. OPPO-Style Community Carousel */}
+      <CommunityCarousel
+        communityImages={data.communityImages}
+        banners={data.banners}
+      />
 
       {/* 9. Verified Customer Reviews */}
       <TestimonialsCarousel />
 
-      {/* 10. Flagship Experience Store Locator with 3D Globe */}
+
+
+      {/* 11. Flagship Experience Store Locator with 3D Globe */}
       <StoreLocator />
     </div>
   );

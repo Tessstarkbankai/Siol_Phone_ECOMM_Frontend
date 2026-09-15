@@ -9,6 +9,7 @@ const fallbackData: CustomerHomeResponse = {
   spotlightProducts: [],
   coupons: [],
   videos: [],
+  communityImages: [],
 };
 
 type CustomerHomeStore = {
