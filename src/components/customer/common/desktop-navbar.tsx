@@ -137,7 +137,7 @@ export function CustomerNavbar() {
             <img
               src="/siol-logo-black.png"
               alt="SiOL"
-              className="h-7 sm:h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none"
+              className="h-6 sm:h-6 w-auto object-contain transition-transform duration-300 group-hover:scale-105 select-none"
             />
           </Link>
 
@@ -148,18 +148,16 @@ export function CustomerNavbar() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onClick={() => setIsMegaPanelOpen((v) => !v)}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${
-                isMegaPanelOpen
+              className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${isMegaPanelOpen
                   ? "bg-primary/10 text-primary"
                   : "text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900"
-              }`}
+                }`}
             >
               <Grid2X2 className="h-4 w-4 text-primary" />
               <span>Explore</span>
               <ChevronDown
-                className={`h-3 w-3 transition-transform duration-200 ${
-                  isMegaPanelOpen ? "rotate-180 text-primary" : "text-neutral-500"
-                }`}
+                className={`h-3 w-3 transition-transform duration-200 ${isMegaPanelOpen ? "rotate-180 text-primary" : "text-neutral-500"
+                  }`}
               />
             </button>
 
@@ -178,14 +176,10 @@ export function CustomerNavbar() {
             </Link>
 
             <Link
-              to="/collections?sort=price-low"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition"
+              to="/support"
+              className="px-3 py-2 text-xs font-semibold rounded-xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition"
             >
-              <Tag className="h-3.5 w-3.5 text-rose-500" />
-              <span>Deals</span>
-              <span className="bg-rose-100 text-rose-600 text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                20% OFF
-              </span>
+              Support
             </Link>
           </div>
         </div>
@@ -208,7 +202,7 @@ export function CustomerNavbar() {
                 type="button"
                 aria-label="Voice Search"
                 className="text-primary hover:text-primary/80 transition p-1"
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <Mic className="h-4.5 w-4.5" />
               </button>

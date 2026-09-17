@@ -223,8 +223,13 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-sm text-neutral-600">
               <li>
+                <Link to="/support" className="text-primary font-semibold hover:underline transition">
+                  Official Support &amp; Service Hub
+                </Link>
+              </li>
+              <li>
                 <Link to="/contact" className="hover:text-primary transition">
-                  Help & Tech Support
+                  Help &amp; Tech Support
                 </Link>
               </li>
               <li>

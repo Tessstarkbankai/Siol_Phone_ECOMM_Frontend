@@ -10,6 +10,7 @@ import {
   LogOut,
   Menu,
   Search,
+  ShieldCheck,
   ShoppingBag,
   ShoppingCart,
   Sparkles,
@@ -73,6 +74,7 @@ export function CustomerMobileNavbar({
     { label: "All Smartphones", href: "/collections", icon: ShoppingBag },
     { label: "Flagship & Pro Series", href: "/collections?sort=recent", icon: Grid2X2 },
     { label: "Foldables & AI Phones", href: "/collections", icon: Sparkles },
+    { label: "Support & Repairs", href: "/support", icon: ShieldCheck },
     {
       label: "Exchange & Special Offers",
       href: "/collections?sort=price-low",

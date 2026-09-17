@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { CustomerLayout } from "./components/layout/CustomerLayout";
 import { StoreHome } from "./pages/customer/Home";
 import { PublicOnlyLayout } from "./components/auth/PublicOnlyLayout";
@@ -30,6 +30,7 @@ import VendorProfile from "./pages/vendor/Profile";
 import AboutPage from "./pages/customer/About";
 import ContactPage from "./pages/customer/Contact";
 import FAQPage from "./pages/customer/FAQ";
+import SupportPage from "./pages/customer/Support";
 import ShippingPolicyPage from "./pages/customer/ShippingPolicy";
 import ReturnPolicyPage from "./pages/customer/ReturnPolicy";
 import PrivacyPolicyPage from "./pages/customer/PrivacyPolicy";
@@ -60,6 +61,14 @@ export const router = createBrowserRouter([
       {
         path: "faq",
         element: <FAQPage />,
+      },
+      {
+        path: "support",
+        element: <SupportPage />,
+      },
+      {
+        path: "customer-service",
+        element: <Navigate to="/support" replace />,
       },
       {
         path: "shipping-policy",
