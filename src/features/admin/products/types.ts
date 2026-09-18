@@ -30,6 +30,7 @@ export type Product = {
   price: number;
   salePercentage: number;
   isSpotlight?: boolean;
+  spotlightCategory?: "smartphone" | "feature_phone" | "none";
   stock: number;
   status: ProductStatus;
   showcaseBanners?: Array<{ url: string; publicId: string }>;
@@ -57,6 +58,7 @@ export type CreateProductBody = {
   price: number;
   salePercentage: number;
   isSpotlight?: boolean;
+  spotlightCategory?: "smartphone" | "feature_phone" | "none";
   stock: number;
   status: ProductStatus;
   existingBanners?: Array<{ url: string; publicId: string }>;
@@ -72,6 +74,7 @@ export type UpdateProductBody = {
   price: number;
   salePercentage: number;
   isSpotlight?: boolean;
+  spotlightCategory?: "smartphone" | "feature_phone" | "none";
   stock: number;
   status: ProductStatus;
   existingImages?: ProductImage[];
@@ -89,6 +92,7 @@ export type ProductFormState = {
   price: string;
   salePercentage: string;
   isSpotlight: boolean;
+  spotlightCategory?: "smartphone" | "feature_phone" | "none";
   stock: string;
   status: ProductStatus;
   existingImages: ProductImage[];

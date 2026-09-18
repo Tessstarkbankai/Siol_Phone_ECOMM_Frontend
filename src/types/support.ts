@@ -70,3 +70,31 @@ export type DownloadableManual = {
   updatedAt: string;
   downloadUrl: string;
 };
+
+export type ServiceJourneyStep = {
+  stepNumber: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  imageUrl: string;
+  highlightBadge: string;
+};
+
+export type DeviceServiceCategory = {
+  id: "smartphone" | "feature_phone";
+  name: string;
+  badge: string;
+  tagline: string;
+  bannerImage: string;
+  steps: ServiceJourneyStep[];
+};
+
+export type PopularCityItem = {
+  id: string;
+  cityName: string;
+  state: string;
+  tagline: string;
+  imageUrl: string;
+  centerIds: string[];
+};
+

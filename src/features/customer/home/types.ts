@@ -61,6 +61,8 @@ export type CustomerHomeResponse = {
   categories: CustomerHomeCategory[];
   recentProducts: CustomerHomeProduct[];
   spotlightProducts: CustomerHomeProduct[];
+  spotlightSmartphoneProducts?: CustomerHomeProduct[];
+  spotlightFeaturePhoneProducts?: CustomerHomeProduct[];
   coupons: CustomerHomeCoupon[];
   videos: CustomerHomeVideo[];
   communityImages?: CustomerHomeCommunityImage[];

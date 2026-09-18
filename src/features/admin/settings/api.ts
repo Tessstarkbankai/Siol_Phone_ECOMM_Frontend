@@ -1,5 +1,5 @@
 import { apiDelete, apiGet, apiPatch, apiPost } from "@/lib/api";
-import type { AdminBannersResponse } from "./types";
+import type { AdminBannersResponse, AdminCommunityResponse } from "./types";
 
 export async function getAdminBanners() {
   return apiGet<AdminBannersResponse>("/admin/settings/banners");

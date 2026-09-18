@@ -106,9 +106,13 @@ export function ProductsTable({
                       >
                         {product.status}
                       </Badge>
-                      {product.isSpotlight ? (
-                        <span className="rounded-md bg-amber-500 text-white text-[10px] font-black px-1.5 py-0.5 shadow-xs">
-                          ★ Spotlight
+                      {product.spotlightCategory === "feature_phone" ? (
+                        <span className="rounded-md bg-amber-600 text-white text-[10px] font-black px-1.5 py-0.5 shadow-xs">
+                          ★ Feature Phone
+                        </span>
+                      ) : product.isSpotlight || product.spotlightCategory === "smartphone" ? (
+                        <span className="rounded-md bg-primary text-white text-[10px] font-black px-1.5 py-0.5 shadow-xs">
+                          ★ Smartphone
                         </span>
                       ) : null}
                     </div>

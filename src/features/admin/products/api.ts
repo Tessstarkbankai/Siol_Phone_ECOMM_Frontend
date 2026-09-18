@@ -58,6 +58,9 @@ function buildProductFormData(
   if (body.isSpotlight !== undefined) {
     formData.append("isSpotlight", String(body.isSpotlight));
   }
+  if (body.spotlightCategory !== undefined) {
+    formData.append("spotlightCategory", body.spotlightCategory);
+  }
 
   body.colors.forEach((color) => formData.append("colors", color));
   body.sizes.forEach((size) => formData.append("sizes", size));

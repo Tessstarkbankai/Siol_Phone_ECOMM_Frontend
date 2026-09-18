@@ -4,6 +4,8 @@ import type {
   SupportTopic,
   FAQItem,
   DownloadableManual,
+  DeviceServiceCategory,
+  PopularCityItem,
 } from "@/types/support";
 
 /**
@@ -472,3 +474,178 @@ export const DOWNLOADABLE_MANUALS: DownloadableManual[] = [
     downloadUrl: "#",
   },
 ];
+
+/**
+ * Popular Cities for Authorized Service Centers (Image-first cards)
+ *
+ * NOTE: These image URLs are currently loaded from high-resolution online sources.
+ * To replace with Google Drive URLs or direct CDN links, simply replace the `imageUrl` field:
+ * Example Google Drive Direct Link format:
+ * "https://drive.google.com/uc?export=view&id=YOUR_FILE_ID"
+ */
+export const POPULAR_CITIES_DATA: PopularCityItem[] = [
+  {
+    id: "city-mumbai",
+    cityName: "Mumbai",
+    state: "Maharashtra",
+    tagline: "Flagship Experience Lounge • Lower Parel",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-mum-1"],
+  },
+  {
+    id: "city-delhi",
+    cityName: "New Delhi",
+    state: "Delhi NCR",
+    tagline: "Central Care Pavilion • Connaught Place",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-del-1"],
+  },
+  {
+    id: "city-bengaluru",
+    cityName: "Bengaluru",
+    state: "Karnataka",
+    tagline: "Tech Lounge & Care Center • Indiranagar",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-blr-1"],
+  },
+  {
+    id: "city-hyderabad",
+    cityName: "Hyderabad",
+    state: "Telangana",
+    tagline: "Cyber Gateway Service Point • Hitec City",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1605007493699-ce65834f8a00?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-hyd-1"],
+  },
+  {
+    id: "city-chennai",
+    cityName: "Chennai",
+    state: "Tamil Nadu",
+    tagline: "Authorized Care Point • Anna Nagar",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-chn-1"],
+  },
+  {
+    id: "city-kolkata",
+    cityName: "Kolkata",
+    state: "West Bengal",
+    tagline: "Authorized Care Facility • Park Street",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1558431382-27e303142255?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-kol-1"],
+  },
+  {
+    id: "city-pune",
+    cityName: "Pune",
+    state: "Maharashtra",
+    tagline: "Premier Care Lounge • Koregaon Park",
+    // Can be replaced with Google Drive or CDN image URL:
+    imageUrl: "https://images.unsplash.com/photo-1600100397608-f010e421d017?q=80&w=1000&auto=format&fit=crop",
+    centerIds: ["sc-pun-1"],
+  },
+];
+
+/**
+ * Image-Centric Device Service Journeys (Smartphone vs Feature Phone)
+ *
+ * NOTE: These image URLs can be replaced with Google Drive URLs or direct CDN links.
+ */
+export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", DeviceServiceCategory> = {
+  smartphone: {
+    id: "smartphone",
+    name: "Smartphone Care & Repair",
+    badge: "Touchscreen, Foldable & Camera",
+    tagline: "Precision cleanroom robotics, authentic AMOLED panels, and factory water-seal reconditioning.",
+    // Main Banner Image (Replace with Google Drive or CDN link anytime)
+    bannerImage: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1400&auto=format&fit=crop",
+    steps: [
+      {
+        stepNumber: "01",
+        title: "Intelligent Diagnostic Scan",
+        subtitle: "Multi-Sensor Check",
+        description: "Automated 32-point hardware test evaluating battery capacity, touchscreen latency, and optical stabilization in 10 minutes.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "10-Min Diagnostic",
+      },
+      {
+        stepNumber: "02",
+        title: "Cleanroom Micro-Disassembly",
+        subtitle: "Dust-Free Precision",
+        description: "Static-free ESD workstation with thermal laser adhesive separation and magnetic torque-regulated screwdriving.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1597424214717-38f325608d4b?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "Zero-Dust Chamber",
+      },
+      {
+        stepNumber: "03",
+        title: "OEM Component & Thermal Calibration",
+        subtitle: "Original Parts Only",
+        description: "Factory-calibrated LTPO AMOLED panel installation, graphite thermal pad replacement, and IP68 pressure-chamber reseal.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1588508065123-287b28e013da?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "IP68 Water Re-Sealed",
+      },
+      {
+        stepNumber: "04",
+        title: "40-Point QA & Express Handover",
+        subtitle: "Certified Ready",
+        description: "Final acoustic chamber check, UV sterilization, and handover with full diagnostic certificate and 90-day parts warranty.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1556742049-0a67e5572263?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "90-Day Warranty",
+      },
+    ],
+  },
+  feature_phone: {
+    id: "feature_phone",
+    name: "Feature Phone Care & Repair",
+    badge: "Keypad, Battery & Loudspeaker",
+    tagline: "Rapid counter diagnostics, original tactile keypad switches, high-decibel speakers, and VoLTE antenna tuning.",
+    // Main Banner Image (Replace with Google Drive or CDN link anytime)
+    bannerImage: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?q=80&w=1400&auto=format&fit=crop",
+    steps: [
+      {
+        stepNumber: "01",
+        title: "Rapid Counter Intake & Pin Check",
+        subtitle: "Instant Physical Check",
+        description: "Physical inspection of Type-C/Micro-USB charging pins, SIM slot pins, and tactile keypad click feedback on the spot.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "Instant Assessment",
+      },
+      {
+        stepNumber: "02",
+        title: "Power Circuit & Audio Diagnostics",
+        subtitle: "Voltage & Continuity",
+        description: "Multimeter evaluation of lithium battery discharge curves, motherboard trace continuity, and loudspeaker coil impedance.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "Circuit Analysis",
+      },
+      {
+        stepNumber: "03",
+        title: "Tactile Keypad & Component Swap",
+        subtitle: "Heavy-Duty Parts",
+        description: "Replacement with official silicon dome keypad membranes, reinforced Polycarbonate housing, and high-decibel receiver modules.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "100% Tactile OEM",
+      },
+      {
+        stepNumber: "04",
+        title: "VoLTE Cellular Test & Same-Day Handover",
+        subtitle: "Ready in 45 Mins",
+        description: "Cellular radio signal strength validation, vibration motor frequency check, and instant counter return within 45 minutes.",
+        // Step Image (Replace with Google Drive or CDN link anytime)
+        imageUrl: "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=800&auto=format&fit=crop",
+        highlightBadge: "45-Min Same-Day Handover",
+      },
+    ],
+  },
+};
+

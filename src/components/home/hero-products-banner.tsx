@@ -9,12 +9,104 @@ import { formatPrice } from "@/lib/utils";
 
 type HeroProductsBannerProps = {
   products?: CustomerHomeProduct[];
+  variant?: "smartphone" | "feature_phone";
+  badgeText?: string;
+  titlePrimary?: string;
+  titleAccent?: string;
+  description?: string;
+  bulletPoints?: string[];
+  theme?: "blue" | "amber";
 };
 
-export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
+const DEFAULT_FEATURE_PHONES: CustomerHomeProduct[] = [
+  {
+    _id: "fp_siol_classic",
+    title: "SiOL Classic 4G VoLTE Keypad Phone",
+    brand: "SiOL",
+    image: "/categories/feature-phone.png",
+    price: 2499,
+    finalPrice: 1999,
+    salePercentage: 20,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    _id: "fp_nokia_3210",
+    title: "Nokia 3210 4G Heritage Retro Edition",
+    brand: "Nokia",
+    image: "/Frame 1984079653.png",
+    price: 4499,
+    finalPrice: 3999,
+    salePercentage: 11,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    _id: "fp_jiophone_prima",
+    title: "JioPhone Prima 4G Smart Feature Phone",
+    brand: "JioPhone",
+    image: "/Frame 1984079647.png",
+    price: 2999,
+    finalPrice: 2599,
+    salePercentage: 13,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    _id: "fp_siol_power",
+    title: "SiOL Power 1000 Marathon Keypad Phone",
+    brand: "SiOL",
+    image: "/categories/feature-phone.png",
+    price: 2799,
+    finalPrice: 2299,
+    salePercentage: 17,
+    createdAt: new Date().toISOString(),
+  },
+];
+
+export function HeroProductsBanner({
+  products = [],
+  variant = "smartphone",
+  badgeText,
+  titlePrimary,
+  titleAccent,
+  description,
+  bulletPoints,
+  theme,
+}: HeroProductsBannerProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { isSignedIn } = useAuth();
   const { addItem, setOpen: setCartOpen } = useCustomerCartAndCheckoutStore((state) => state);
+
+  const isFeaturePhone = variant === "feature_phone";
+  const activeProducts =
+    products.length > 0
+      ? products
+      : isFeaturePhone
+      ? DEFAULT_FEATURE_PHONES
+      : [];
+
+  const finalBadge =
+    badgeText || (isFeaturePhone ? "THE CLASSIC SERIES" : "THE 2026 FLAGSHIPS");
+  const finalTitlePrimary =
+    titlePrimary || (isFeaturePhone ? "DURABLE " : "TITANIUM ");
+  const finalTitleAccent =
+    titleAccent || (isFeaturePhone ? "KEYPAD" : "PRO");
+  const finalDescription =
+    description ||
+    (isFeaturePhone
+      ? "Legendary battery endurance meets rugged tactile reliability."
+      : "Supreme computing power meets aerospace-grade durability.");
+  const finalBullets =
+    bulletPoints ||
+    (isFeaturePhone
+      ? [
+          "• Up to 28 Days Standby Battery Life",
+          "• Ultra-Loud Box Speaker & Crystal-Clear 4G VoLTE",
+        ]
+      : [
+          "• Snapdragon 8 Elite & Apple A18 Pro Bionic",
+          "• 200MP Quad Matrix Optical Nightography",
+        ]);
+
+  const finalTheme = theme || (isFeaturePhone ? "amber" : "blue");
 
   function scroll(direction: "left" | "right") {
     if (scrollRef.current) {
@@ -35,7 +127,7 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
           color: chosenColor,
           size: chosenSize,
           title: item.title,
-          brand: item.brand || "Wonderchef",
+          brand: item.brand || "SiOL",
           image: item.image,
           finalPrice: item.finalPrice,
         },
@@ -47,50 +139,96 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
     }
   }
 
-  // If no products available in db, return null
-  if (!products || products.length === 0) return null;
+  // If no products available, return null
+  if (!activeProducts || activeProducts.length === 0) return null;
 
   return (
     <section className="py-6 space-y-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-        {/* 1. Top Flagship Titanium Series Banner */}
-        <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border border-blue-200/80 shadow-lg p-5 sm:p-8 md:p-12 lg:p-14 min-h-[280px] sm:min-h-[340px] flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 text-slate-900">
+        {/* 1. Top Banner */}
+        <div
+          className={`relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 md:p-12 lg:p-14 min-h-[280px] sm:min-h-[340px] flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 text-slate-900 ${
+            finalTheme === "amber"
+              ? "bg-gradient-to-br from-[#fffbeb] via-[#ffffff] to-[#fef3c7] border border-amber-200/80"
+              : "bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border border-blue-200/80"
+          }`}
+        >
           {/* Left Text Presentation */}
           <div className="space-y-3 max-w-md text-center md:text-left z-10">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3.5 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
-              <Sparkles className="h-3.5 w-3.5 text-primary" />
-              <span>THE 2026 FLAGSHIPS</span>
+            <div
+              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-widest ${
+                finalTheme === "amber"
+                  ? "bg-amber-500/10 border border-amber-200 text-amber-800"
+                  : "bg-blue-500/10 border border-blue-200 text-primary"
+              }`}
+            >
+              <Sparkles
+                className={`h-3.5 w-3.5 ${
+                  finalTheme === "amber" ? "text-amber-600" : "text-primary"
+                }`}
+              />
+              <span>{finalBadge}</span>
             </div>
+
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-none">
-              TITANIUM <span className="text-primary">PRO</span>
+              {finalTitlePrimary}
+              <span
+                className={
+                  finalTheme === "amber" ? "text-amber-600" : "text-primary"
+                }
+              >
+                {finalTitleAccent}
+              </span>
             </h2>
+
             <p className="text-sm sm:text-base font-normal text-slate-600">
-              Supreme computing power meets aerospace-grade durability.
+              {finalDescription}
             </p>
 
             {/* Star Divider Line */}
             <div className="flex items-center justify-center md:justify-start gap-3 py-1 text-slate-400">
-              <div className="h-[1px] w-12 bg-blue-200" />
-              <Star className="h-3 w-3 fill-primary text-primary" />
-              <div className="h-[1px] w-12 bg-blue-200" />
+              <div
+                className={`h-[1px] w-12 ${
+                  finalTheme === "amber" ? "bg-amber-200" : "bg-blue-200"
+                }`}
+              />
+              <Star
+                className={`h-3 w-3 ${
+                  finalTheme === "amber"
+                    ? "fill-amber-500 text-amber-500"
+                    : "fill-primary text-primary"
+                }`}
+              />
+              <div
+                className={`h-[1px] w-12 ${
+                  finalTheme === "amber" ? "bg-amber-200" : "bg-blue-200"
+                }`}
+              />
             </div>
 
             <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium">
-              <p>• Snapdragon 8 Elite & Apple A18 Pro Bionic</p>
-              <p>• 200MP Quad Matrix Optical Nightography</p>
+              {finalBullets.map((bullet, idx) => (
+                <p key={idx}>{bullet}</p>
+              ))}
             </div>
           </div>
 
-          {/* Right Composite Smartphone Lineup with Fixed-Ratio Cards */}
+          {/* Right Composite Lineup with Fixed-Ratio Cards */}
           <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3 md:gap-4 max-w-xl w-full">
             <div className="flex items-end justify-center gap-2 sm:gap-3 md:gap-4 w-full">
-              {products.slice(0, 3).map((p, idx) => (
+              {activeProducts.slice(0, 3).map((p, idx) => (
                 <Link
                   key={p._id}
                   to={`/collection/${p._id}`}
-                  className={`group relative rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-md p-2 sm:p-3 md:p-4 border border-blue-100 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-primary/40 hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
+                  className={`group relative rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-md p-2 sm:p-3 md:p-4 border shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
+                    finalTheme === "amber"
+                      ? "border-amber-100 hover:border-amber-400/50"
+                      : "border-blue-100 hover:border-primary/40"
+                  } ${
                     idx === 1
-                      ? "h-36 w-28 sm:h-48 sm:w-40 md:h-60 md:w-52 z-10 ring-2 ring-primary/30 shadow-blue-500/10"
+                      ? finalTheme === "amber"
+                        ? "h-36 w-28 sm:h-48 sm:w-40 md:h-60 md:w-52 z-10 ring-2 ring-amber-500/30 shadow-amber-500/10"
+                        : "h-36 w-28 sm:h-48 sm:w-40 md:h-60 md:w-52 z-10 ring-2 ring-primary/30 shadow-blue-500/10"
                       : "h-28 w-22 sm:h-38 sm:w-32 md:h-48 md:w-40 opacity-95"
                   }`}
                 >
@@ -109,8 +247,12 @@ export function HeroProductsBanner({ products = [] }: HeroProductsBannerProps) {
             </div>
           </div>
 
-          {/* Subtle Frosty Blue Glow */}
-          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-blue-300/30 blur-3xl pointer-events-none" />
+          {/* Ambient Glow */}
+          <div
+            className={`absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl pointer-events-none ${
+              finalTheme === "amber" ? "bg-amber-300/30" : "bg-blue-300/30"
+            }`}
+          />
         </div>
 
         {/* 2. Hero Products Dynamic Small Cards Rail / Carousel from Database */}

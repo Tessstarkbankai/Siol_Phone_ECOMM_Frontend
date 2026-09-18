@@ -180,23 +180,69 @@ export function ProductDialog({
             </div>
 
             <div className="space-y-2 md:col-span-2">
-              <label className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50/70 p-3.5 cursor-pointer hover:bg-amber-50 transition shadow-xs">
-                <input
-                  type="checkbox"
-                  checked={form.isSpotlight}
-                  onChange={(e) => updateField("isSpotlight", e.target.checked)}
-                  className="h-4 w-4 rounded border-amber-400 text-primary focus:ring-primary accent-primary"
-                />
-                <div>
-                  <p className="text-xs font-bold text-neutral-900 flex items-center gap-1.5">
-                    <span className="text-amber-600 font-extrabold">★</span>
-                    Mark as Spotlight Innovation Product
-                  </p>
-                  <p className="text-[11px] text-neutral-600">
-                    When enabled, this product dynamically appears in the Hero Magic Showcase cards section on the homepage.
-                  </p>
-                </div>
-              </label>
+              <Label className="text-xs font-bold text-neutral-800 flex items-center gap-1.5">
+                <span className="text-amber-500 font-black">★</span>
+                Homepage Hero Spotlight Options
+              </Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Smartphone Category Option */}
+                <label
+                  className={`flex items-start gap-3 rounded-xl border p-3.5 cursor-pointer transition shadow-xs ${
+                    form.spotlightCategory === "smartphone"
+                      ? "border-blue-500 bg-blue-50/80 ring-2 ring-blue-500/20"
+                      : "border-neutral-200 bg-white hover:bg-neutral-50"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={form.spotlightCategory === "smartphone"}
+                    onChange={(e) => {
+                      const next = e.target.checked ? "smartphone" : "none";
+                      updateField("spotlightCategory", next);
+                      updateField("isSpotlight", next !== "none");
+                    }}
+                    className="h-4 w-4 mt-0.5 rounded border-neutral-300 text-primary focus:ring-primary accent-primary"
+                  />
+                  <div>
+                    <p className="text-xs font-bold text-neutral-900 flex items-center gap-1">
+                      <span>📱</span>
+                      <span>Mark as Spotlight: Smartphone Category</span>
+                    </p>
+                    <p className="text-[11px] text-neutral-500 mt-0.5 leading-snug">
+                      Displays in &ldquo;THE 2026 FLAGSHIPS: TITANIUM PRO&rdquo; hero showcase.
+                    </p>
+                  </div>
+                </label>
+
+                {/* Feature Phone Category Option */}
+                <label
+                  className={`flex items-start gap-3 rounded-xl border p-3.5 cursor-pointer transition shadow-xs ${
+                    form.spotlightCategory === "feature_phone"
+                      ? "border-amber-500 bg-amber-50/80 ring-2 ring-amber-500/20"
+                      : "border-neutral-200 bg-white hover:bg-neutral-50"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={form.spotlightCategory === "feature_phone"}
+                    onChange={(e) => {
+                      const next = e.target.checked ? "feature_phone" : "none";
+                      updateField("spotlightCategory", next);
+                      updateField("isSpotlight", next !== "none");
+                    }}
+                    className="h-4 w-4 mt-0.5 rounded border-neutral-300 text-amber-600 focus:ring-amber-500 accent-amber-600"
+                  />
+                  <div>
+                    <p className="text-xs font-bold text-neutral-900 flex items-center gap-1">
+                      <span>📟</span>
+                      <span>Mark as Spotlight: Feature Phone Category</span>
+                    </p>
+                    <p className="text-[11px] text-neutral-500 mt-0.5 leading-snug">
+                      Displays in &ldquo;THE CLASSIC SERIES: KEYPAD HERO&rdquo; hero showcase.
+                    </p>
+                  </div>
+                </label>
+              </div>
             </div>
           </div>
 

@@ -16,6 +16,7 @@ import { CircularCollectionStrip } from "@/components/home/circular-collection-s
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { TrustStrip } from "@/components/home/trust-strip";
 import { HeroProductsBanner } from "@/components/home/hero-products-banner";
+import { AudioShowcaseBanner } from "@/components/home/audio-showcase-banner";
 import { SpotlightBanners } from "@/components/home/spotlight-banners";
 import { ComingSoonSpotlight } from "@/components/home/coming-soon-spotlight";
 import { PortraitVideoStrip } from "@/components/home/portrait-video-strip";
@@ -72,8 +73,24 @@ export function StoreHome() {
       {/* 3. Official Brand Sealed Trust Strip */}
       <TrustStrip />
 
-      {/* 4. Titanium Pro Flagship Banner & Live Small Cards Rail */}
-      <HeroProductsBanner products={data.spotlightProducts} />
+      {/* 4A. Smartphone Flagship Banner & Live Small Cards Rail */}
+      <HeroProductsBanner
+        variant="smartphone"
+        products={
+          data.spotlightSmartphoneProducts && data.spotlightSmartphoneProducts.length > 0
+            ? data.spotlightSmartphoneProducts
+            : data.spotlightProducts
+        }
+      />
+
+      {/* 4B. SiOL Buds Pro Audio Spotlight Card */}
+      <AudioShowcaseBanner />
+
+      {/* 4C. Feature Phone Classic Banner & Live Small Cards Rail (Duplicated Section) */}
+      <HeroProductsBanner
+        variant="feature_phone"
+        products={data.spotlightFeaturePhoneProducts}
+      />
 
       {/* 5. Interactive Side-by-Side Phone Comparison Matrix (Commented out per request) */}
       {/* <InteractivePhoneCompare /> */}

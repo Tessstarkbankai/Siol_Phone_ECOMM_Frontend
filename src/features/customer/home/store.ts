@@ -7,6 +7,8 @@ const fallbackData: CustomerHomeResponse = {
   categories: [],
   recentProducts: [],
   spotlightProducts: [],
+  spotlightSmartphoneProducts: [],
+  spotlightFeaturePhoneProducts: [],
   coupons: [],
   videos: [],
   communityImages: [],
