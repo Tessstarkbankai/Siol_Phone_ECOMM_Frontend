@@ -517,7 +517,7 @@ export const POPULAR_CITIES_DATA: PopularCityItem[] = [
     state: "Telangana",
     tagline: "Cyber Gateway Service Point • Hitec City",
     // Can be replaced with Google Drive or CDN image URL:
-    imageUrl: "https://images.unsplash.com/photo-1605007493699-ce65834f8a00?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1696941515998-d83f24967aca?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8SHlkZXJhYmFkfGVufDB8fDB8fHww",
     centerIds: ["sc-hyd-1"],
   },
   {
@@ -544,7 +544,7 @@ export const POPULAR_CITIES_DATA: PopularCityItem[] = [
     state: "Maharashtra",
     tagline: "Premier Care Lounge • Koregaon Park",
     // Can be replaced with Google Drive or CDN image URL:
-    imageUrl: "https://images.unsplash.com/photo-1600100397608-f010e421d017?q=80&w=1000&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1686543918113-69f8a94b3b67?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     centerIds: ["sc-pun-1"],
   },
 ];
@@ -557,93 +557,93 @@ export const POPULAR_CITIES_DATA: PopularCityItem[] = [
 export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", DeviceServiceCategory> = {
   smartphone: {
     id: "smartphone",
-    name: "Smartphone Care & Repair",
-    badge: "Touchscreen, Foldable & Camera",
-    tagline: "Precision cleanroom robotics, authentic AMOLED panels, and factory water-seal reconditioning.",
+    name: "Smartphone Repair & Service",
+    badge: "Certified Hardware & Display",
+    tagline: "Certified repairs with genuine parts, precision calibration, and factory water-seal reconditioning.",
     // Main Banner Image (Replace with Google Drive or CDN link anytime)
-    bannerImage: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1400&auto=format&fit=crop",
+    bannerImage: "./three.png",
     steps: [
       {
         stepNumber: "01",
-        title: "Intelligent Diagnostic Scan",
-        subtitle: "Multi-Sensor Check",
-        description: "Automated 32-point hardware test evaluating battery capacity, touchscreen latency, and optical stabilization in 10 minutes.",
+        title: "Start Your Service Request",
+        subtitle: "Tell us what's happening",
+        description: "Tell us what’s happening with your device to explore troubleshooting steps or schedule service.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "10-Min Diagnostic",
+        highlightBadge: "Fast Diagnostic",
       },
       {
         stepNumber: "02",
-        title: "Cleanroom Micro-Disassembly",
-        subtitle: "Dust-Free Precision",
-        description: "Static-free ESD workstation with thermal laser adhesive separation and magnetic torque-regulated screwdriving.",
+        title: "Bring It In or Send It In",
+        subtitle: "Choose a service option",
+        description: "Schedule a visit at an Authorized Service Provider or arrange an express mail-in repair.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1597424214717-38f325608d4b?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "Zero-Dust Chamber",
+        highlightBadge: "Flexible Options",
       },
       {
         stepNumber: "03",
-        title: "OEM Component & Thermal Calibration",
-        subtitle: "Original Parts Only",
-        description: "Factory-calibrated LTPO AMOLED panel installation, graphite thermal pad replacement, and IP68 pressure-chamber reseal.",
+        title: "Certified Repair with Genuine Parts",
+        subtitle: "Factory precision",
+        description: "Trained technicians use genuine parts and specialized tools to restore your device to original factory specifications.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1588508065123-287b28e013da?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "IP68 Water Re-Sealed",
+        highlightBadge: "Genuine Parts",
       },
       {
         stepNumber: "04",
-        title: "40-Point QA & Express Handover",
-        subtitle: "Certified Ready",
-        description: "Final acoustic chamber check, UV sterilization, and handover with full diagnostic certificate and 90-day parts warranty.",
+        title: "Fully Tested, Backed by Warranty",
+        subtitle: "Ready for you",
+        description: "Your device is thoroughly tested, sanitized, and returned backed by our comprehensive service warranty.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1556742049-0a67e5572263?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "90-Day Warranty",
+        highlightBadge: "Service Warranty",
       },
     ],
   },
   feature_phone: {
     id: "feature_phone",
-    name: "Feature Phone Care & Repair",
-    badge: "Keypad, Battery & Loudspeaker",
-    tagline: "Rapid counter diagnostics, original tactile keypad switches, high-decibel speakers, and VoLTE antenna tuning.",
+    name: "Feature Phone Repair & Service",
+    badge: "Keypad, Battery & Audio",
+    tagline: "Rapid counter diagnostics, genuine tactile keypads, high-decibel speakers, and VoLTE antenna tuning.",
     // Main Banner Image (Replace with Google Drive or CDN link anytime)
-    bannerImage: "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?q=80&w=1400&auto=format&fit=crop",
+    bannerImage: "./feature.png",
     steps: [
       {
         stepNumber: "01",
-        title: "Rapid Counter Intake & Pin Check",
-        subtitle: "Instant Physical Check",
-        description: "Physical inspection of Type-C/Micro-USB charging pins, SIM slot pins, and tactile keypad click feedback on the spot.",
+        title: "Quick Counter Inspection",
+        subtitle: "Immediate intake",
+        description: "Immediate physical evaluation of ports, tactile keypad responsiveness, and battery health on the spot.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "Instant Assessment",
+        highlightBadge: "Immediate Intake",
       },
       {
         stepNumber: "02",
-        title: "Power Circuit & Audio Diagnostics",
-        subtitle: "Voltage & Continuity",
-        description: "Multimeter evaluation of lithium battery discharge curves, motherboard trace continuity, and loudspeaker coil impedance.",
+        title: "Power & Circuit Diagnostics",
+        subtitle: "Testing and verification",
+        description: "Specialized analysis of battery discharge curves, charging circuitry, and loudspeaker acoustic output.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "Circuit Analysis",
+        highlightBadge: "Diagnostic Scan",
       },
       {
         stepNumber: "03",
-        title: "Tactile Keypad & Component Swap",
-        subtitle: "Heavy-Duty Parts",
-        description: "Replacement with official silicon dome keypad membranes, reinforced Polycarbonate housing, and high-decibel receiver modules.",
+        title: "Genuine Part Replacement",
+        subtitle: "Authentic components",
+        description: "Replacement with genuine tactile keypad membranes, high-density cells, and reinforced housing.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "100% Tactile OEM",
+        highlightBadge: "Genuine Parts",
       },
       {
         stepNumber: "04",
-        title: "VoLTE Cellular Test & Same-Day Handover",
-        subtitle: "Ready in 45 Mins",
-        description: "Cellular radio signal strength validation, vibration motor frequency check, and instant counter return within 45 minutes.",
+        title: "Same-Day Return & Warranty",
+        subtitle: "Ready in 45 mins",
+        description: "Comprehensive cellular test, microphone check, and same-day handover backed by official repair warranty.",
         // Step Image (Replace with Google Drive or CDN link anytime)
         imageUrl: "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=800&auto=format&fit=crop",
-        highlightBadge: "45-Min Same-Day Handover",
+        highlightBadge: "Same-Day Service",
       },
     ],
   },

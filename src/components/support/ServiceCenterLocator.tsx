@@ -85,45 +85,45 @@ export function ServiceCenterLocator() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-            <Store className="h-3.5 w-3.5" />
-            <span>Official Network Across India</span>
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f7] border border-[#d2d2d7]/60 px-3.5 py-1 text-xs font-medium text-[#1d1d1f]">
+            <Store className="h-3.5 w-3.5 text-[#0071e3]" />
+            <span>Find Locations</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
-            Find an Authorized Service Center
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] text-[#1d1d1f]">
+            Find an Authorized Service Provider
           </h2>
-          <p className="text-sm sm:text-base text-slate-600">
-            Select your city or search by PIN code. Hover over any city to view authorized hubs, live walk-in hours, and contact information.
+          <p className="text-base sm:text-lg text-[#86868b] font-normal leading-relaxed">
+            Get certified repairs and genuine parts at an authorized location near you.
           </p>
         </div>
 
-        {/* Search & City Filter Bar (Kept Intact as Requested) */}
+        {/* Search & City Filter Bar */}
         <div className="max-w-4xl mx-auto space-y-4 mb-10">
-          <div className="relative flex items-center rounded-2xl bg-white p-2 shadow-md border border-slate-200/80 focus-within:ring-2 focus-within:ring-primary">
+          <div className="relative flex items-center rounded-2xl bg-white p-2 shadow-sm border border-[#d2d2d7]/80 focus-within:ring-2 focus-within:ring-[#0071e3]">
             <div className="pl-3.5 pr-2 text-slate-400">
-              <MapPin className="h-5 w-5 text-primary" />
+              <MapPin className="h-5 w-5 text-[#0071e3]" />
             </div>
             <Input
               type="text"
-              aria-label="Search by City, Pincode, or Area"
-              placeholder="Enter your City, Area, or 6-digit PIN code (e.g., 400013, Connaught Place, Bengaluru)..."
+              aria-label="Enter city, state, or PIN code"
+              placeholder="Enter city, state, or PIN code"
               value={searchLocation}
               onChange={(e) => setSearchLocation(e.target.value)}
-              className="border-0 shadow-none bg-transparent text-slate-900 placeholder:text-slate-400 focus-visible:ring-0 text-sm h-11"
+              className="border-0 shadow-none bg-transparent text-[#1d1d1f] placeholder:text-[#86868b] focus-visible:ring-0 text-sm h-11"
             />
             {searchLocation && (
               <button
                 type="button"
                 onClick={() => setSearchLocation("")}
-                className="text-xs text-slate-400 hover:text-slate-600 px-2 cursor-pointer font-medium"
+                className="text-xs text-[#86868b] hover:text-[#1d1d1f] px-2 cursor-pointer font-medium"
               >
                 Clear
               </button>
             )}
             <div className="pr-1">
-              <div className="hidden sm:flex items-center gap-1 text-xs font-semibold text-slate-500 bg-slate-100 px-3 py-2 rounded-xl">
-                <Search className="h-3.5 w-3.5" />
-                <span>Instant Filter</span>
+              <div className="hidden sm:flex items-center gap-1 text-xs font-medium text-[#1d1d1f] bg-[#f5f5f7] px-3.5 py-2 rounded-xl border border-[#d2d2d7]/40">
+                <Search className="h-3.5 w-3.5 text-[#86868b]" />
+                <span>Search</span>
               </div>
             </div>
           </div>
@@ -138,10 +138,10 @@ export function ServiceCenterLocator() {
                   setSelectedCity(city);
                   setSearchLocation("");
                 }}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition cursor-pointer ${
                   selectedCity === city
-                    ? "bg-slate-950 text-white shadow-xs"
-                    : "bg-white text-slate-700 hover:bg-slate-200/60 border border-slate-200"
+                    ? "bg-[#1d1d1f] text-white shadow-xs"
+                    : "bg-white text-[#1d1d1f] hover:bg-slate-100 border border-[#d2d2d7]/80"
                 }`}
               >
                 {city}
@@ -151,14 +151,14 @@ export function ServiceCenterLocator() {
         </div>
 
         {/* Results Counter & Instructions */}
-        <div className="flex items-center justify-between text-xs text-slate-500 mb-6 px-1">
+        <div className="flex items-center justify-between text-xs text-[#86868b] mb-6 px-1">
           <span>
-            Showing <strong className="text-slate-900">{filteredCities.length}</strong> metro region
+            Showing <strong className="text-[#1d1d1f]">{filteredCities.length}</strong> location
             {filteredCities.length === 1 ? "" : "s"}
           </span>
-          <span className="hidden sm:flex items-center gap-1.5 text-slate-500">
-            <Info className="h-3.5 w-3.5 text-sky-500" />
-            <span>Hover on any card to view store address &amp; directions</span>
+          <span className="hidden sm:flex items-center gap-1.5 text-[#86868b]">
+            <Info className="h-3.5 w-3.5 text-[#0071e3]" />
+            <span>Select a location to view address, hours, and service details</span>
           </span>
         </div>
 
@@ -222,11 +222,11 @@ export function ServiceCenterLocator() {
 
                   {/* Ultra-Minimal Resting State (City Name Only, No Clutter) */}
                   <div className="absolute bottom-5 left-5 text-white z-10 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none space-y-0.5">
-                    <h3 className="text-xl sm:text-2xl font-black tracking-widest uppercase text-white drop-shadow-md">
+                    <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-white drop-shadow-md">
                       {item.cityName}
                     </h3>
-                    <p className="text-[10px] uppercase tracking-widest text-slate-300 font-semibold">
-                      View Hubs →
+                    <p className="text-[11px] text-slate-300 font-medium">
+                      Explore locations →
                     </p>
                   </div>
 
@@ -240,11 +240,11 @@ export function ServiceCenterLocator() {
                   >
                     {/* Minimal Header in Overlay */}
                     <div className="border-b border-white/10 pb-3">
-                      <h4 className="text-lg font-black tracking-wider uppercase text-white">
-                        {item.cityName} Hubs
+                      <h4 className="text-lg font-semibold tracking-tight text-white">
+                        {item.cityName} Locations
                       </h4>
                       <p className="text-[11px] text-slate-400">
-                        {item.centers.length} Authorized Center{item.centers.length === 1 ? "" : "s"}
+                        {item.centers.length} Authorized Service Provider{item.centers.length === 1 ? "" : "s"}
                       </p>
                     </div>
 

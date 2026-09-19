@@ -29,18 +29,18 @@ export function SupportHero({
 
       <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6 sm:space-y-8">
         {/* Category Pill */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-950/60 backdrop-blur-md px-4 py-1.5 text-xs font-semibold text-sky-400 shadow-lg">
-          <ShieldCheck className="h-4 w-4 text-sky-400" />
-          <span>Official Customer Service &amp; Support Infrastructure</span>
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-950/60 backdrop-blur-md px-4 py-1.5 text-xs font-medium text-white shadow-lg">
+          <ShieldCheck className="h-4 w-4 text-[#0071e3]" />
+          <span>SiOL Support</span>
         </div>
 
         {/* Main Headline */}
         <div className="space-y-3 max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight drop-shadow-md">
-            We&apos;re here to help.
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-semibold tracking-[-0.025em] text-white leading-tight drop-shadow-sm">
+            Here for you.
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-slate-200 font-normal leading-relaxed max-w-2xl mx-auto drop-shadow-sm">
-            Get personalized diagnostics, locate an authorized service center, or speak directly with our certified technical specialists.
+          <p className="text-base sm:text-lg md:text-xl text-slate-200/90 font-normal leading-relaxed max-w-2xl mx-auto">
+            Find answers, contact support, and arrange for repairs.
           </p>
         </div>
 
@@ -55,15 +55,15 @@ export function SupportHero({
             </div>
             <Input
               type="search"
-              aria-label="Search support questions or device issues"
-              placeholder="Search issue, symptom, or topic (e.g., battery drain, cracked glass, update)..."
+              aria-label="Search for topics, products, or questions"
+              placeholder="Search for topics, products, or questions"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="border-0 shadow-none bg-transparent text-slate-900 placeholder:text-slate-500 focus-visible:ring-0 text-sm sm:text-base h-12 px-2"
             />
             <button
               type="submit"
-              className="shrink-0 rounded-xl bg-slate-950 px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold text-white hover:bg-slate-800 active:scale-95 transition-all shadow-md cursor-pointer"
+              className="shrink-0 rounded-xl bg-[#0071e3] hover:bg-[#0077ed] px-5 sm:px-6 py-2.5 text-xs sm:text-sm font-medium text-white active:scale-95 transition-all shadow-md cursor-pointer"
             >
               Search
             </button>

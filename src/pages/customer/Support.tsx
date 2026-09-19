@@ -12,12 +12,12 @@ export function SupportPage() {
 
   // SEO Page Title and Meta description
   useEffect(() => {
-    document.title = "Customer Support & Official Service Portal | SiOL";
+    document.title = "Official SiOL Support";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
         "content",
-        "Official SiOL customer support portal. Explore certified service journeys for smartphones and feature phones, find authorized service centers across India, and access direct specialist support.",
+        "Official SiOL Support. Find answers, explore support topics, find authorized service providers, and arrange certified repairs.",
       );
     }
   }, []);
@@ -41,7 +41,7 @@ export function SupportPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-white text-[#1d1d1f] antialiased selection:bg-[#0071e3]/20 selection:text-[#0071e3]">
       {/* 1. Support Hero with Main Search Bar & Quick Jump Links */}
       <SupportHero
         searchQuery={searchQuery}

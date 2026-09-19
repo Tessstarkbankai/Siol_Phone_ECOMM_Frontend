@@ -27,46 +27,46 @@ export function SupportContactChannels() {
     <section id="contact-support" className="py-14 sm:py-20 bg-white border-b border-slate-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header with Live Operational Status Badge */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold transition-colors">
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#d2d2d7]/60 bg-[#f5f5f7] px-4 py-1.5 text-xs font-medium transition-colors">
             <span
               className={`h-2.5 w-2.5 rounded-full ${
                 liveStatus.isLive ? "bg-emerald-500 animate-pulse" : "bg-slate-400"
               }`}
             />
-            <span className={liveStatus.isLive ? "text-emerald-700 font-semibold" : "text-slate-600"}>
+            <span className={liveStatus.isLive ? "text-emerald-700 font-medium" : "text-[#86868b]"}>
               {liveStatus.message}
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-            Need to Talk to Our Support Team?
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] text-[#1d1d1f]">
+            Connect with us.
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-            Choose the contact channel that works best for you. Our certified smartphone technical engineers are ready to assist with software, repairs, or warranty questions.
+          <p className="text-base sm:text-lg text-[#86868b] max-w-2xl mx-auto font-normal leading-relaxed">
+            Choose how you&apos;d like to get help. We&apos;re here to assist you by phone, chat, email, or in person.
           </p>
         </div>
 
         {/* 4 Official Contact Channel Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {/* 1. Phone Support */}
-          <div className="flex flex-col justify-between rounded-2xl bg-slate-50/80 p-6 border border-slate-200/80 hover:border-primary/40 hover:bg-white hover:shadow-lg transition-all duration-300">
+          <div className="flex flex-col justify-between rounded-2xl bg-white p-6 border border-[#d2d2d7]/70 hover:border-[#0071e3]/60 hover:shadow-lg transition-all duration-300">
             <div className="space-y-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-primary">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-[#0071e3]">
                 <Phone className="h-6 w-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-900">
-                  Toll-Free Helpline
+                <h3 className="text-base font-semibold text-[#1d1d1f]">
+                  Call Us
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Direct phone support with technical hardware specialists.
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  Speak directly with a certified technical support specialist.
                 </p>
-                <p className="font-mono text-sm font-bold text-slate-900 pt-1">
+                <p className="font-mono text-sm font-semibold text-[#1d1d1f] pt-1">
                   {SUPPORT_CONFIG.helplineFormatted}
                 </p>
               </div>
-              <div className="text-[11px] text-slate-500 pt-1 flex items-center gap-1.5">
+              <div className="text-[11px] text-[#86868b] pt-1 flex items-center gap-1.5">
                 <Clock className="h-3.5 w-3.5 text-slate-400" />
                 <span>Mon – Sat, 9:00 AM – 8:00 PM IST</span>
               </div>
@@ -75,43 +75,43 @@ export function SupportContactChannels() {
             <div className="pt-6">
               <Button
                 asChild
-                className="w-full rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-xs"
+                className="w-full rounded-xl bg-[#0071e3] hover:bg-[#0077ed] text-white text-xs font-medium shadow-xs"
               >
                 <a href={`tel:${SUPPORT_CONFIG.helpline.replace(/\s+/g, "")}`}>
                   <Phone className="h-3.5 w-3.5 mr-1.5" />
-                  <span>Call Toll Free</span>
+                  <span>Call Now</span>
                 </a>
               </Button>
             </div>
           </div>
 
           {/* 2. WhatsApp Official Chat */}
-          <div className="flex flex-col justify-between rounded-2xl bg-slate-50/80 p-6 border border-slate-200/80 hover:border-emerald-500/40 hover:bg-white hover:shadow-lg transition-all duration-300">
+          <div className="flex flex-col justify-between rounded-2xl bg-white p-6 border border-[#d2d2d7]/70 hover:border-emerald-500/60 hover:shadow-lg transition-all duration-300">
             <div className="space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600">
                 <MessageSquare className="h-6 w-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-900">
-                  WhatsApp Support Desk
+                <h3 className="text-base font-semibold text-[#1d1d1f]">
+                  Chat with a Specialist
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Chat directly with support representatives, send photos of damage, or get troubleshooting steps.
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  Get quick answers and guidance from a dedicated support representative.
                 </p>
-                <p className="font-mono text-sm font-bold text-slate-900 pt-1">
+                <p className="font-mono text-sm font-semibold text-[#1d1d1f] pt-1">
                   {SUPPORT_CONFIG.whatsappNumber}
                 </p>
               </div>
-              <div className="text-[11px] text-slate-500 pt-1 flex items-center gap-1.5">
+              <div className="text-[11px] text-[#86868b] pt-1 flex items-center gap-1.5">
                 <Clock className="h-3.5 w-3.5 text-slate-400" />
-                <span>Instant response during open hours</span>
+                <span>Instant response during business hours</span>
               </div>
             </div>
 
             <div className="pt-6">
               <Button
                 asChild
-                className="w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs"
+                className="w-full rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium shadow-xs"
               >
                 <a
                   href={SUPPORT_CONFIG.whatsappUrl}
@@ -120,7 +120,7 @@ export function SupportContactChannels() {
                   className="inline-flex items-center justify-center gap-1.5"
                 >
                   <MessageSquare className="h-3.5 w-3.5" />
-                  <span>Chat on WhatsApp</span>
+                  <span>Start Chat</span>
                   <ExternalLink className="h-3 w-3 opacity-70" />
                 </a>
               </Button>
@@ -128,23 +128,23 @@ export function SupportContactChannels() {
           </div>
 
           {/* 3. Email Support */}
-          <div className="flex flex-col justify-between rounded-2xl bg-slate-50/80 p-6 border border-slate-200/80 hover:border-indigo-500/40 hover:bg-white hover:shadow-lg transition-all duration-300">
+          <div className="flex flex-col justify-between rounded-2xl bg-white p-6 border border-[#d2d2d7]/70 hover:border-indigo-500/60 hover:shadow-lg transition-all duration-300">
             <div className="space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600">
                 <Mail className="h-6 w-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-900">
-                  Official Email Desk
+                <h3 className="text-base font-semibold text-[#1d1d1f]">
+                  Email Support
                 </h3>
-                <p className="text-xs text-slate-500">
-                  For warranty claims, corporate fleets, and escalated after-sales inquiries.
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  Send us your question or request and our technical team will reply promptly.
                 </p>
-                <p className="font-mono text-sm font-bold text-slate-900 pt-1">
+                <p className="font-mono text-sm font-semibold text-[#1d1d1f] pt-1">
                   {SUPPORT_CONFIG.supportEmail}
                 </p>
               </div>
-              <div className="text-[11px] text-slate-500 pt-1 flex items-center gap-1.5">
+              <div className="text-[11px] text-[#86868b] pt-1 flex items-center gap-1.5">
                 <Clock className="h-3.5 w-3.5 text-slate-400" />
                 <span>Typical response within 12 hours</span>
               </div>
@@ -154,7 +154,7 @@ export function SupportContactChannels() {
               <Button
                 asChild
                 variant="outline"
-                className="w-full rounded-xl border-slate-300 text-slate-900 hover:bg-slate-100 text-xs font-bold"
+                className="w-full rounded-xl border-[#d2d2d7] text-[#1d1d1f] hover:bg-[#f5f5f7] text-xs font-medium"
               >
                 <a href={`mailto:${SUPPORT_CONFIG.supportEmail}?subject=Support%20Inquiry%20-%20SiOL%20Device`}>
                   <Mail className="h-3.5 w-3.5 mr-1.5" />
@@ -165,23 +165,23 @@ export function SupportContactChannels() {
           </div>
 
           {/* 4. In-Person Lounge Visit */}
-          <div className="flex flex-col justify-between rounded-2xl bg-slate-50/80 p-6 border border-slate-200/80 hover:border-primary/40 hover:bg-white hover:shadow-lg transition-all duration-300">
+          <div className="flex flex-col justify-between rounded-2xl bg-white p-6 border border-[#d2d2d7]/70 hover:border-[#0071e3]/60 hover:shadow-lg transition-all duration-300">
             <div className="space-y-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-600">
                 <Store className="h-6 w-6" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-900">
-                  Visit Flagship Lounge
+                <h3 className="text-base font-semibold text-[#1d1d1f]">
+                  Authorized Service Provider
                 </h3>
-                <p className="text-xs text-slate-500">
-                  Walk in for espresso coffee, live device diagnostics, and 1-hour fast-track screen service.
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  Find an authorized location to bring your device in for certified diagnostics and repairs.
                 </p>
-                <p className="text-xs font-bold text-slate-700 pt-1">
+                <p className="text-xs font-semibold text-[#1d1d1f] pt-1">
                   Mumbai • Delhi • Bengaluru • Pune
                 </p>
               </div>
-              <div className="text-[11px] text-slate-500 pt-1 flex items-center gap-1.5">
+              <div className="text-[11px] text-[#86868b] pt-1 flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5 text-slate-400" />
                 <span>Open 7 days a week</span>
               </div>
@@ -191,11 +191,11 @@ export function SupportContactChannels() {
               <Button
                 asChild
                 variant="outline"
-                className="w-full rounded-xl border-slate-300 text-slate-900 hover:bg-slate-100 text-xs font-bold"
+                className="w-full rounded-xl border-[#d2d2d7] text-[#1d1d1f] hover:bg-[#f5f5f7] text-xs font-medium"
               >
                 <a href="#service-centers">
                   <Store className="h-3.5 w-3.5 mr-1.5" />
-                  <span>View Lounges</span>
+                  <span>Find a Location</span>
                 </a>
               </Button>
             </div>

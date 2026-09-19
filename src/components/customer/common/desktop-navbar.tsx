@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import {
   ArrowRight,
   Building2,
   ChevronDown,
+  ChevronRight,
   Grid2X2,
   Heart,
   LayoutDashboard,
@@ -21,6 +22,7 @@ import {
   Store,
   Tag,
   User,
+  Zap,
 } from "lucide-react";
 import { isMultiVendorEnabled, isDistributorProgramEnabled } from "@/config/features";
 import { Button } from "@/components/ui/button";
@@ -36,8 +38,8 @@ import { useCustomerWishlistStore } from "@/features/customer/wishlist/store";
 import { useCustomerProfileStore } from "@/features/customer/profile/store";
 import { useCustomerCartAndCheckoutStore } from "@/features/customer/cart-and-checkout/store";
 import { useCustomerOrdersStore } from "@/features/customer/orders/store";
-import { getCustomerCategories } from "@/features/customer/products/api";
-import type { ProductCategory } from "@/features/customer/products/types";
+import { getCustomerCategories, getCustomerProducts } from "@/features/customer/products/api";
+import type { ProductCategory, CustomerProduct } from "@/features/customer/products/types";
 import CustomerWishlistDialog from "../wishlist/customer-wishlist-dialog";
 import CustomerProfileDialog from "../profile/customer-profile-dialog";
 import CustomerCartAndCheckoutDrawer from "../cart-and-checkout/customer-cart-and-checkout-drawer";
@@ -50,6 +52,9 @@ export function CustomerNavbar() {
   const { isBootstrapped, user } = useAuthStore();
 
   const [categories, setCategories] = useState<ProductCategory[]>([]);
+  const [products, setProducts] = useState<CustomerProduct[]>([]);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(false);
+  const [activeMegaCategory, setActiveMegaCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [isMegaPanelOpen, setIsMegaPanelOpen] = useState(false);
   const [closeTimeout, setCloseTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
@@ -90,7 +95,99 @@ export function CustomerNavbar() {
     void getCustomerCategories().then((res) => {
       if (res) setCategories(res);
     });
+
+    let isMounted = true;
+    setIsLoadingProducts(true);
+    getCustomerProducts({ sort: "recent" })
+      .then((res) => {
+        if (isMounted && res) {
+          setProducts(res);
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load products for mega menu:", err);
+      })
+      .finally(() => {
+        if (isMounted) setIsLoadingProducts(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  const megaTabs = useMemo(
+    () => [
+      { id: "all", label: "All Highlights" },
+      { id: "flagship", label: "Flagships & Pro" },
+      { id: "foldable", label: "Foldables & Flips" },
+      { id: "5g", label: "5G Series" },
+      { id: "audio", label: "Audio & Power" },
+    ],
+    [],
+  );
+
+  const displayedProducts = useMemo(() => {
+    if (!products || products.length === 0) return [];
+
+    let filtered = products;
+    if (activeMegaCategory === "flagship") {
+      filtered = products.filter((p) => {
+        const cat = (p.category?.name || "").toLowerCase();
+        const title = p.title.toLowerCase();
+        return (
+          cat.includes("flagship") ||
+          cat.includes("camera") ||
+          title.includes("ultra") ||
+          title.includes("pro") ||
+          title.includes("titanium")
+        );
+      });
+    } else if (activeMegaCategory === "foldable") {
+      filtered = products.filter((p) => {
+        const cat = (p.category?.name || "").toLowerCase();
+        const title = p.title.toLowerCase();
+        return (
+          cat.includes("fold") ||
+          cat.includes("flip") ||
+          title.includes("fold") ||
+          title.includes("flip")
+        );
+      });
+    } else if (activeMegaCategory === "5g") {
+      filtered = products.filter((p) => {
+        const cat = (p.category?.name || "").toLowerCase();
+        const title = p.title.toLowerCase();
+        return (
+          cat.includes("5g") ||
+          cat.includes("gaming") ||
+          title.includes("5g") ||
+          title.includes("rog")
+        );
+      });
+    } else if (activeMegaCategory === "audio") {
+      filtered = products.filter((p) => {
+        const cat = (p.category?.name || "").toLowerCase();
+        const title = p.title.toLowerCase();
+        return (
+          cat.includes("audio") ||
+          cat.includes("bud") ||
+          cat.includes("charger") ||
+          cat.includes("magsafe") ||
+          cat.includes("watch") ||
+          title.includes("airpod") ||
+          title.includes("bud") ||
+          title.includes("charger")
+        );
+      });
+    }
+
+    if (filtered.length === 0) {
+      filtered = products;
+    }
+
+    return filtered.slice(0, 5);
+  }, [products, activeMegaCategory]);
 
   useEffect(() => {
     if (!isLoaded || !isBootstrapped) return;
@@ -360,201 +457,275 @@ export function CustomerNavbar() {
         <CustomerCartAndCheckoutDrawer />
       </div>
 
-      {/* Horizontal Dropdown Mega Panel on Desktop Nav Hover */}
+      {/* Horizontal Dropdown Mega Panel on Desktop Nav Hover (Samsung-Inspired Animated Image Cards) */}
       {isMegaPanelOpen ? (
         <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="absolute left-0 right-0 top-full z-50 border-b border-neutral-200 bg-white/98 backdrop-blur-md shadow-2xl animate-in fade-in-0 slide-in-from-top-2 duration-200"
+          className="absolute left-0 right-0 top-full z-50 border-b border-neutral-200 bg-white/98 backdrop-blur-xl shadow-2xl animate-in fade-in-0 slide-in-from-top-2 duration-200"
         >
-          <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Column 1: Store Categories */}
-            <div>
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
-                <Grid2X2 className="h-4 w-4 text-primary" />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                  Categories
-                </h4>
-              </div>
-              <div className="space-y-1 max-h-60 overflow-y-auto pr-2">
-                {categories.length > 0 ? (
-                  categories.map((c) => (
-                    <Link
-                      key={c._id}
-                      to={`/collections?category=${c._id}`}
-                      onClick={() => setIsMegaPanelOpen(false)}
-                      className="group flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium text-neutral-600 hover:bg-primary/5 hover:text-primary transition"
+          <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 space-y-4">
+            {/* Top Navigation Strip: Samsung-style Minimal Category Tabs + View All CTA */}
+            <div className="flex items-center justify-between border-b border-neutral-200/90 pb-3 gap-4">
+              <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-none py-0.5">
+                {megaTabs.map((tab) => {
+                  const isActive = activeMegaCategory === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveMegaCategory(tab.id)}
+                      className={`relative px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer rounded-none select-none shrink-0 ${
+                        isActive
+                          ? "text-neutral-950 font-bold"
+                          : "text-neutral-500 hover:text-neutral-900"
+                      }`}
                     >
-                      <span>{c.name}</span>
-                      <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Link>
-                  ))
-                ) : (
-                  <p className="text-xs text-neutral-400 italic">
-                    Loading categories...
-                  </p>
-                )}
+                      {tab.label}
+                      {isActive && (
+                        <span className="absolute inset-x-2 -bottom-3 h-[2px] bg-neutral-950 transition-all duration-300" />
+                      )}
+                    </button>
+                  );
+                })}
               </div>
-            </div>
 
-            {/* Column 2: Highlights & Series */}
-            <div>
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
-                <Sparkles className="h-4 w-4 text-amber-500" />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                  Highlights & Series
-                </h4>
-              </div>
-              <div className="space-y-1.5">
+              <div className="flex items-center gap-4 shrink-0">
                 <Link
                   to="/collections"
                   onClick={() => setIsMegaPanelOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
+                  className="group inline-flex items-center gap-1.5 text-xs font-bold text-neutral-900 hover:text-primary transition"
                 >
-                  <ShoppingBag className="h-4 w-4 text-primary" />
-                  <div>
-                    <p className="font-semibold text-neutral-900">All Smartphones</p>
-                    <p className="text-[11px] text-neutral-500">Explore complete catalog</p>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/collections?sort=recent"
-                  onClick={() => setIsMegaPanelOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
-                >
-                  <Grid2X2 className="h-4 w-4 text-primary" />
-                  <div>
-                    <p className="font-semibold text-neutral-900">Flagship & Pro Series</p>
-                    <p className="text-[11px] text-neutral-500">Top-tier mobile performance</p>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/collections"
-                  onClick={() => setIsMegaPanelOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
-                >
-                  <Sparkles className="h-4 w-4 text-purple-600" />
-                  <div>
-                    <p className="font-semibold text-neutral-900">Foldables & AI Phones</p>
-                    <p className="text-[11px] text-neutral-500">Next-gen folding form factors</p>
-                  </div>
-                </Link>
-
-                <Link
-                  to="/collections?sort=price-low"
-                  onClick={() => setIsMegaPanelOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-rose-50 transition"
-                >
-                  <Tag className="h-4 w-4 text-rose-500" />
-                  <div>
-                    <p className="font-semibold text-rose-600">Special Exchange Deals</p>
-                    <p className="text-[11px] text-rose-500">Save up to 20% instant off</p>
-                  </div>
+                  <span>Explore All Products ({products.length})</span>
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>
 
-            {/* Column 3: Distributor Hub / Seller Services */}
-            <div>
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-neutral-100">
-                {isMultiVendorEnabled() ? (
-                  <>
-                    <Store className="h-4 w-4 text-emerald-600" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                      Seller & Services
-                    </h4>
-                  </>
-                ) : (
-                  <>
-                    <Building2 className="h-4 w-4 text-primary" />
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-900">
-                      B2B & Distribution
-                    </h4>
-                  </>
-                )}
-              </div>
-              <div className="space-y-1.5">
-                {isMultiVendorEnabled() ? (
-                  <Link
-                    to="/become-seller"
-                    onClick={() => setIsMegaPanelOpen(false)}
-                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-emerald-50 transition"
+            {/* Main Product Showcase: Samsung-Inspired Minimal UN-ROUNDED Image Cards with Hover Reveal */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 pt-1">
+              {isLoadingProducts && displayedProducts.length === 0 ? (
+                // Skeleton loading state with unrounded cards
+                Array.from({ length: 5 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="h-[345px] bg-[#f8f9fa] border border-neutral-200/70 rounded-none animate-pulse p-4 flex flex-col justify-between"
                   >
-                    <Store className="h-4 w-4 text-emerald-600" />
-                    <div>
-                      <p className="font-semibold text-emerald-700">Become a Seller</p>
-                      <p className="text-[11px] text-emerald-600">Start selling to millions</p>
+                    <div className="h-4 w-20 bg-neutral-200 rounded-none" />
+                    <div className="h-36 w-full bg-neutral-200/60 rounded-none mx-auto my-4" />
+                    <div className="space-y-2">
+                      <div className="h-3 w-16 bg-neutral-200 rounded-none" />
+                      <div className="h-4 w-full bg-neutral-200 rounded-none" />
+                      <div className="h-4 w-24 bg-neutral-300 rounded-none" />
                     </div>
-                  </Link>
-                ) : isDistributorProgramEnabled() ? (
+                  </div>
+                ))
+              ) : displayedProducts.length > 0 ? (
+                displayedProducts.map((p) => {
+                  const coverImage =
+                    p.images?.find((img) => img.isCover)?.url ||
+                    p.images?.[0]?.url ||
+                    "/categories/smartphone.png";
+                  const finalPrice =
+                    p.salePercentage > 0
+                      ? Math.round(p.price * (1 - p.salePercentage / 100))
+                      : p.price;
+
+                  return (
+                    <div
+                      key={p._id}
+                      className="group relative flex flex-col justify-between bg-[#f8f9fa] hover:bg-white border border-neutral-200/90 hover:border-neutral-950 transition-all duration-300 rounded-none overflow-hidden p-3.5 text-left cursor-pointer h-[345px] select-none"
+                    >
+                      {/* Top Header inside Card */}
+                      <div className="flex items-center justify-between gap-1 z-10">
+                        {p.salePercentage > 0 ? (
+                          <span className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-neutral-950 text-white rounded-none">
+                            Save {p.salePercentage}%
+                          </span>
+                        ) : (
+                          <span className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-neutral-200/80 text-neutral-800 rounded-none">
+                            {p.category?.name || "Flagship"}
+                          </span>
+                        )}
+
+                        <span className="text-[10px] font-medium text-emerald-600 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          In Stock
+                        </span>
+                      </div>
+
+                      {/* Product Image Stage (Floating & Smooth Zoom Animation) */}
+                      <div className="relative h-44 w-full flex items-center justify-center p-2 my-auto overflow-hidden">
+                        <img
+                          src={coverImage}
+                          alt={p.title}
+                          className="max-h-full max-w-full object-contain filter drop-shadow-sm select-none pointer-events-none transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2"
+                          loading="lazy"
+                        />
+                      </div>
+
+                      {/* Resting Product Info */}
+                      <div className="space-y-1 z-10">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 truncate">
+                          {p.brand || "SiOL"}
+                        </p>
+                        <h4 className="text-xs font-bold text-neutral-900 tracking-tight line-clamp-1 group-hover:text-primary transition-colors">
+                          {p.title}
+                        </h4>
+                        <div className="flex items-baseline gap-1.5 pt-0.5">
+                          <span className="text-xs font-bold text-neutral-950">
+                            ₹{finalPrice.toLocaleString("en-IN")}
+                          </span>
+                          {p.salePercentage > 0 && (
+                            <span className="text-[10px] text-neutral-400 line-through">
+                              ₹{p.price.toLocaleString("en-IN")}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Samsung-Inspired On-Hover Detail Drawer (Slides Up Seamlessly) */}
+                      <div className="absolute inset-x-0 bottom-0 bg-white/98 backdrop-blur-md p-3.5 border-t border-neutral-200/90 shadow-xl translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out flex flex-col gap-2.5 z-20">
+                        {/* Specs Highlight */}
+                        <div className="space-y-1">
+                          {p.sizes && p.sizes.length > 0 ? (
+                            <div className="flex items-center justify-between text-[10px]">
+                              <span className="text-neutral-500">Storage:</span>
+                              <span className="font-bold text-neutral-900">
+                                {p.sizes.slice(0, 3).join(" • ")}
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-between text-[10px]">
+                              <span className="text-neutral-500">Edition:</span>
+                              <span className="font-bold text-neutral-900">Official Direct</span>
+                            </div>
+                          )}
+
+                          {p.colors && p.colors.length > 0 && (
+                            <div className="flex items-center justify-between text-[10px]">
+                              <span className="text-neutral-500">Finishes:</span>
+                              <div className="flex items-center gap-1">
+                                {p.colors.slice(0, 4).map((c, i) => (
+                                  <span
+                                    key={i}
+                                    className="w-2.5 h-2.5 rounded-full border border-neutral-300"
+                                    style={{ backgroundColor: c }}
+                                    title={c}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Dual Action Buttons (Completely Un-rounded) */}
+                        <div className="flex items-center gap-2 pt-0.5">
+                          <Link
+                            to={`/collection/${p._id}`}
+                            onClick={() => setIsMegaPanelOpen(false)}
+                            className="flex-1 py-1.5 px-2 text-center text-[11px] font-semibold text-neutral-800 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300/80 rounded-none transition"
+                          >
+                            Learn More
+                          </Link>
+                          <Link
+                            to={`/collection/${p._id}`}
+                            onClick={() => setIsMegaPanelOpen(false)}
+                            className="flex-1 py-1.5 px-2 text-center text-[11px] font-bold text-white bg-neutral-950 hover:bg-primary rounded-none transition flex items-center justify-center gap-1"
+                          >
+                            <span>Buy</span>
+                            <ArrowRight className="h-3 w-3" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="col-span-full py-12 text-center text-neutral-500 text-xs">
+                  No products found in this category.
+                </div>
+              )}
+
+              {/* Complementary Fill Card if less than 5 products are returned */}
+              {displayedProducts.length > 0 && displayedProducts.length < 5 && (
+                <Link
+                  to="/collections"
+                  onClick={() => setIsMegaPanelOpen(false)}
+                  className="group flex flex-col justify-between bg-[#f8f9fa] hover:bg-neutral-900 text-neutral-900 hover:text-white border border-dashed border-neutral-300 hover:border-neutral-900 transition-all duration-300 rounded-none p-5 h-[345px] text-center"
+                >
+                  <div className="text-[10px] uppercase font-bold tracking-wider opacity-60">
+                    SiOL Ecosystem
+                  </div>
+                  <div className="space-y-2">
+                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-none bg-neutral-200/80 group-hover:bg-white/10 transition">
+                      <Grid2X2 className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-sm font-bold tracking-tight">
+                      Browse All Models
+                    </h4>
+                    <p className="text-xs text-neutral-500 group-hover:text-neutral-400 transition">
+                      Discover complete range of 5G flagships, foldables & audio.
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center justify-center gap-1 text-xs font-bold underline underline-offset-4">
+                    <span>View Catalog</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </div>
+                </Link>
+              )}
+            </div>
+
+            {/* Bottom Samsung-Style Utility Bar (Warranty, Orders, B2B) */}
+            <div className="pt-3 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-neutral-500">
+              <div className="flex items-center gap-3 text-[11px]">
+                <span className="flex items-center gap-1 font-semibold text-neutral-800">
+                  <ShieldCheck className="h-3.5 w-3.5 text-neutral-950" />
+                  SiOL Direct Warranty
+                </span>
+                <span>•</span>
+                <span className="hidden md:inline">Free Insured Express Delivery</span>
+                <span className="hidden md:inline">•</span>
+                <span className="hidden md:inline">7-Day Return Guarantee</span>
+              </div>
+
+              <div className="flex items-center gap-4 text-xs font-semibold">
+                {isDistributorProgramEnabled() && (
                   <Link
                     to="/become-distributor"
                     onClick={() => setIsMegaPanelOpen(false)}
-                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-primary/10 transition"
+                    className="hover:text-neutral-900 transition"
                   >
-                    <Building2 className="h-4 w-4 text-primary" />
-                    <div>
-                      <p className="font-semibold text-primary">Become a Distributor</p>
-                      <p className="text-[11px] text-neutral-500">Apply for exclusive territory rights</p>
-                    </div>
+                    B2B & Distribution
                   </Link>
-                ) : null}
-
+                )}
+                {isMultiVendorEnabled() && (
+                  <Link
+                    to="/become-seller"
+                    onClick={() => setIsMegaPanelOpen(false)}
+                    className="hover:text-neutral-900 transition"
+                  >
+                    Seller Portal
+                  </Link>
+                )}
                 <button
                   type="button"
                   onClick={() => {
                     setIsMegaPanelOpen(false);
                     openOrders();
                   }}
-                  className="w-full text-left flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition cursor-pointer"
+                  className="hover:text-neutral-900 transition cursor-pointer"
                 >
-                  <ShoppingBasket className="h-4 w-4 text-neutral-600" />
-                  <div>
-                    <p className="font-semibold text-neutral-900">Track Orders</p>
-                    <p className="text-[11px] text-neutral-500">View real-time shipments</p>
-                  </div>
+                  Track Orders
                 </button>
-
                 <Link
-                  to="/shipping-policy"
+                  to="/support"
                   onClick={() => setIsMegaPanelOpen(false)}
-                  className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs font-medium text-neutral-700 hover:bg-neutral-100 transition"
+                  className="hover:text-neutral-900 transition"
                 >
-                  <ShieldCheck className="h-4 w-4 text-neutral-600" />
-                  <div>
-                    <p className="font-semibold text-neutral-900">Free Express Delivery</p>
-                    <p className="text-[11px] text-neutral-500">Safe, insured transit</p>
-                  </div>
+                  Support & Lounges
                 </Link>
               </div>
-            </div>
-
-            {/* Column 4: Premium Showcase Banner */}
-            <div className="rounded-2xl p-5 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-950 text-white flex flex-col justify-between shadow-xl relative overflow-hidden">
-              <div className="space-y-2 relative z-10">
-                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-primary text-white uppercase tracking-wider">
-                  Exclusive Hub
-                </span>
-                <h3 className="text-base font-bold leading-snug">
-                  Next-Gen Flagships Live on Nexus
-                </h3>
-                <p className="text-xs text-neutral-300 leading-relaxed">
-                  Explore ultra-tier performance, cinematic cameras & multi-vendor warranty.
-                </p>
-              </div>
-
-              <Link
-                to="/collections"
-                onClick={() => setIsMegaPanelOpen(false)}
-                className="mt-4 inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold rounded-xl bg-white text-neutral-950 hover:bg-neutral-100 transition relative z-10 shadow-md"
-              >
-                <span>Shop Flagships</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-
-              <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-primary/20 rounded-full blur-2xl pointer-events-none" />
             </div>
           </div>
         </div>

@@ -15,15 +15,15 @@ export function DeviceServiceJourney() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 border border-slate-200 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-slate-800">
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
-            <span>Select Device Protocol</span>
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f7] border border-[#d2d2d7]/60 px-3.5 py-1 text-xs font-medium text-[#1d1d1f]">
+            <Sparkles className="h-3.5 w-3.5 text-[#0071e3]" />
+            <span>Repairs and Service</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-950">
-            Certified Service &amp; Repair Journeys
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] text-[#1d1d1f]">
+            Certified Repairs. Genuine Parts.
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-            Click on either banner to switch between our touchscreen smartphone protocol and durable feature phone protocol.
+          <p className="text-base sm:text-lg text-[#86868b] max-w-2xl mx-auto font-normal leading-relaxed">
+            Choose a product to explore certified service options and step-by-step repair journeys.
           </p>
         </div>
 
@@ -36,7 +36,7 @@ export function DeviceServiceJourney() {
             aria-label="Select Smartphone Service Journey"
             className={`group relative overflow-hidden rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-md hover:shadow-2xl ${
               selectedCategory === "smartphone"
-                ? "ring-4 ring-slate-950 ring-offset-4 scale-[1.01]"
+                ? "ring-4 ring-[#1d1d1f] ring-offset-4 scale-[1.01]"
                 : "opacity-75 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-400"
             }`}
           >
@@ -49,21 +49,21 @@ export function DeviceServiceJourney() {
               />
             </div>
             {/* Minimal Sub-Banner Label Bar (Outside Image) */}
-            <div className="py-3 px-4 bg-slate-950 text-white flex items-center justify-between">
+            <div className="py-3 px-4 bg-[#1d1d1f] text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-sky-400" />
-                <span className="text-xs sm:text-sm font-bold tracking-wide uppercase">
-                  Smartphone Service
+                <span className="h-2 w-2 rounded-full bg-[#0071e3]" />
+                <span className="text-xs sm:text-sm font-medium tracking-wide">
+                  Smartphone Repair
                 </span>
               </div>
               <span
-                className={`text-xs font-semibold px-2.5 py-0.5 rounded-full transition-colors ${
+                className={`text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors ${
                   selectedCategory === "smartphone"
-                    ? "bg-primary text-white"
+                    ? "bg-[#0071e3] text-white"
                     : "text-slate-400 group-hover:text-white"
                 }`}
               >
-                {selectedCategory === "smartphone" ? "Active Flow" : "Select Flow"}
+                {selectedCategory === "smartphone" ? "Selected" : "Select"}
               </span>
             </div>
           </button>
@@ -75,7 +75,7 @@ export function DeviceServiceJourney() {
             aria-label="Select Feature Phone Service Journey"
             className={`group relative overflow-hidden rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-md hover:shadow-2xl ${
               selectedCategory === "feature_phone"
-                ? "ring-4 ring-slate-950 ring-offset-4 scale-[1.01]"
+                ? "ring-4 ring-[#1d1d1f] ring-offset-4 scale-[1.01]"
                 : "opacity-75 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-400"
             }`}
           >
@@ -88,21 +88,21 @@ export function DeviceServiceJourney() {
               />
             </div>
             {/* Minimal Sub-Banner Label Bar (Outside Image) */}
-            <div className="py-3 px-4 bg-slate-950 text-white flex items-center justify-between">
+            <div className="py-3 px-4 bg-[#1d1d1f] text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-amber-400" />
-                <span className="text-xs sm:text-sm font-bold tracking-wide uppercase">
-                  Feature Phone Service
+                <span className="text-xs sm:text-sm font-medium tracking-wide">
+                  Feature Phone Repair
                 </span>
               </div>
               <span
-                className={`text-xs font-semibold px-2.5 py-0.5 rounded-full transition-colors ${
+                className={`text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors ${
                   selectedCategory === "feature_phone"
-                    ? "bg-primary text-white"
+                    ? "bg-[#0071e3] text-white"
                     : "text-slate-400 group-hover:text-white"
                 }`}
               >
-                {selectedCategory === "feature_phone" ? "Active Flow" : "Select Flow"}
+                {selectedCategory === "feature_phone" ? "Selected" : "Select"}
               </span>
             </div>
           </button>
@@ -114,17 +114,17 @@ export function DeviceServiceJourney() {
           <div className="flex flex-wrap items-center justify-between border-b border-slate-200 pb-5 mb-16 gap-4">
             <div className="flex items-center gap-3">
               <span className="flex h-3 w-3 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-primary" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0071e3] opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#0071e3]" />
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-950">
-                {currentJourney.name} — 4-Stage Precision Protocol
+              <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight">
+                {currentJourney.name} — Service Process
               </h3>
             </div>
-            <span className="text-xs font-mono font-bold bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 rounded-full">
+            <span className="text-xs font-medium bg-[#f5f5f7] text-[#1d1d1f] border border-[#d2d2d7]/60 px-3 py-1 rounded-full">
               {selectedCategory === "smartphone"
-                ? "ISO 9001 Cleanroom Certified"
-                : "Same-Day Counter Diagnostics"}
+                ? "Genuine Parts & Certified Technicians"
+                : "Same-Day Counter Service"}
             </span>
           </div>
 
@@ -215,20 +215,20 @@ export function DeviceServiceJourney() {
                         {/* Card Lower Content */}
                         <div className="relative z-10 p-5 sm:p-6 space-y-3 bg-white">
                           <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold uppercase tracking-widest text-primary">
-                              Stage {step.stepNumber} • {step.subtitle}
+                            <span className="text-xs font-semibold text-[#0071e3] tracking-normal">
+                              Step {step.stepNumber} • {step.subtitle}
                             </span>
-                            <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                            <span className="text-xs font-medium text-emerald-600 flex items-center gap-1">
                               <CheckCircle2 className="h-3.5 w-3.5" />
-                              OEM Standard
+                              Certified Standard
                             </span>
                           </div>
 
-                          <h4 className="text-lg sm:text-xl font-bold text-slate-950 group-hover:text-primary transition-colors leading-snug">
+                          <h4 className="text-lg sm:text-xl font-semibold text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors leading-snug tracking-tight">
                             {step.title}
                           </h4>
 
-                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-[#86868b] leading-relaxed font-normal">
                             {step.description}
                           </p>
                         </div>
