@@ -71,16 +71,11 @@ export function CustomerMobileNavbar({
   }
 
   const shopItems: NavItem[] = [
-    { label: "All Smartphones", href: "/collections", icon: ShoppingBag },
-    { label: "Flagship & Pro Series", href: "/collections?sort=recent", icon: Grid2X2 },
-    { label: "Foldables & AI Phones", href: "/collections", icon: Sparkles },
+    { label: "Smartphones", href: "/collections", icon: ShoppingBag },
+    { label: "Feature Phones", href: "/collections", icon: Grid2X2 },
+    { label: "Tablets & Laptops", href: "/collections", icon: Sparkles },
+    { label: "Audio & Wearables", href: "/collections", icon: Tag },
     { label: "Support & Repairs", href: "/support", icon: ShieldCheck },
-    {
-      label: "Exchange & Special Offers",
-      href: "/collections?sort=price-low",
-      icon: Tag,
-      badge: "SAVE 20%",
-    },
   ];
 
   return (

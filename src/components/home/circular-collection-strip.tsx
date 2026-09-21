@@ -114,7 +114,7 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
       return {
         transform: `scale(${scale.toFixed(3)}) translateY(${translateY.toFixed(1)}px)`,
         transition: "transform 220ms cubic-bezier(0.16, 1, 0.3, 1)",
-        zIndex: isPeak ? 30 : 20,
+        zIndex: isPeak ? 50 : 30,
       };
     }
 
@@ -126,8 +126,8 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
   };
 
   return (
-    <section className="relative w-full py-8 sm:py-10 my-4 select-none font-[-apple-system,BlinkMacSystemFont,'SF_Pro_Display','SF_Pro_Text',sans-serif]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+    <section className="relative z-20 w-full py-8 sm:py-10 my-4 select-none font-[-apple-system,BlinkMacSystemFont,'SF_Pro_Display','SF_Pro_Text',sans-serif] overflow-visible">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6 overflow-visible">
         
         {/* Apple-style Typography Header */}
         <div className="text-center space-y-1.5 max-w-xl mx-auto">
@@ -142,12 +142,12 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
           </p>
         </div>
 
-        {/* MacBook Dock Floating Glass Container */}
-        <div className="flex justify-center pt-2 overflow-x-auto scrollbar-none">
+        {/* MacBook Dock Floating Glass Container with ample headroom so scaling images never clip */}
+        <div className="flex justify-center pt-8 sm:pt-12 pb-4 overflow-visible">
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative px-4 sm:px-12 py-3 sm:py-5 rounded-2xl sm:rounded-[36px] bg-white/85 dark:bg-neutral-900/85 backdrop-blur-2xl border border-neutral-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.08)] flex items-end justify-center gap-4 sm:gap-6 md:gap-8 flex-nowrap max-w-[calc(100vw-2rem)] sm:max-w-none"
+            className="relative px-4 sm:px-12 py-3 sm:py-5 rounded-2xl sm:rounded-[36px] bg-white/85 dark:bg-neutral-900/85 backdrop-blur-2xl border border-neutral-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.08)] flex items-end justify-center gap-4 sm:gap-6 md:gap-8 flex-nowrap max-w-[calc(100vw-2rem)] sm:max-w-none overflow-visible z-20"
           >
             {dockItems.map((item, idx) => {
               const itemStyle = getDockItemStyle(idx);
@@ -162,10 +162,10 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
                   to={item.link}
                   onMouseEnter={() => setHoveredIdx(idx)}
                   style={itemStyle}
-                  className="group relative flex flex-col items-center shrink-0 w-[56px] sm:w-[78px] md:w-[94px] text-center focus:outline-hidden cursor-pointer origin-bottom will-change-transform"
+                  className="group relative flex flex-col items-center shrink-0 w-[56px] sm:w-[78px] md:w-[94px] text-center focus:outline-hidden cursor-pointer origin-bottom will-change-transform overflow-visible"
                 >
                   {/* Isolated Product Image - NO CONTAINER, NO SQUARE BOX */}
-                  <div className="relative flex h-11 w-11 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-[84px] lg:w-[84px] items-center justify-center">
+                  <div className="relative flex h-11 w-11 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-[84px] lg:w-[84px] items-center justify-center overflow-visible">
                     <img
                       src={item.image}
                       alt={item.name}

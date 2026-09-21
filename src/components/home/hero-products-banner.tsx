@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import { ChevronLeft, ChevronRight, ShoppingCart, Sparkles, Star } from "lucide-react";
@@ -6,6 +6,21 @@ import { toast } from "sonner";
 import { useCustomerCartAndCheckoutStore } from "@/features/customer/cart-and-checkout/store";
 import type { CustomerHomeProduct } from "@/features/customer/home/types";
 import { formatPrice } from "@/lib/utils";
+
+function getTransparentProductImage(url: string) {
+  if (!url) return "";
+  if (url.includes("res.cloudinary.com")) {
+    let cleaned = url;
+    if (cleaned.includes("e_trim")) {
+      cleaned = cleaned.replace("e_trim,", "").replace(",e_trim", "").replace("e_trim/", "");
+    }
+    if (!cleaned.includes("e_background_removal")) {
+      cleaned = cleaned.replace("/upload/", "/upload/e_background_removal/");
+    }
+    return cleaned;
+  }
+  return url;
+}
 
 type HeroProductsBannerProps = {
   products?: CustomerHomeProduct[];
@@ -74,6 +89,7 @@ export function HeroProductsBanner({
   const scrollRef = useRef<HTMLDivElement>(null);
   const { isSignedIn } = useAuth();
   const { addItem, setOpen: setCartOpen } = useCustomerCartAndCheckoutStore((state) => state);
+  const [failedBgRemoval, setFailedBgRemoval] = useState<Record<string, boolean>>({});
 
   const isFeaturePhone = variant === "feature_phone";
   const activeProducts =
@@ -213,37 +229,44 @@ export function HeroProductsBanner({
             </div>
           </div>
 
-          {/* Right Composite Lineup with Fixed-Ratio Cards */}
-          <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-3 md:gap-4 max-w-xl w-full">
-            <div className="flex items-end justify-center gap-2 sm:gap-3 md:gap-4 w-full">
-              {activeProducts.slice(0, 3).map((p, idx) => (
-                <Link
-                  key={p._id}
-                  to={`/collection/${p._id}`}
-                  className={`group relative rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-md p-2 sm:p-3 md:p-4 border shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 flex flex-col items-center justify-center overflow-hidden ${
-                    finalTheme === "amber"
-                      ? "border-amber-100 hover:border-amber-400/50"
-                      : "border-blue-100 hover:border-primary/40"
-                  } ${
-                    idx === 1
-                      ? finalTheme === "amber"
-                        ? "h-36 w-28 sm:h-48 sm:w-40 md:h-60 md:w-52 z-10 ring-2 ring-amber-500/30 shadow-amber-500/10"
-                        : "h-36 w-28 sm:h-48 sm:w-40 md:h-60 md:w-52 z-10 ring-2 ring-primary/30 shadow-blue-500/10"
-                      : "h-28 w-22 sm:h-38 sm:w-32 md:h-48 md:w-40 opacity-95"
-                  }`}
-                >
-                  <div className="h-full w-full flex items-center justify-center overflow-hidden rounded-2xl">
+          {/* Right Composite Lineup with Pure Floating Images (Identical Scheme to Classic Series) */}
+          <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-4 md:gap-6 max-w-xl w-full">
+            <div className="flex items-end justify-center gap-3 sm:gap-4 md:gap-5 w-full">
+              {activeProducts.slice(0, 3).map((p, idx) => {
+                const isCenter = idx === 1;
+                const isFailed = Boolean(failedBgRemoval[p._id]);
+                const imageUrl = isFailed ? p.image : getTransparentProductImage(p.image);
+
+                return (
+                  <Link
+                    key={p._id}
+                    to={`/collection/${p._id}`}
+                    title={p.title}
+                    className={`group relative flex flex-col items-center justify-end transition-all duration-300 hover:-translate-y-2.5 ${
+                      isCenter
+                        ? "h-40 sm:h-52 md:h-64 lg:h-72 w-28 sm:w-38 md:w-48 lg:w-56 z-10"
+                        : "h-32 sm:h-42 md:h-52 lg:h-60 w-22 sm:w-30 md:w-38 lg:w-46 opacity-95 hover:opacity-100"
+                    }`}
+                  >
+                    {/* Realistic 3D Ground/Floor Contact Shadow for Physical Depth */}
+                    <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 w-[76%] h-3 sm:h-4 rounded-[100%] bg-slate-950/20 blur-[6px] sm:blur-[8px] pointer-events-none transition-all duration-500 group-hover:w-[82%] group-hover:bg-slate-950/28 group-hover:blur-[10px]" />
+
+                    {/* Pure Floating Device Image */}
                     <img
-                      src={p.image}
+                      src={imageUrl}
                       alt={p.title}
-                      className="max-h-full max-w-full object-contain filter drop-shadow-md rounded-2xl transition-transform duration-500 group-hover:scale-105"
+                      onError={() => {
+                        if (!isFailed) {
+                          setFailedBgRemoval((prev) => ({ ...prev, [p._id]: true }));
+                        }
+                      }}
+                      className={`relative z-10 h-full w-full object-contain filter drop-shadow-[0_14px_22px_rgba(15,23,42,0.18)] drop-shadow-[0_4px_8px_rgba(15,23,42,0.08)] transition-transform duration-500 group-hover:scale-105 select-none pointer-events-none ${
+                        isFailed ? "mix-blend-multiply" : ""
+                      }`}
                     />
-                  </div>
-                  <span className="absolute bottom-2 px-2.5 py-0.5 rounded-full bg-slate-900/90 text-[10px] font-bold text-white uppercase tracking-wider backdrop-blur-md border border-white/20 truncate max-w-[90%]">
-                    {p.brand} {p.title.split(" ")[1] || ""}
-                  </span>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 

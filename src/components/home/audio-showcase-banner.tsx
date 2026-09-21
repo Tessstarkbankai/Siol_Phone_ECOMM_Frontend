@@ -9,7 +9,7 @@ export function AudioShowcaseBanner() {
           {/* Panoramic Image Showcase Card */}
           <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[24/9] min-h-[220px] sm:min-h-[340px] md:min-h-[420px] flex items-center justify-center overflow-hidden bg-slate-950">
             <img
-              src="/siol-earbuds-showcase.png"
+              src="/buds.png"
               alt="SiOL Buds Pro Wireless Earbuds"
               className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
               loading="lazy"

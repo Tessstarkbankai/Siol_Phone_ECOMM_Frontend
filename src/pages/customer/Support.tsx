@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { SupportHero } from "@/components/support/SupportHero";
 import { DeviceServiceJourney } from "@/components/support/DeviceServiceJourney";
 import { ServiceCenterLocator } from "@/components/support/ServiceCenterLocator";
 import { SupportContactChannels } from "@/components/support/SupportContactChannels";
-import { DataPrivacySection } from "@/components/support/DataPrivacySection";
+import { SupportTeaserBanner } from "@/components/support/SupportTeaserBanner";
 import { SupportFAQ } from "@/components/support/SupportFAQ";
 import { DownloadableResources } from "@/components/support/DownloadableResources";
 
 export function SupportPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-
   // SEO Page Title and Meta description
   useEffect(() => {
     document.title = "Official SiOL Support";
@@ -22,33 +20,10 @@ export function SupportPage() {
     }
   }, []);
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      const el = document.getElementById("service-centers");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }
-  };
-
-  const handleQuickTopicClick = (topic: string) => {
-    setSearchQuery(topic);
-    const el = document.getElementById("service-centers");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white text-[#1d1d1f] antialiased selection:bg-[#0071e3]/20 selection:text-[#0071e3]">
-      {/* 1. Support Hero with Main Search Bar & Quick Jump Links */}
-      <SupportHero
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        onSearchSubmit={handleSearchSubmit}
-        onQuickTopicClick={handleQuickTopicClick}
-      />
+      {/* 1. Support Hero */}
+      <SupportHero />
 
       {/* 2. Image-Centric Device Service Journey (Smartphone vs Feature Phone with Creative Animated Path) */}
       <DeviceServiceJourney />
@@ -59,8 +34,8 @@ export function SupportPage() {
       {/* 4. Human Support Contact Channels with Live IST Status */}
       <SupportContactChannels />
 
-      {/* 5. Data Privacy & Maintenance Mode Security Safeguards */}
-      <DataPrivacySection />
+      {/* 5. Next-Gen Smartphone Coming Soon Teaser Banner */}
+      <SupportTeaserBanner />
 
       {/* 6. Categorized Interactive FAQs */}
       <SupportFAQ />

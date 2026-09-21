@@ -54,7 +54,7 @@ export function CustomerNavbar() {
   const [categories, setCategories] = useState<ProductCategory[]>([]);
   const [products, setProducts] = useState<CustomerProduct[]>([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
-  const [activeMegaCategory, setActiveMegaCategory] = useState<string>("all");
+  const [activeMegaCategory, setActiveMegaCategory] = useState<string>("smartphones");
   const [searchQuery, setSearchQuery] = useState("");
   const [isMegaPanelOpen, setIsMegaPanelOpen] = useState(false);
   const [closeTimeout, setCloseTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
@@ -118,11 +118,10 @@ export function CustomerNavbar() {
 
   const megaTabs = useMemo(
     () => [
-      { id: "all", label: "All Highlights" },
-      { id: "flagship", label: "Flagships & Pro" },
-      { id: "foldable", label: "Foldables & Flips" },
-      { id: "5g", label: "5G Series" },
-      { id: "audio", label: "Audio & Power" },
+      { id: "smartphones", label: "Smartphones" },
+      { id: "feature_phones", label: "Feature Phones" },
+      { id: "tablets_laptops", label: "Tablets & Laptops" },
+      { id: "audio", label: "Audio" },
     ],
     [],
   );
@@ -130,39 +129,83 @@ export function CustomerNavbar() {
   const displayedProducts = useMemo(() => {
     if (!products || products.length === 0) return [];
 
-    let filtered = products;
-    if (activeMegaCategory === "flagship") {
+    let filtered: CustomerProduct[] = [];
+    if (activeMegaCategory === "smartphones") {
       filtered = products.filter((p) => {
         const cat = (p.category?.name || "").toLowerCase();
         const title = p.title.toLowerCase();
+        const isOther =
+          cat.includes("feature") ||
+          cat.includes("tablet") ||
+          cat.includes("laptop") ||
+          cat.includes("ipad") ||
+          cat.includes("audio") ||
+          cat.includes("bud") ||
+          cat.includes("watch") ||
+          cat.includes("charger") ||
+          cat.includes("power") ||
+          cat.includes("case") ||
+          title.includes("keypad") ||
+          title.includes("feature") ||
+          title.includes("tablet") ||
+          title.includes("laptop") ||
+          title.includes("ipad") ||
+          title.includes("macbook") ||
+          title.includes("zephyrus") ||
+          title.includes("airpod") ||
+          title.includes("headphone") ||
+          title.includes("watch") ||
+          title.includes("charger");
+
+        if (isOther) return false;
+
         return (
+          cat.includes("smartphone") ||
+          cat.includes("phone") ||
           cat.includes("flagship") ||
           cat.includes("camera") ||
-          title.includes("ultra") ||
-          title.includes("pro") ||
-          title.includes("titanium")
-        );
-      });
-    } else if (activeMegaCategory === "foldable") {
-      filtered = products.filter((p) => {
-        const cat = (p.category?.name || "").toLowerCase();
-        const title = p.title.toLowerCase();
-        return (
-          cat.includes("fold") ||
+          cat.includes("foldable") ||
           cat.includes("flip") ||
-          title.includes("fold") ||
-          title.includes("flip")
-        );
-      });
-    } else if (activeMegaCategory === "5g") {
-      filtered = products.filter((p) => {
-        const cat = (p.category?.name || "").toLowerCase();
-        const title = p.title.toLowerCase();
-        return (
           cat.includes("5g") ||
           cat.includes("gaming") ||
-          title.includes("5g") ||
-          title.includes("rog")
+          title.includes("iphone") ||
+          title.includes("galaxy") ||
+          title.includes("pixel") ||
+          title.includes("xiaomi") ||
+          title.includes("oneplus") ||
+          title.includes("nothing") ||
+          title.includes("rog phone") ||
+          title.includes("siol")
+        );
+      });
+    } else if (activeMegaCategory === "feature_phones") {
+      filtered = products.filter((p) => {
+        const cat = (p.category?.name || "").toLowerCase();
+        const title = p.title.toLowerCase();
+        return (
+          cat.includes("feature") ||
+          cat.includes("keypad") ||
+          title.includes("keypad") ||
+          title.includes("classic 4g") ||
+          title.includes("3210") ||
+          title.includes("prima") ||
+          title.includes("power 1000") ||
+          title.includes("feature phone")
+        );
+      });
+    } else if (activeMegaCategory === "tablets_laptops") {
+      filtered = products.filter((p) => {
+        const cat = (p.category?.name || "").toLowerCase();
+        const title = p.title.toLowerCase();
+        return (
+          cat.includes("tablet") ||
+          cat.includes("laptop") ||
+          cat.includes("ipad") ||
+          title.includes("ipad") ||
+          title.includes("tab") ||
+          title.includes("macbook") ||
+          title.includes("laptop") ||
+          title.includes("zephyrus")
         );
       });
     } else if (activeMegaCategory === "audio") {
@@ -172,12 +215,14 @@ export function CustomerNavbar() {
         return (
           cat.includes("audio") ||
           cat.includes("bud") ||
-          cat.includes("charger") ||
-          cat.includes("magsafe") ||
-          cat.includes("watch") ||
+          cat.includes("headphone") ||
+          cat.includes("earbud") ||
+          cat.includes("tws") ||
           title.includes("airpod") ||
           title.includes("bud") ||
-          title.includes("charger")
+          title.includes("headphone") ||
+          title.includes("wh-1000") ||
+          title.includes("quietcomfort")
         );
       });
     }

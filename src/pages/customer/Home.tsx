@@ -21,7 +21,7 @@ import { SpotlightBanners } from "@/components/home/spotlight-banners";
 import { ComingSoonSpotlight } from "@/components/home/coming-soon-spotlight";
 import { PortraitVideoStrip } from "@/components/home/portrait-video-strip";
 import { TestimonialsCarousel } from "@/components/home/testimonials-carousel";
-import { StoreLocator } from "@/components/home/store-locator";
+import { CustomerCareBanner } from "@/components/home/customer-care-banner";
 import { CommunityCarousel } from "@/components/home/community-carousel";
 import { InteractivePhoneCompare } from "@/components/home/interactive-phone-compare";
 import { SiolTeaserBanner } from "@/components/home/siol-teaser-banner";
@@ -209,8 +209,8 @@ export function StoreHome() {
 
 
 
-      {/* 11. Flagship Experience Store Locator with 3D Globe */}
-      <StoreLocator />
+      {/* 11. Proactive Customer Care & Support Section */}
+      <CustomerCareBanner />
     </div>
   );
 }

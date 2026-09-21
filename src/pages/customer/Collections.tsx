@@ -43,7 +43,7 @@ export function Collections() {
     ? `${activeCategory.name} Collection`
     : filters.brand
     ? `${filters.brand} Collection`
-    : "All Appliances & Cookware";
+    : "All Smartphones & Electronics";
 
   return (
     <div className="min-h-screen bg-background pb-16">

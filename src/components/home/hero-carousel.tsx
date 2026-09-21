@@ -290,8 +290,8 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
 
   return (
     <section className="relative w-full overflow-hidden bg-slate-950 text-white">
-      {/* Immersive Viewport */}
-      <div className="relative h-[600px] sm:h-[680px] lg:h-[740px] xl:h-[780px] w-full flex items-center justify-center">
+      {/* Immersive Viewport (Matches standard ~2.33:1 banner proportions so images and video fill edge-to-edge without letterboxing/spaces or aggressive cropping) */}
+      <div className="relative w-full aspect-[16/9] sm:aspect-[2.55/1] md:aspect-[2.33/1] lg:aspect-[2.1/1] min-h-[280px] flex items-center justify-center overflow-hidden bg-slate-950">
         {/* Background Visual Layer */}
         {slides.map((s, index) => {
           const isActive = index === current;
@@ -321,7 +321,6 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
                 ) : null
               ) : s.videoUrl ? (
                 <div className="relative h-full w-full overflow-hidden bg-black">
-                  {/* Video full-width / full-height using object-cover */}
                   <video
                     ref={isActive ? videoRef : undefined}
                     src={s.videoUrl}
@@ -336,12 +335,17 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
                   />
                 </div>
               ) : (
-                <img
-                  src={s.imageUrl}
-                  alt={s.title}
-                  loading={isActive ? "eager" : "lazy"}
-                  className="h-full w-full object-cover object-center"
-                />
+                <Link
+                  to={s.ctaLink || "/collections"}
+                  className="block h-full w-full overflow-hidden cursor-pointer"
+                >
+                  <img
+                    src={s.imageUrl}
+                    alt={s.title}
+                    loading={isActive ? "eager" : "lazy"}
+                    className="h-full w-full object-cover object-center select-none"
+                  />
+                </Link>
               )}
             </div>
           );
