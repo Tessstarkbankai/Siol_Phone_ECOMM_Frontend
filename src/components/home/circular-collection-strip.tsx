@@ -31,7 +31,7 @@ const DOCK_CATEGORIES = [
   },
   {
     id: "tablets",
-    name: "Tablets",
+    name: "Tablets & Laptops",
     image: "/categories/shopping.jpg",
     matchTerms: ["fold", "flip", "dual"],
     fallbackLink: "/collections?search=foldable",
@@ -128,7 +128,7 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
   return (
     <section className="relative z-20 w-full py-8 sm:py-10 my-4 select-none font-[-apple-system,BlinkMacSystemFont,'SF_Pro_Display','SF_Pro_Text',sans-serif] overflow-visible">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6 overflow-visible">
-        
+
         {/* Apple-style Typography Header */}
         <div className="text-center space-y-1.5 max-w-xl mx-auto">
           <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-primary">
@@ -176,18 +176,16 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
 
                   {/* Category Title in Apple Font */}
                   <span
-                    className={`mt-1.5 sm:mt-2 text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-tight leading-tight transition-colors duration-200 line-clamp-1 max-w-[60px] sm:max-w-[84px] md:max-w-[96px] ${
-                      isHovered ? "text-primary" : "text-neutral-800"
-                    }`}
+                    className={`mt-1.5 sm:mt-2 text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-tight leading-tight transition-colors duration-200 line-clamp-1 max-w-[60px] sm:max-w-[84px] md:max-w-[96px] ${isHovered ? "text-primary" : "text-neutral-800"
+                      }`}
                   >
                     {item.name}
                   </span>
 
                   {/* Active macOS Dock Indicator Dot */}
                   <span
-                    className={`h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-primary mt-1 transition-all duration-300 ${
-                      isHovered ? "opacity-100 scale-100" : "opacity-0 scale-0"
-                    }`}
+                    className={`h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-primary mt-1 transition-all duration-300 ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                      }`}
                   />
                 </Link>
               );

@@ -10,14 +10,20 @@ import { formatPrice } from "@/lib/utils";
 function getTransparentProductImage(url: string) {
   if (!url) return "";
   if (url.includes("res.cloudinary.com")) {
-    let cleaned = url;
-    if (cleaned.includes("e_trim")) {
-      cleaned = cleaned.replace("e_trim,", "").replace(",e_trim", "").replace("e_trim/", "");
+    const uploadIndex = url.indexOf("/upload/");
+    if (uploadIndex !== -1) {
+      const prefix = url.substring(0, uploadIndex + 8);
+      let rest = url.substring(uploadIndex + 8);
+      // Remove any existing background removal or trim parameters to reapply cleanly
+      rest = rest
+        .replace(/e_background_removal,?/g, "")
+        .replace(/e_trim,?/g, "")
+        .replace(/,e_trim/g, "")
+        .replace(/,e_background_removal/g, "")
+        .replace(/^\/+/, "");
+      // e_background_removal removes background, e_trim crops away all transparent padding
+      return `${prefix}e_background_removal,e_trim/${rest}`;
     }
-    if (!cleaned.includes("e_background_removal")) {
-      cleaned = cleaned.replace("/upload/", "/upload/e_background_removal/");
-    }
-    return cleaned;
   }
   return url;
 }
@@ -235,7 +241,10 @@ export function HeroProductsBanner({
               {activeProducts.slice(0, 3).map((p, idx) => {
                 const isCenter = idx === 1;
                 const isFailed = Boolean(failedBgRemoval[p._id]);
-                const imageUrl = isFailed ? p.image : getTransparentProductImage(p.image);
+                const fallbackUrl = p.image?.includes("res.cloudinary.com")
+                  ? p.image.replace("/upload/", "/upload/e_trim/")
+                  : p.image;
+                const imageUrl = isFailed ? fallbackUrl : getTransparentProductImage(p.image);
 
                 return (
                   <Link
@@ -260,7 +269,7 @@ export function HeroProductsBanner({
                           setFailedBgRemoval((prev) => ({ ...prev, [p._id]: true }));
                         }
                       }}
-                      className={`relative z-10 h-full w-full object-contain filter drop-shadow-[0_14px_22px_rgba(15,23,42,0.18)] drop-shadow-[0_4px_8px_rgba(15,23,42,0.08)] transition-transform duration-500 group-hover:scale-105 select-none pointer-events-none ${
+                      className={`relative z-10 h-full w-full object-contain object-bottom filter drop-shadow-[0_14px_22px_rgba(15,23,42,0.18)] drop-shadow-[0_4px_8px_rgba(15,23,42,0.08)] transition-transform duration-500 group-hover:scale-105 select-none pointer-events-none ${
                         isFailed ? "mix-blend-multiply" : ""
                       }`}
                     />

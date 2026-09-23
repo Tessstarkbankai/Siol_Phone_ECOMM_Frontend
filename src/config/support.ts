@@ -861,13 +861,15 @@ export const POPULAR_CITIES_DATA: PopularCityItem[] = [
  *
  * NOTE: These image URLs can be replaced with Google Drive URLs or direct CDN links.
  */
-export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", DeviceServiceCategory> = {
+export const DEVICE_SERVICE_JOURNEYS: Record<
+  "smartphone" | "feature_phone" | "tablet" | "laptop",
+  DeviceServiceCategory
+> = {
   smartphone: {
     id: "smartphone",
     name: "Smartphone Repair & Service",
     badge: "Certified Hardware & Display",
     tagline: "Certified repairs with genuine parts, precision calibration, and factory water-seal reconditioning.",
-    // Main Banner Image (Replace with Google Drive or CDN link anytime)
     bannerImage: "./three.png",
     steps: [
       {
@@ -875,8 +877,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Start Your Service Request",
         subtitle: "Tell us what's happening",
         description: "Tell us what’s happening with your device to explore troubleshooting steps or schedule service.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./1.png",
         highlightBadge: "Fast Diagnostic",
       },
       {
@@ -884,8 +885,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Bring It In or Send It In",
         subtitle: "Choose a service option",
         description: "Schedule a visit at an Authorized Service Provider or arrange an express mail-in repair.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./2.png",
         highlightBadge: "Flexible Options",
       },
       {
@@ -893,8 +893,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Certified Repair with Genuine Parts",
         subtitle: "Factory precision",
         description: "Trained technicians use genuine parts and specialized tools to restore your device to original factory specifications.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1588508065123-287b28e013da?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./3.png",
         highlightBadge: "Genuine Parts",
       },
       {
@@ -902,8 +901,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Fully Tested, Backed by Warranty",
         subtitle: "Ready for you",
         description: "Your device is thoroughly tested, sanitized, and returned backed by our comprehensive service warranty.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./4.png",
         highlightBadge: "Service Warranty",
       },
     ],
@@ -913,7 +911,6 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
     name: "Feature Phone Repair & Service",
     badge: "Keypad, Battery & Audio",
     tagline: "Rapid counter diagnostics, genuine tactile keypads, high-decibel speakers, and VoLTE antenna tuning.",
-    // Main Banner Image (Replace with Google Drive or CDN link anytime)
     bannerImage: "./feature.png",
     steps: [
       {
@@ -921,8 +918,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Quick Counter Inspection",
         subtitle: "Immediate intake",
         description: "Immediate physical evaluation of ports, tactile keypad responsiveness, and battery health on the spot.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./1.png",
         highlightBadge: "Immediate Intake",
       },
       {
@@ -930,8 +926,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Power & Circuit Diagnostics",
         subtitle: "Testing and verification",
         description: "Specialized analysis of battery discharge curves, charging circuitry, and loudspeaker acoustic output.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./2.png",
         highlightBadge: "Diagnostic Scan",
       },
       {
@@ -939,8 +934,7 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Genuine Part Replacement",
         subtitle: "Authentic components",
         description: "Replacement with genuine tactile keypad membranes, high-density cells, and reinforced housing.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./3.png",
         highlightBadge: "Genuine Parts",
       },
       {
@@ -948,9 +942,90 @@ export const DEVICE_SERVICE_JOURNEYS: Record<"smartphone" | "feature_phone", Dev
         title: "Same-Day Return & Warranty",
         subtitle: "Ready in 45 mins",
         description: "Comprehensive cellular test, microphone check, and same-day handover backed by official repair warranty.",
-        // Step Image (Replace with Google Drive or CDN link anytime)
-        imageUrl: "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=800&auto=format&fit=crop",
+        imageUrl: "./4.png",
         highlightBadge: "Same-Day Service",
+      },
+    ],
+  },
+  tablet: {
+    id: "tablet",
+    name: "Tablet Repair & Service",
+    badge: "Digitizer, Stylus & Motherboard",
+    tagline: "Ultra-thin display re-lamination, battery replacement, magnetic stylus sensor calibration, and USB-C port servicing.",
+    bannerImage: "/tablet-repair.jpg",
+    steps: [
+      {
+        stepNumber: "01",
+        title: "Multi-Point Digitizer Diagnostic",
+        subtitle: "Touch latency & grid check",
+        description: "Automated digitizer calibration scan detecting touch matrix dead-zones, pressure sensitivity anomalies, and refresh rate latency.",
+        imageUrl: "./1.png",
+        highlightBadge: "Precision Scan",
+      },
+      {
+        stepNumber: "02",
+        title: "Dust-Free Cleanroom Disassembly",
+        subtitle: "Zero-dust environment",
+        description: "ISO Class 5 certified laminar flow workstation disassembly prevents microscopic dust ingress beneath optical bonding layers.",
+        imageUrl: "./2.png",
+        highlightBadge: "Cleanroom Standard",
+      },
+      {
+        stepNumber: "03",
+        title: "Genuine Cell & Panel Lamination",
+        subtitle: "OEM parts replacement",
+        description: "Direct factory laminated OLED display assembly and high-density cell replacement with thermal dissipation graphene pads.",
+        imageUrl: "./3.png",
+        highlightBadge: "Original Parts",
+      },
+      {
+        stepNumber: "04",
+        title: "Active Stylus & Thermal Stress Testing",
+        subtitle: "Full validation pass",
+        description: "Rigorous 4096-level stylus tilt and pressure validation, fast charging thermal profile run, and comprehensive warranty registration.",
+        imageUrl: "./4.png",
+        highlightBadge: "Quality Certified",
+      },
+    ],
+  },
+  laptop: {
+    id: "laptop",
+    name: "Laptop Repair & Service",
+    badge: "Motherboard, Thermals & Display",
+    tagline: "Component-level micro-soldering, thermal paste re-application, high-speed NVMe data recovery, and keyboard reconditioning.",
+    bannerImage: "/laptop-repair.jpg",
+    steps: [
+      {
+        stepNumber: "01",
+        title: "Hardware Architecture Diagnostic",
+        subtitle: "Power rails & board diagnostics",
+        description: "Infrared thermal imaging and oscilloscope multimeter analysis to pinpoint short circuits on motherboard power rails and GPU lines.",
+        imageUrl: "./1.png",
+        highlightBadge: "Circuit Diagnostic",
+      },
+      {
+        stepNumber: "02",
+        title: "Thermal Overhaul & Liquid Cleaning",
+        subtitle: "Cooling system restoration",
+        description: "High-pressure ultrasonic board cleaning, dual vapor-chamber flush, and aerospace-grade phase-change thermal interface reapplication.",
+        imageUrl: "./2.png",
+        highlightBadge: "Thermal Restoration",
+      },
+      {
+        stepNumber: "03",
+        title: "Component-Level Part Replacement",
+        subtitle: "OEM switches & color-grade panels",
+        description: "Installation of factory-certified high-color gamut IPS/OLED panels, tactile scissor-switch keyboards, and official Li-polymer battery arrays.",
+        imageUrl: "./3.png",
+        highlightBadge: "OEM Certified",
+      },
+      {
+        stepNumber: "04",
+        title: "24-Hour Benchmark Stress Test",
+        subtitle: "Heavy workload certification",
+        description: "Comprehensive burn-in CPU/GPU benchmark runs, battery cycle stability analysis, and handover backed by SiOL Pro Care Warranty.",
+        imageUrl: "./4.png",
+        highlightBadge: "Pro Care Certified",
       },
     ],
   },

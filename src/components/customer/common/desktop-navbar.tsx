@@ -311,10 +311,10 @@ export function CustomerNavbar() {
             </Link>
 
             <Link
-              to="/collections?sort=recent"
+              to="/privacy-policy"
               className="px-3 py-2 text-xs font-semibold rounded-xl text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 transition"
             >
-              Flagships
+              Policies
             </Link>
 
             <Link

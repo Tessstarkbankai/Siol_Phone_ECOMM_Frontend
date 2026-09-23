@@ -10,9 +10,20 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const CATEGORIES: Array<{
+  id: "smartphone" | "feature_phone" | "tablet" | "laptop";
+  label: string;
+  dotColor: string;
+}> = [
+  { id: "smartphone", label: "Smartphone Repair", dotColor: "bg-[#0071e3]" },
+  { id: "feature_phone", label: "Feature Phone Repair", dotColor: "bg-amber-400" },
+  { id: "tablet", label: "Tablet Repair", dotColor: "bg-emerald-400" },
+  { id: "laptop", label: "Laptop Repair", dotColor: "bg-purple-400" },
+];
+
 export function DeviceServiceJourney() {
   const [selectedCategory, setSelectedCategory] =
-    useState<"smartphone" | "feature_phone">("smartphone");
+    useState<"smartphone" | "feature_phone" | "tablet" | "laptop">("smartphone");
 
   const [activeStepIndices, setActiveStepIndices] = useState<number[]>([0]);
   const timelineContainerRef = useRef<HTMLDivElement>(null);
@@ -123,106 +134,78 @@ export function DeviceServiceJourney() {
   return (
     <section
       id="device-service"
-      className="py-14 sm:py-24 bg-white text-slate-900 border-b border-slate-200/80 overflow-hidden"
+      className="py-10 sm:py-16 bg-white text-slate-900 border-b border-slate-200/80 overflow-hidden"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="text-center max-w-3xl mx-auto space-y-2.5">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f7] border border-[#d2d2d7]/60 px-3.5 py-1 text-xs font-medium text-[#1d1d1f]">
             <Sparkles className="h-3.5 w-3.5 text-[#0071e3]" />
             <span>Repairs and Service</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[-0.025em] text-[#1d1d1f]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.025em] text-[#1d1d1f]">
             Certified Repairs. Genuine Parts.
           </h2>
-          <p className="text-base sm:text-lg text-[#86868b] max-w-2xl mx-auto font-normal leading-relaxed">
-            Choose a product to explore certified service options and step-by-step repair journeys.
+          <p className="text-sm sm:text-base text-[#86868b] max-w-2xl mx-auto font-normal leading-relaxed">
+            Choose a product category to explore certified service options and step-by-step repair journeys.
           </p>
         </div>
 
-        {/* 1. DUAL FULL-WIDTH DEVICE SELECTOR BANNERS (Image-Only) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {/* Smartphone Banner Card */}
-          <button
-            type="button"
-            onClick={() => setSelectedCategory("smartphone")}
-            aria-label="Select Smartphone Service Journey"
-            className={`group relative overflow-hidden rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-md hover:shadow-2xl ${
-              selectedCategory === "smartphone"
-                ? "ring-4 ring-[#1d1d1f] ring-offset-4 scale-[1.01]"
-                : "opacity-75 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-400"
-            }`}
-          >
-            <div className="relative h-64 sm:h-80 md:h-[380px] w-full overflow-hidden bg-slate-950">
-              <img
-                src={DEVICE_SERVICE_JOURNEYS.smartphone.bannerImage}
-                alt="Smartphone Service Banner"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-            <div className="py-3 px-4 bg-[#1d1d1f] text-white flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-[#0071e3]" />
-                <span className="text-xs sm:text-sm font-medium tracking-wide">
-                  Smartphone Repair
-                </span>
-              </div>
-              <span
-                className={`text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors ${
-                  selectedCategory === "smartphone"
-                    ? "bg-[#0071e3] text-white"
-                    : "text-slate-400 group-hover:text-white"
-                }`}
-              >
-                {selectedCategory === "smartphone" ? "Selected" : "Select"}
-              </span>
-            </div>
-          </button>
+        {/* 1. 4-CARD DEVICE SELECTOR GRID (Compact & Uncropped with object-contain) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {CATEGORIES.map((cat) => {
+            const journey = DEVICE_SERVICE_JOURNEYS[cat.id];
+            const isSelected = selectedCategory === cat.id;
 
-          {/* Feature Phone Banner Card */}
-          <button
-            type="button"
-            onClick={() => setSelectedCategory("feature_phone")}
-            aria-label="Select Feature Phone Service Journey"
-            className={`group relative overflow-hidden rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-md hover:shadow-2xl ${
-              selectedCategory === "feature_phone"
-                ? "ring-4 ring-[#1d1d1f] ring-offset-4 scale-[1.01]"
-                : "opacity-75 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-400"
-            }`}
-          >
-            <div className="relative h-64 sm:h-80 md:h-[380px] w-full overflow-hidden bg-slate-950">
-              <img
-                src={DEVICE_SERVICE_JOURNEYS.feature_phone.bannerImage}
-                alt="Feature Phone Service Banner"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-            <div className="py-3 px-4 bg-[#1d1d1f] text-white flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-amber-400" />
-                <span className="text-xs sm:text-sm font-medium tracking-wide">
-                  Feature Phone Repair
-                </span>
-              </div>
-              <span
-                className={`text-xs font-medium px-2.5 py-0.5 rounded-full transition-colors ${
-                  selectedCategory === "feature_phone"
-                    ? "bg-[#0071e3] text-white"
-                    : "text-slate-400 group-hover:text-white"
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setSelectedCategory(cat.id)}
+                aria-label={`Select ${cat.label}`}
+                className={`group relative overflow-hidden rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl bg-white ${
+                  isSelected
+                    ? "ring-3 ring-[#1d1d1f] ring-offset-2 scale-[1.01]"
+                    : "opacity-80 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-300"
                 }`}
               >
-                {selectedCategory === "feature_phone" ? "Selected" : "Select"}
-              </span>
-            </div>
-          </button>
+                {/* Image Container: Clean studio frame, compact height, object-contain so NO device is cropped */}
+                <div className="relative h-44 sm:h-48 lg:h-52 w-full overflow-hidden bg-[#fbfbfd] p-3 sm:p-4 flex items-center justify-center">
+                  <img
+                    src={journey.bannerImage}
+                    alt={cat.label}
+                    className="h-full w-full object-contain select-none transition-transform duration-500 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Bottom Bar: Label, status dot, and selected badge */}
+                <div className="py-2.5 px-3.5 bg-[#1d1d1f] text-white flex items-center justify-between">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className={`h-2 w-2 shrink-0 rounded-full ${cat.dotColor}`} />
+                    <span className="text-xs sm:text-[13px] font-medium tracking-wide truncate">
+                      {cat.label}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-[11px] font-medium px-2 py-0.5 rounded-full transition-colors shrink-0 ml-2 ${
+                      isSelected
+                        ? "bg-[#0071e3] text-white"
+                        : "text-slate-400 group-hover:text-white"
+                    }`}
+                  >
+                    {isSelected ? "Selected" : "Select"}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* 2. NEON BLUE GLOWING STRAIGHT TIMELINE SERVICE PROCESS (GSAP BIDIRECTIONAL SCROLL, CARD-LESS, FLOATING IMAGES) */}
-        <div className="relative pt-8">
+        <div className="relative pt-4 sm:pt-6">
           {/* Active Flow Title */}
-          <div className="flex flex-wrap items-center justify-between border-b border-slate-200 pb-5 mb-16 gap-4">
+          <div className="flex flex-wrap items-center justify-between border-b border-slate-200 pb-5 mb-14 gap-4">
             <div className="flex items-center gap-3">
               <span className="flex h-3 w-3 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75" />
@@ -233,9 +216,7 @@ export function DeviceServiceJourney() {
               </h3>
             </div>
             <span className="text-xs font-medium bg-[#f5f5f7] text-[#1d1d1f] border border-[#d2d2d7]/60 px-3 py-1 rounded-full">
-              {selectedCategory === "smartphone"
-                ? "Genuine Parts & Certified Technicians"
-                : "Same-Day Counter Service"}
+              {currentJourney.badge}
             </span>
           </div>
 

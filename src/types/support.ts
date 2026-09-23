@@ -81,7 +81,7 @@ export type ServiceJourneyStep = {
 };
 
 export type DeviceServiceCategory = {
-  id: "smartphone" | "feature_phone";
+  id: "smartphone" | "feature_phone" | "tablet" | "laptop";
   name: string;
   badge: string;
   tagline: string;
