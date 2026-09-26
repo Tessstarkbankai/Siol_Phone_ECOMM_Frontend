@@ -17,7 +17,7 @@ export function PrivacyPolicyPage() {
       title="Privacy Policy"
       eyebrow="Data Protection & Compliance"
       subtitle="How we safeguard your information, secure your transactions, and respect your privacy across all SiOL services."
-      heroImage="/policy-privacy-hero.jpg"
+      heroImage="/privacy.jpg"
       lastUpdated="[Date, e.g. September 22, 2026]"
       sections={SECTIONS}
     >

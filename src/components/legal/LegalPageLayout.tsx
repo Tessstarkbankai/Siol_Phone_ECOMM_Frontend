@@ -105,45 +105,19 @@ export function LegalPageLayout({
         </div>
       </nav>
 
-      {/* Hero Banner at Start of Section (inspired by Support page hero) */}
-      <section className="relative w-full h-[340px] sm:h-[400px] md:h-[440px] flex flex-col justify-center items-center overflow-hidden text-center">
-        {/* Working High-Resolution Background Image */}
-        <div className="absolute inset-0 z-0">
+      {/* Hero Banner at Start of Section - Clean Pure Image Only (No Text, No Dark Overlay, No Cropping) */}
+      <section className="relative w-full bg-[#f8f9fa] border-b border-[#e5e5e7]">
+        <div className="w-full flex items-center justify-center">
           <img
             src={heroImage}
             alt={title}
-            className="w-full h-full object-cover object-center select-none scale-105"
+            className="w-full h-auto block select-none"
           />
-          {/* Atmospheric gradient overlay for contrast and legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/65" />
         </div>
-
-        {/* Hero Content */}
-        <div className="relative z-10 w-full max-w-3xl px-6 sm:px-8 py-10 flex flex-col items-center">
-          {eyebrow && (
-            <span className="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#38bdf8] mb-3">
-              {eyebrow}
-            </span>
-          )}
-          <h1 className="text-3xl sm:text-5xl md:text-[52px] font-semibold text-white tracking-tight leading-[1.12]">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="mt-3 text-sm sm:text-base md:text-lg text-slate-200 font-normal leading-relaxed max-w-xl">
-              {subtitle}
-            </p>
-          )}
-          <p className="text-[12px] sm:text-[13px] text-slate-300/80 mt-4 font-normal">
-            Last updated: {lastUpdated}
-          </p>
-        </div>
-
-        {/* Bottom Rounded Card Overlap Curve into Content Section */}
-        <div className="absolute inset-x-0 bottom-0 h-8 sm:h-12 bg-white rounded-t-[32px] sm:rounded-t-[48px] pointer-events-none z-10" />
       </section>
 
       {/* Main Content Area */}
-      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 pt-6 sm:pt-10 pb-28 sm:pb-36">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 pt-8 sm:pt-12 pb-28 sm:pb-36">
         {/* Mobile Section Jump Bar */}
         <div className="lg:hidden sticky top-12 z-20 -mx-6 sm:-mx-8 px-6 sm:px-8 py-3 bg-[#ffffff]/95 backdrop-blur-md border-b border-[#e5e5e7] mb-10 overflow-x-auto scrollbar-none flex gap-5 text-[13px] whitespace-nowrap">
           {sections.map((section) => {
@@ -196,6 +170,7 @@ export function LegalPageLayout({
 
           {/* Editorial Reading Column */}
           <main className="max-w-[700px] w-full">
+            <h1 className="sr-only">{title}</h1>
             {children}
           </main>
         </div>

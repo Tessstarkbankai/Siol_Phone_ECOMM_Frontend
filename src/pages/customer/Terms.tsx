@@ -16,7 +16,7 @@ export function TermsPage() {
       title="Terms of Service"
       eyebrow="Legal Agreement"
       subtitle="The clear, transparent terms that govern your purchases, account, and use of our store."
-      heroImage="/policy-terms-hero.jpg"
+      heroImage="/terms.jpg"
       lastUpdated="[Date, e.g. September 22, 2026]"
       sections={SECTIONS}
     >

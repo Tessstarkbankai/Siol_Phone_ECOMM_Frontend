@@ -126,28 +126,28 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
   };
 
   return (
-    <section className="relative z-20 w-full py-8 sm:py-10 my-4 select-none font-[-apple-system,BlinkMacSystemFont,'SF_Pro_Display','SF_Pro_Text',sans-serif] overflow-visible">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6 overflow-visible">
+    <section className="relative z-20 w-full py-6 sm:py-10 my-2 sm:my-4 select-none font-[-apple-system,BlinkMacSystemFont,'SF_Pro_Display','SF_Pro_Text',sans-serif] overflow-hidden sm:overflow-visible">
+      <div className="mx-auto max-w-7xl px-2 xs:px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6 overflow-visible">
 
         {/* Apple-style Typography Header */}
-        <div className="text-center space-y-1.5 max-w-xl mx-auto">
-          <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+        <div className="text-center space-y-1 sm:space-y-1.5 max-w-xl mx-auto px-2">
+          <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             Ecosystem Lineup
           </p>
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 leading-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 leading-tight">
             Explore Hardware &amp; Ecosystem
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-500 font-normal tracking-normal">
+          <p className="text-[11px] sm:text-xs md:text-sm text-neutral-500 font-normal tracking-normal max-w-md mx-auto">
             Precision-engineered smartphones, wearables, and high-fidelity audio.
           </p>
         </div>
 
-        {/* MacBook Dock Floating Glass Container with ample headroom so scaling images never clip */}
-        <div className="flex justify-center pt-8 sm:pt-12 pb-4 overflow-visible">
+        {/* MacBook Dock Floating Glass Container with safe headroom and responsive fit on 320px */}
+        <div className="flex justify-center pt-4 sm:pt-8 md:pt-10 pb-2 sm:pb-4 w-full overflow-x-auto scrollbar-none px-1">
           <div
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative px-4 sm:px-12 py-3 sm:py-5 rounded-2xl sm:rounded-[36px] bg-white/85 dark:bg-neutral-900/85 backdrop-blur-2xl border border-neutral-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.08)] flex items-end justify-center gap-4 sm:gap-6 md:gap-8 flex-nowrap max-w-[calc(100vw-2rem)] sm:max-w-none overflow-visible z-20"
+            className="relative mx-auto px-2 xs:px-3 sm:px-8 md:px-12 py-2.5 sm:py-4 md:py-5 rounded-2xl sm:rounded-[36px] bg-white/85 dark:bg-neutral-900/85 backdrop-blur-2xl border border-neutral-200/80 shadow-[0_12px_40px_rgba(0,0,0,0.08)] flex items-end justify-center gap-1.5 xs:gap-2.5 sm:gap-6 md:gap-8 flex-nowrap shrink-0 z-20"
           >
             {dockItems.map((item, idx) => {
               const itemStyle = getDockItemStyle(idx);
@@ -162,10 +162,10 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
                   to={item.link}
                   onMouseEnter={() => setHoveredIdx(idx)}
                   style={itemStyle}
-                  className="group relative flex flex-col items-center shrink-0 w-[56px] sm:w-[78px] md:w-[94px] text-center focus:outline-hidden cursor-pointer origin-bottom will-change-transform overflow-visible"
+                  className="group relative flex flex-col items-center shrink-0 w-[48px] xs:w-[54px] sm:w-[76px] md:w-[92px] text-center focus:outline-hidden cursor-pointer origin-bottom will-change-transform overflow-visible"
                 >
                   {/* Isolated Product Image - NO CONTAINER, NO SQUARE BOX */}
-                  <div className="relative flex h-11 w-11 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-[84px] lg:w-[84px] items-center justify-center overflow-visible">
+                  <div className="relative flex h-10 w-10 xs:h-11 xs:w-11 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-[84px] lg:w-[84px] items-center justify-center overflow-visible">
                     <img
                       src={item.image}
                       alt={item.name}
@@ -176,16 +176,18 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
 
                   {/* Category Title in Apple Font */}
                   <span
-                    className={`mt-1.5 sm:mt-2 text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-tight leading-tight transition-colors duration-200 line-clamp-1 max-w-[60px] sm:max-w-[84px] md:max-w-[96px] ${isHovered ? "text-primary" : "text-neutral-800"
-                      }`}
+                    className={`mt-1 sm:mt-2 text-[9px] xs:text-[10px] sm:text-[11px] md:text-xs font-semibold tracking-tight leading-[1.15] text-center transition-colors duration-200 line-clamp-2 h-[22px] sm:h-auto flex items-center justify-center w-full max-w-[48px] xs:max-w-[54px] sm:max-w-[84px] md:max-w-[96px] ${
+                      isHovered ? "text-primary" : "text-neutral-800"
+                    }`}
                   >
                     {item.name}
                   </span>
 
                   {/* Active macOS Dock Indicator Dot */}
                   <span
-                    className={`h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-primary mt-1 transition-all duration-300 ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-0"
-                      }`}
+                    className={`h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-primary mt-1 transition-all duration-300 ${
+                      isHovered ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                    }`}
                   />
                 </Link>
               );

@@ -16,7 +16,7 @@ export function ReturnPolicyPage() {
       title="Return Policy"
       eyebrow="Customer Guarantee"
       subtitle="Hassle-free doorstep returns, complimentary reverse pickup, and prompt refunds with zero friction."
-      heroImage="/policy-return-hero.jpg"
+      heroImage="/ref.jpg"
       lastUpdated="[Date, e.g. September 22, 2026]"
       sections={SECTIONS}
     >
