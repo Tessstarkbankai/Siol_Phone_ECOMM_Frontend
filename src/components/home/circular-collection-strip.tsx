@@ -132,13 +132,13 @@ export function CircularCollectionStrip({ categories }: CircularCollectionStripP
         {/* Apple-style Typography Header */}
         <div className="text-center space-y-1 sm:space-y-1.5 max-w-xl mx-auto px-2">
           <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            Ecosystem Lineup
+            DISCOVER SIOL
           </p>
           <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 leading-tight">
-            Explore Hardware &amp; Ecosystem
+            Tech That Fits Your Life
           </h2>
           <p className="text-[11px] sm:text-xs md:text-sm text-neutral-500 font-normal tracking-normal max-w-md mx-auto">
-            Precision-engineered smartphones, wearables, and high-fidelity audio.
+            Explore smartphones, audio, wearables and more.
           </p>
         </div>
 

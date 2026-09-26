@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import {
@@ -35,6 +35,8 @@ import { useCustomerCartAndCheckoutStore } from "@/features/customer/cart-and-ch
 import { useCustomerWishlistStore } from "@/features/customer/wishlist/store";
 import { useCustomerOrdersStore } from "@/features/customer/orders/store";
 import { useCustomerProfileStore } from "@/features/customer/profile/store";
+import { getCustomerCategories } from "@/features/customer/products/api";
+import type { ProductCategory } from "@/features/customer/products/types";
 
 type CustomerMobileNavbarProps = {
   isSignedIn: boolean;
@@ -56,6 +58,21 @@ export function CustomerMobileNavbar({
   const { user } = useAuthStore();
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [categories, setCategories] = useState<ProductCategory[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    getCustomerCategories()
+      .then((data) => {
+        if (isMounted && data) {
+          setCategories(data);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const { items: wishlistItems, setOpen: setWishlistOpen } =
     useCustomerWishlistStore((state) => state);
@@ -70,13 +87,57 @@ export function CustomerMobileNavbar({
     }
   }
 
-  const shopItems: NavItem[] = [
-    { label: "Smartphones", href: "/collections", icon: ShoppingBag },
-    { label: "Feature Phones", href: "/collections", icon: Grid2X2 },
-    { label: "Tablets & Laptops", href: "/collections", icon: Sparkles },
-    { label: "Audio & Wearables", href: "/collections", icon: Tag },
-    { label: "Support & Repairs", href: "/support", icon: ShieldCheck },
-  ];
+  const shopItems: NavItem[] = useMemo(() => {
+    const smartphoneCat = categories.find((c) =>
+      c.name.toLowerCase().includes("smart")
+    );
+    const featureCat = categories.find((c) =>
+      c.name.toLowerCase().includes("feature")
+    );
+    const tabletCat = categories.find(
+      (c) =>
+        c.name.toLowerCase().includes("tablet") ||
+        c.name.toLowerCase().includes("laptop")
+    );
+    const audioCat = categories.find(
+      (c) =>
+        c.name.toLowerCase().includes("audio") ||
+        c.name.toLowerCase().includes("bud")
+    );
+
+    return [
+      {
+        label: "Smartphones",
+        href: smartphoneCat
+          ? `/collections?category=${smartphoneCat._id}`
+          : "/collections?category=smartphones",
+        icon: ShoppingBag,
+      },
+      {
+        label: "Feature Phones",
+        href: featureCat
+          ? `/collections?category=${featureCat._id}`
+          : "/collections?category=feature-phones",
+        icon: Grid2X2,
+      },
+      {
+        label: "Tablets & Laptops",
+        href: tabletCat
+          ? `/collections?category=${tabletCat._id}`
+          : "/collections?category=tablets-laptops",
+        icon: Sparkles,
+      },
+      {
+        label: "Audio & Wearables",
+        href: audioCat
+          ? `/collections?category=${audioCat._id}`
+          : "/collections?category=audio",
+        icon: Tag,
+      },
+      { label: "All Products", href: "/collections", icon: LayoutDashboard },
+      { label: "Support & Repairs", href: "/support", icon: ShieldCheck },
+    ];
+  }, [categories]);
 
   return (
     <div className="flex items-center md:hidden">

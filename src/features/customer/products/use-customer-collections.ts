@@ -22,14 +22,40 @@ export function useCustomerProductList() {
 
   const [loading, setLoading] = useState(false);
 
+  const rawCategory = searchParams.get("category") || "";
+
+  const resolvedCategory = useMemo(() => {
+    if (!rawCategory) return "";
+    if (categories.some((c) => c._id === rawCategory)) return rawCategory;
+    const lower = rawCategory.toLowerCase().replace(/[-_]/g, " ");
+    const matched = categories.find((c) => {
+      const catLower = c.name.toLowerCase();
+      if (catLower === lower) return true;
+      if (lower.includes("smart") && catLower.includes("smart")) return true;
+      if (lower.includes("feature") && catLower.includes("feature")) return true;
+      if (
+        (lower.includes("tablet") || lower.includes("laptop")) &&
+        (catLower.includes("tablet") || catLower.includes("laptop"))
+      )
+        return true;
+      if (
+        (lower.includes("audio") || lower.includes("bud") || lower.includes("wearable")) &&
+        (catLower.includes("audio") || catLower.includes("bud"))
+      )
+        return true;
+      return false;
+    });
+    return matched ? matched._id : rawCategory;
+  }, [rawCategory, categories]);
+
   const filters = useMemo<CustomerProductFilters>(
     () => ({
-      category: searchParams.get("category") || "",
+      category: resolvedCategory,
       brand: searchParams.get("brand") || "",
       color: searchParams.get("color") || "",
       size: searchParams.get("size") || "",
     }),
-    [searchParams],
+    [resolvedCategory, searchParams],
   );
 
   const search = searchParams.get("search") || "";

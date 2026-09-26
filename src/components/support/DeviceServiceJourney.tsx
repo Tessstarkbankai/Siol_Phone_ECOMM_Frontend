@@ -141,13 +141,13 @@ export function DeviceServiceJourney() {
         <div className="text-center max-w-3xl mx-auto space-y-2.5">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f7] border border-[#d2d2d7]/60 px-3.5 py-1 text-xs font-medium text-[#1d1d1f]">
             <Sparkles className="h-3.5 w-3.5 text-[#0071e3]" />
-            <span>Repairs and Service</span>
+            <span>REPAIR & SUPPORT</span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-[-0.025em] text-[#1d1d1f]">
-            Certified Repairs. Genuine Parts.
+            Device Not Working Right?
           </h2>
           <p className="text-sm sm:text-base text-[#86868b] max-w-2xl mx-auto font-normal leading-relaxed">
-            Choose a product category to explore certified service options and step-by-step repair journeys.
+            Get reliable repair support for your SIOL device.
           </p>
         </div>
 
