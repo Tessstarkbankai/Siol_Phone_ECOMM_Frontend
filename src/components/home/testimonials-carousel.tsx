@@ -85,9 +85,6 @@ const testimonials = [
   },
 ];
 
-const firstRow = testimonials.slice(0, 4);
-const secondRow = testimonials.slice(4);
-
 function ReviewCard({ item }: { item: (typeof testimonials)[0] }) {
   return (
     <div className="relative w-[280px] sm:w-[320px] md:w-[380px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-200/80 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-primary/40 flex flex-col justify-between space-y-3 sm:space-y-4 cursor-pointer">
@@ -130,29 +127,22 @@ export function TestimonialsCarousel() {
           Trusted by 50,000+ Tech Enthusiasts
         </h2>
         <p className="text-xs sm:text-sm text-neutral-600 max-w-2xl mx-auto">
-          Real feedback from verified buyers across India on camera performance, battery endurance, and same-day dispatch.
+          A community built around SIOL, creativity, and technology. Hear directly from verified buyers about their everyday SIOL experience.
         </p>
       </div>
 
       {/* Marquee Container with Left & Right Gradient Masking */}
-      <div className="relative flex flex-col items-center justify-center overflow-hidden gap-4">
-        {/* Row 1: Smooth horizontal scroll */}
-        <Marquee pauseOnHover className="[--duration:35s] [--gap:1.25rem]">
-          {firstRow.map((review) => (
-            <ReviewCard key={review.id} item={review} />
-          ))}
-        </Marquee>
-
-        {/* Row 2: Reverse smooth horizontal scroll */}
-        <Marquee reverse pauseOnHover className="[--duration:38s] [--gap:1.25rem]">
-          {secondRow.map((review) => (
+      <div className="relative flex items-center justify-center overflow-hidden">
+        {/* Single Row: Smooth horizontal scroll */}
+        <Marquee pauseOnHover className="[--duration:45s] [--gap:1.25rem]">
+          {testimonials.map((review) => (
             <ReviewCard key={review.id} item={review} />
           ))}
         </Marquee>
 
         {/* Left & Right Edge Fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-white via-white/80 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-white via-white/80 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
       </div>
     </section>
   );

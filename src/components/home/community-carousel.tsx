@@ -13,87 +13,87 @@ const DEFAULT_COMMUNITY_ITEMS: Array<{
   hashtag: string;
   link?: string;
 }> = [
-  {
-    id: "comm-1",
-    imageUrl:
-      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop",
-    title: "Unboxing the Flagship Series",
-    hashtag: "#InspirationAcademy",
-    link: "/products",
-  },
-  {
-    id: "comm-2",
-    imageUrl:
-      "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=1000&auto=format&fit=crop",
-    title: "Quick reply speech to text",
-    hashtag: "#SiOLFindFold",
-    link: "/products",
-  },
-  {
-    id: "comm-3",
-    imageUrl:
-      "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop",
-    title: "Night neon light trail masterclass",
-    hashtag: "#ShotOnSiOL",
-    link: "/products",
-  },
-  {
-    id: "comm-4",
-    imageUrl:
-      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop",
-    title: "Studio portraiture with Hasselblad colors",
-    hashtag: "#SiOLPortrait",
-    link: "/products",
-  },
-  {
-    id: "comm-5",
-    imageUrl:
-      "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1200&auto=format&fit=crop",
-    title: "Find Academy Masterclass - Mumbai Chapter",
-    hashtag: "#FindAcademy",
-    link: "/products",
-  },
-  {
-    id: "comm-6",
-    imageUrl:
-      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
-    title: "Titanium chassis architecture breakdown",
-    hashtag: "#SiOLInnovation",
-    link: "/products",
-  },
-  {
-    id: "comm-7",
-    imageUrl:
-      "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1200&auto=format&fit=crop",
-    title: "Macro photography & periscope telephoto",
-    hashtag: "#UltraClearScene",
-    link: "/products",
-  },
-  {
-    id: "comm-8",
-    imageUrl:
-      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop",
-    title: "Creators meet & creative workshop",
-    hashtag: "#SiOLCommunity",
-    link: "/products",
-  },
-  {
-    id: "comm-9",
-    imageUrl:
-      "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=1200&auto=format&fit=crop",
-    title: "Sunset reflections & dynamic range test",
-    hashtag: "#ShotOnSiOL",
-    link: "/products",
-  },
-  {
-    id: "comm-10",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop",
-    title: "Ecosystem connectivity across devices",
-    hashtag: "#SmartLife",
-    link: "/products",
-  },
-];
+    {
+      id: "comm-1",
+      imageUrl:
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop",
+      title: "Unboxing the Flagship Series",
+      hashtag: "#InspirationAcademy",
+      link: "/products",
+    },
+    {
+      id: "comm-2",
+      imageUrl:
+        "https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=1000&auto=format&fit=crop",
+      title: "Quick reply speech to text",
+      hashtag: "#SiOLFindFold",
+      link: "/products",
+    },
+    {
+      id: "comm-3",
+      imageUrl:
+        "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop",
+      title: "Night neon light trail masterclass",
+      hashtag: "#ShotOnSiOL",
+      link: "/products",
+    },
+    {
+      id: "comm-4",
+      imageUrl:
+        "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop",
+      title: "Studio portraiture with Hasselblad colors",
+      hashtag: "#SiOLPortrait",
+      link: "/products",
+    },
+    {
+      id: "comm-5",
+      imageUrl:
+        "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1200&auto=format&fit=crop",
+      title: "Find Academy Masterclass - Mumbai Chapter",
+      hashtag: "#FindAcademy",
+      link: "/products",
+    },
+    {
+      id: "comm-6",
+      imageUrl:
+        "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop",
+      title: "Titanium chassis architecture breakdown",
+      hashtag: "#SiOLInnovation",
+      link: "/products",
+    },
+    {
+      id: "comm-7",
+      imageUrl:
+        "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1200&auto=format&fit=crop",
+      title: "Macro photography & periscope telephoto",
+      hashtag: "#UltraClearScene",
+      link: "/products",
+    },
+    {
+      id: "comm-8",
+      imageUrl:
+        "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop",
+      title: "Creators meet & creative workshop",
+      hashtag: "#SiOLCommunity",
+      link: "/products",
+    },
+    {
+      id: "comm-9",
+      imageUrl:
+        "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?q=80&w=1200&auto=format&fit=crop",
+      title: "Sunset reflections & dynamic range test",
+      hashtag: "#ShotOnSiOL",
+      link: "/products",
+    },
+    {
+      id: "comm-10",
+      imageUrl:
+        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop",
+      title: "Ecosystem connectivity across devices",
+      hashtag: "#SmartLife",
+      link: "/products",
+    },
+  ];
 
 interface CommunityCarouselProps {
   communityImages?: CustomerHomeCommunityImage[];
@@ -107,7 +107,7 @@ export function CommunityCarousel({
   communityImages = [],
   banners = [],
   title = "SiOL Community",
-  description = "A home for all SiOL fans to experience content, inspiration, and our beautiful technology.",
+  description = "Join a growing community exploring photography, performance, design and everything SIOL.",
   viewAllLink = "/products",
 }: CommunityCarouselProps) {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -252,7 +252,7 @@ export function CommunityCarousel({
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[36px] font-normal leading-snug tracking-tight text-slate-900 max-w-2xl">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[28px] font-bold leading-snug text-slate-900 max-w-2xl">
             {description}
           </h2>
 

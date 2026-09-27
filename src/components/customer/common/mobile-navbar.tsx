@@ -3,20 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/react";
 import {
   Building2,
-  Grid2X2,
+  Headphones,
   Heart,
+  Laptop,
   LayoutDashboard,
+  LayoutGrid,
   LogIn,
   LogOut,
   Menu,
+  Phone,
   Search,
+  Shield,
   ShieldCheck,
   ShoppingBag,
   ShoppingCart,
-  Sparkles,
+  Smartphone,
   Store,
-  Tag,
+  Tablet,
   User,
+  Watch,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 import { isMultiVendorEnabled, isDistributorProgramEnabled } from "@/config/features";
@@ -49,6 +55,61 @@ export type NavItem = {
   icon: LucideIcon;
   badge?: string;
 };
+
+function getCategoryIcon(name: string): LucideIcon {
+  const lower = name.toLowerCase();
+  if (
+    lower.includes("smart") ||
+    lower.includes("flagship") ||
+    lower.includes("android") ||
+    lower.includes("ios") ||
+    lower.includes("iphone") ||
+    lower.includes("mobile")
+  ) {
+    if (lower.includes("feature") || lower.includes("keypad") || lower.includes("basic")) {
+      return Phone;
+    }
+    return Smartphone;
+  }
+  if (lower.includes("feature") || lower.includes("keypad") || lower.includes("basic") || lower.includes("bar")) {
+    return Phone;
+  }
+  if (lower.includes("tablet") || lower.includes("ipad")) {
+    return Tablet;
+  }
+  if (lower.includes("laptop") || lower.includes("macbook") || lower.includes("pc")) {
+    return Laptop;
+  }
+  if (
+    lower.includes("audio") ||
+    lower.includes("bud") ||
+    lower.includes("headphone") ||
+    lower.includes("earbud") ||
+    lower.includes("sound") ||
+    lower.includes("tws")
+  ) {
+    return Headphones;
+  }
+  if (lower.includes("watch") || lower.includes("band") || lower.includes("wearable")) {
+    return Watch;
+  }
+  if (
+    lower.includes("charge") ||
+    lower.includes("power") ||
+    lower.includes("cable") ||
+    lower.includes("magsafe") ||
+    lower.includes("gan")
+  ) {
+    return Zap;
+  }
+  if (lower.includes("case") || lower.includes("cover") || lower.includes("protect") || lower.includes("glass")) {
+    return Shield;
+  }
+  if (lower.includes("phone")) {
+    return Smartphone;
+  }
+  return LayoutGrid;
+}
 
 export function CustomerMobileNavbar({
   isSignedIn,
@@ -89,10 +150,10 @@ export function CustomerMobileNavbar({
 
   const shopItems: NavItem[] = useMemo(() => {
     const smartphoneCat = categories.find((c) =>
-      c.name.toLowerCase().includes("smart")
+      c.name.toLowerCase().includes("smart") || c.name.toLowerCase().includes("flagship")
     );
     const featureCat = categories.find((c) =>
-      c.name.toLowerCase().includes("feature")
+      c.name.toLowerCase().includes("feature") || c.name.toLowerCase().includes("keypad")
     );
     const tabletCat = categories.find(
       (c) =>
@@ -102,39 +163,61 @@ export function CustomerMobileNavbar({
     const audioCat = categories.find(
       (c) =>
         c.name.toLowerCase().includes("audio") ||
-        c.name.toLowerCase().includes("bud")
+        c.name.toLowerCase().includes("bud") ||
+        c.name.toLowerCase().includes("headphone")
     );
 
-    return [
+    const baseItems: NavItem[] = [
       {
         label: "Smartphones",
         href: smartphoneCat
           ? `/collections?category=${smartphoneCat._id}`
           : "/collections?category=smartphones",
-        icon: ShoppingBag,
+        icon: Smartphone,
       },
       {
         label: "Feature Phones",
         href: featureCat
           ? `/collections?category=${featureCat._id}`
           : "/collections?category=feature-phones",
-        icon: Grid2X2,
+        icon: Phone,
       },
       {
         label: "Tablets & Laptops",
         href: tabletCat
           ? `/collections?category=${tabletCat._id}`
           : "/collections?category=tablets-laptops",
-        icon: Sparkles,
+        icon: Laptop,
       },
       {
         label: "Audio & Wearables",
         href: audioCat
           ? `/collections?category=${audioCat._id}`
           : "/collections?category=audio",
-        icon: Tag,
+        icon: Headphones,
       },
-      { label: "All Products", href: "/collections", icon: LayoutDashboard },
+    ];
+
+    // Include any additional categories from the database not covered in base categories
+    const matchedIds = [
+      smartphoneCat?._id,
+      featureCat?._id,
+      tabletCat?._id,
+      audioCat?._id,
+    ].filter(Boolean);
+
+    const extraItems: NavItem[] = categories
+      .filter((cat) => !matchedIds.includes(cat._id))
+      .map((cat) => ({
+        label: cat.name,
+        href: `/collections?category=${cat._id}`,
+        icon: getCategoryIcon(cat.name),
+      }));
+
+    return [
+      ...baseItems,
+      ...extraItems,
+      { label: "All Products", href: "/collections", icon: LayoutGrid },
       { label: "Support & Repairs", href: "/support", icon: ShieldCheck },
     ];
   }, [categories]);
@@ -206,11 +289,13 @@ export function CustomerMobileNavbar({
                     key={item.label}
                     to={item.href || "/"}
                     onClick={() => setOpen(false)}
-                    className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition"
+                    className="group flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition"
                   >
                     <span className="flex items-center gap-3">
-                      <Icon className="h-4 w-4 text-primary" />
-                      {item.label}
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <span className="font-medium text-[13px]">{item.label}</span>
                     </span>
                     {item.badge ? (
                       <span className="bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
@@ -233,19 +318,23 @@ export function CustomerMobileNavbar({
                 <Link
                   to="/become-seller"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-emerald-700 hover:bg-emerald-50 transition"
+                  className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-emerald-700 hover:bg-emerald-50 transition"
                 >
-                  <Store className="h-4 w-4 text-emerald-600" />
-                  <span>Become a Seller</span>
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100/70 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                    <Store className="h-4 w-4" />
+                  </div>
+                  <span className="font-medium text-[13px]">Become a Seller</span>
                 </Link>
               ) : isDistributorProgramEnabled() ? (
                 <Link
                   to="/become-distributor"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-primary hover:bg-primary/10 transition"
+                  className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-primary hover:bg-primary/10 transition"
                 >
-                  <Building2 className="h-4 w-4 text-primary" />
-                  <span>Become a Distributor</span>
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <Building2 className="h-4 w-4" />
+                  </div>
+                  <span className="font-medium text-[13px]">Become a Distributor</span>
                 </Link>
               ) : null}
             </div>
@@ -264,10 +353,12 @@ export function CustomerMobileNavbar({
                     <Link
                       to="/admin"
                       onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-primary hover:bg-primary/10 transition"
+                      className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-primary hover:bg-primary/10 transition"
                     >
-                      <LayoutDashboard className="h-4 w-4 text-primary" />
-                      <span>Admin Dashboard</span>
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <LayoutDashboard className="h-4 w-4" />
+                      </div>
+                      <span className="font-medium text-[13px]">Admin Dashboard</span>
                     </Link>
                   ) : null}
 
@@ -277,11 +368,13 @@ export function CustomerMobileNavbar({
                       setOpen(false);
                       setWishlistOpen(true);
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition"
+                    className="group w-full flex items-center justify-between px-3 py-2 rounded-xl text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition text-left"
                   >
                     <span className="flex items-center gap-3">
-                      <Heart className="h-4 w-4 text-primary" />
-                      My Wishlist
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                        <Heart className="h-4 w-4" />
+                      </div>
+                      <span className="font-medium text-[13px]">My Wishlist</span>
                     </span>
                     {wishlistItems.length > 0 ? (
                       <span className="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded-full font-bold">
@@ -296,10 +389,12 @@ export function CustomerMobileNavbar({
                       setOpen(false);
                       void openOrders();
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition text-left"
+                    className="group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition text-left"
                   >
-                    <ShoppingBag className="h-4 w-4 text-primary" />
-                    <span>My Orders</span>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                      <ShoppingBag className="h-4 w-4" />
+                    </div>
+                    <span className="font-medium text-[13px]">My Orders</span>
                   </button>
 
                   <button
@@ -308,20 +403,24 @@ export function CustomerMobileNavbar({
                       setOpen(false);
                       void openProfile();
                     }}
-                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition text-left"
+                    className="group w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-primary transition text-left"
                   >
-                    <User className="h-4 w-4 text-primary" />
-                    <span>My Profile & Addresses</span>
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                      <User className="h-4 w-4" />
+                    </div>
+                    <span className="font-medium text-[13px]">My Profile & Addresses</span>
                   </button>
                 </>
               ) : (
                 <Link
                   to="/sign-in"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-primary hover:bg-primary/10 transition"
+                  className="group flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-primary hover:bg-primary/10 transition"
                 >
-                  <LogIn className="h-4 w-4 text-primary" />
-                  <span>Login / Register</span>
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                    <LogIn className="h-4 w-4" />
+                  </div>
+                  <span className="font-medium text-[13px]">Login / Register</span>
                 </Link>
               )}
             </div>

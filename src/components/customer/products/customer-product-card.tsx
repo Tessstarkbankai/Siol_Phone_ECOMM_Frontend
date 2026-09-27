@@ -90,11 +90,11 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
   }
 
   return (
-    <div className="group relative flex h-full flex-col justify-between rounded-xl sm:rounded-2xl md:rounded-3xl border border-neutral-100 bg-white p-3 sm:p-4 md:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200">
+    <div className="group relative flex h-full flex-col justify-between rounded-xl sm:rounded-2xl md:rounded-3xl border border-neutral-100 bg-white p-3 sm:p-4 md:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200 overflow-hidden">
       {/* Top Half: Image & Color Swatches */}
       <div>
         {/* Product Image: Isolated product render, NO BOX CONTAINER */}
-        <div className="relative aspect-square max-h-[150px] sm:max-h-[200px] md:max-h-[230px] w-full flex items-center justify-center p-1 sm:p-2">
+        <div className="relative h-36 sm:h-44 md:h-52 w-full flex items-center justify-center p-1 sm:p-2 overflow-hidden">
           {/* Subtle Wishlist Heart */}
           <button
             type="button"
@@ -111,14 +111,15 @@ export function CustomerProductCard({ product }: CustomerProductCardProps) {
 
           <Link
             to={`/collection/${product._id}`}
-            className="h-full w-full flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full flex items-center justify-center overflow-hidden"
           >
             {coverImage ? (
               <img
                 src={coverImage}
                 alt={product.title}
                 loading="lazy"
-                className="max-h-full max-w-full object-contain select-none filter drop-shadow-sm"
+                className="h-full w-full max-h-full max-w-full object-contain select-none filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                style={{ maxHeight: "100%", maxWidth: "100%" }}
               />
             ) : (
               <div className="flex h-full items-center justify-center text-xs text-neutral-400">

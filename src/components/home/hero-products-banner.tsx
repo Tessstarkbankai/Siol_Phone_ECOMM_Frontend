@@ -106,11 +106,11 @@ export function HeroProductsBanner({
       : [];
 
   const finalBadge =
-    badgeText || (isFeaturePhone ? "THE CLASSIC SERIES" : "THE 2026 FLAGSHIPS");
+    badgeText || (isFeaturePhone ? "THE CLASSIC SERIES" : "SIOL — 2026 FLAGSHIP series");
   const finalTitlePrimary =
     titlePrimary || (isFeaturePhone ? "DURABLE " : "TITANIUM ");
   const finalTitleAccent =
-    titleAccent || (isFeaturePhone ? "KEYPAD" : "PRO");
+    titleAccent || (isFeaturePhone ? "KEYPAD" : "STRENGTH");
   const finalDescription =
     description ||
     (isFeaturePhone
@@ -124,8 +124,8 @@ export function HeroProductsBanner({
           "• Ultra-Loud Box Speaker & Crystal-Clear 4G VoLTE",
         ]
       : [
-          "• Snapdragon 8 Elite & Apple A18 Pro Bionic",
-          "• 200MP Quad Matrix Optical Nightography",
+          "• Snapdragon 8 Elite",
+          "• 200MP Pro Camera",
         ]);
 
   const finalTheme = theme || (isFeaturePhone ? "amber" : "blue");
@@ -192,7 +192,7 @@ export function HeroProductsBanner({
               <span>{finalBadge}</span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-none">
+            <h2 className="text-4xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-none">
               {finalTitlePrimary}
               <span
                 className={
@@ -317,19 +317,20 @@ export function HeroProductsBanner({
               return (
                 <div
                   key={item._id}
-                  className="group relative w-[240px] sm:w-[280px] md:w-[310px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200 flex flex-col justify-between"
+                  className="group relative w-[240px] sm:w-[280px] md:w-[310px] shrink-0 rounded-2xl sm:rounded-3xl border border-neutral-100 bg-white p-4 sm:p-5 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-neutral-200 flex flex-col justify-between overflow-hidden"
                 >
                   {/* Top: Image, Swatches, Eyebrow & Title */}
                   <div>
                     {/* Pure Image - NO BOX CONTAINER */}
                     <Link
                       to={`/collection/${item._id}`}
-                      className="relative aspect-square max-h-[190px] w-full flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300"
+                      className="relative h-40 sm:h-44 md:h-48 w-full flex items-center justify-center p-2 overflow-hidden"
                     >
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="max-h-full max-w-full object-contain filter drop-shadow-sm select-none"
+                        className="h-full w-full max-h-full max-w-full object-contain filter drop-shadow-sm select-none transition-transform duration-300 group-hover:scale-105"
+                        style={{ maxHeight: "100%", maxWidth: "100%" }}
                       />
                     </Link>
 

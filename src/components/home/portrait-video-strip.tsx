@@ -74,10 +74,10 @@ export function PortraitVideoStrip({ videos = [] }: PortraitVideoStripProps) {
             <span>Real-World Performance</span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
-            See Flagships In Action
+            Experience SIOL in Action
           </h2>
           <p className="text-sm sm:text-base text-slate-600">
-            Witness 4K 120fps cinema camera tests, ray-tracing gaming speed runs, and AI live demonstrations.
+            From cinematic video to demanding games, experience flagship performance in the real world.
           </p>
         </div>
 
