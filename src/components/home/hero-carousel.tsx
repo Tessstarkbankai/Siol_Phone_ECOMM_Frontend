@@ -291,7 +291,7 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
   return (
     <section className="relative w-full overflow-hidden bg-slate-950 text-white">
       {/* Immersive Viewport (Matches standard ~2.33:1 banner proportions so images and video fill edge-to-edge without letterboxing/spaces or aggressive cropping) */}
-      <div className="relative w-full aspect-[16/9] sm:aspect-[2.55/1] md:aspect-[2.33/1] lg:aspect-[2.1/1] min-h-[280px] flex items-center justify-center overflow-hidden bg-slate-950">
+      <div className="relative w-full aspect-[2.33/1] sm:aspect-[2.35/1] md:aspect-[2.33/1] lg:aspect-[2.1/1] flex items-center justify-center overflow-hidden bg-slate-950">
         {/* Background Visual Layer */}
         {slides.map((s, index) => {
           const isActive = index === current;
@@ -343,7 +343,7 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
                     src={s.imageUrl}
                     alt={s.title}
                     loading={isActive ? "eager" : "lazy"}
-                    className="h-full w-full object-cover object-center select-none"
+                    className="h-full w-full object-contain sm:object-cover object-center select-none"
                   />
                 </Link>
               )}
@@ -379,9 +379,9 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
             type="button"
             onClick={toggleMute}
             aria-label={isMuted ? "Unmute audio" : "Mute audio"}
-            className="absolute top-6 right-6 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-xl transition-all shadow-lg border border-white/20"
+            className="absolute top-2.5 right-2.5 sm:top-6 sm:right-6 z-30 flex h-7 w-7 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/40 hover:bg-black/60 text-white backdrop-blur-xl transition-all shadow-lg border border-white/20"
           >
-            {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4 text-cyan-300" />}
+            {isMuted ? <VolumeX className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : <Volume2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-300" />}
           </button>
         ) : null}
 
@@ -475,8 +475,8 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
         */}
 
         {/* BOTTOM SAMSUNG-STYLE TAB DOCK (Centered at Bottom) */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 w-[calc(100%-2rem)] sm:w-auto max-w-fit px-0 sm:px-4">
-          <div className="flex items-center gap-2 sm:gap-4 rounded-full bg-black/50 backdrop-blur-2xl border border-white/20 px-3 sm:px-4 py-2 shadow-2xl">
+        <div className="absolute bottom-2 sm:bottom-5 left-1/2 -translate-x-1/2 z-30 w-auto max-w-fit px-0 sm:px-4">
+          <div className="flex items-center gap-1.5 sm:gap-4 rounded-full bg-black/50 backdrop-blur-2xl border border-white/20 px-2.5 sm:px-4 py-1 sm:py-2 shadow-2xl">
             {/* Mobile: Compact dot/dash indicators */}
             <div className="flex items-center gap-1.5 sm:hidden">
               {slides.map((s, idx) => {
@@ -492,8 +492,8 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
                     <span
                       className={`block rounded-full transition-all duration-300 ${
                         isCurrent
-                          ? "w-6 h-1.5 bg-cyan-400"
-                          : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"
+                          ? "w-4 h-1 bg-cyan-400"
+                          : "w-1 h-1 bg-white/40 hover:bg-white/70"
                       }`}
                     />
                   </button>
@@ -532,35 +532,35 @@ export function HeroCarousel({ banners }: HeroCarouselProps) {
               })}
             </div>
 
-            <div className="h-4 w-px bg-white/20" />
+            <div className="h-3 sm:h-4 w-px bg-white/20" />
 
             {/* Play/Pause & Chevron Controls */}
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
               <button
                 type="button"
                 onClick={togglePlayPause}
                 aria-label={isPlaying ? "Pause carousel" : "Play carousel"}
-                className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-white/20 text-white transition"
+                className="flex h-5 w-5 sm:h-7 sm:w-7 items-center justify-center rounded-full hover:bg-white/20 text-white transition"
               >
-                {isPlaying ? <Pause className="h-3 w-3" /> : <Play className="h-3 w-3" />}
+                {isPlaying ? <Pause className="h-2.5 w-2.5 sm:h-3 sm:w-3" /> : <Play className="h-2.5 w-2.5 sm:h-3 sm:w-3" />}
               </button>
 
               <button
                 type="button"
                 onClick={handlePrev}
                 aria-label="Previous slide"
-                className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-white/20 text-white transition"
+                className="flex h-5 w-5 sm:h-7 sm:w-7 items-center justify-center rounded-full hover:bg-white/20 text-white transition"
               >
-                <ChevronLeft className="h-3.5 w-3.5" />
+                <ChevronLeft className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               </button>
 
               <button
                 type="button"
                 onClick={handleNext}
                 aria-label="Next slide"
-                className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-white/20 text-white transition"
+                className="flex h-5 w-5 sm:h-7 sm:w-7 items-center justify-center rounded-full hover:bg-white/20 text-white transition"
               >
-                <ChevronRight className="h-3.5 w-3.5" />
+                <ChevronRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               </button>
             </div>
           </div>
