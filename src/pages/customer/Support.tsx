@@ -34,8 +34,8 @@ export function SupportPage() {
       {/* 4. Human Support Contact Channels with Live IST Status */}
       <SupportContactChannels />
 
-      {/* 5. Next-Gen Smartphone Coming Soon Teaser Banner */}
-      <SupportTeaserBanner />
+      {/* 5. Upgrade With Ease. Exchange Policy (Commented out per user request) */}
+      {/* <SupportTeaserBanner /> */}
 
       {/* 6. Categorized Interactive FAQs */}
       <SupportFAQ />

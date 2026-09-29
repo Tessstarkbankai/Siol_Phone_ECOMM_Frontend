@@ -63,20 +63,20 @@ export function SupportHero({
   ];
 
   return (
-    <section className="relative w-full h-[180px] sm:h-[260px] md:h-[340px] lg:h-[420px] flex flex-col justify-center items-center overflow-hidden text-center">
+    <section className="relative w-full h-[180px] sm:h-[260px] md:h-[380px] lg:h-[calc(100vh-72px)] lg:min-h-[calc(100vh-72px)] flex flex-col justify-center items-center overflow-hidden text-center">
       {/* Background Image: High-res SiOL Store Showroom */}
       <div className="absolute inset-0 z-0">
         <img
           src="/siol-support-hero.jpg"
           alt="SiOL Flagship Store"
-          className="w-full h-full object-cover object-[center_35%] select-none"
+          className="w-full h-full object-cover object-[center_35%] lg:object-[center_30%] select-none lg:scale-105"
         />
         {/* Soft, bright atmospheric overlay to preserve store visuals while providing razor-sharp text legibility */}
         <div className="absolute inset-0" />
       </div>
 
       {/* Main Centered Content */}
-      <div className="relative z-10 w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-4 sm:py-12 flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-4xl px-4 sm:px-6 lg:px-8 py-4 sm:py-12 lg:py-24 flex flex-col items-center">
         {/* Headline */}
         {/* <h1 className="text-2xl sm:text-3xl md:text-6xl tracking-[-0.025em] text-[#1d1d1f] leading-tight drop-shadow-xs">
           Welcome to Siol Support
@@ -84,7 +84,7 @@ export function SupportHero({
       </div>
 
       {/* Bottom Rounded Card Overlap Curve into Next Section (matching reference screenshot) */}
-      <div className="absolute inset-x-0 bottom-0 h-6 sm:h-10 bg-white rounded-t-[24px] sm:rounded-t-[40px] pointer-events-none z-10" />
+      <div className="absolute inset-x-0 bottom-0 h-6 sm:h-10 lg:h-12 bg-white rounded-t-[24px] sm:rounded-t-[40px] lg:rounded-t-[48px] pointer-events-none z-10" />
     </section>
   );
 }

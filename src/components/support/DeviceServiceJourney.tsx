@@ -56,76 +56,162 @@ export function DeviceServiceJourney() {
         );
       }
 
-      // 2. Animate each step bidirectionally (plays forward on scroll down, reverses on scroll up)
+      // Helper: Determines if an element's top edge is currently within the center focus zone (between 14% and 88% of viewport)
+      const isElementInFocusZone = (target: HTMLElement) => {
+        const rect = target.getBoundingClientRect();
+        const vh = window.innerHeight || 800;
+        return rect.top < vh * 0.88 && rect.top > vh * 0.14;
+      };
+
+      // 2. Animate each step bidirectionally with proximity-based fading
+      // Fades ONLY when hitting top proximity (~14%) or bottom proximity (~88%).
+      // In the center and everywhere around it (14% to 88% of screen), it stays 100% visible with zero fade.
+      const initialActive: number[] = [];
+
       stepRefs.current.forEach((el, index) => {
         if (!el) return;
         const contentEl = el.querySelector<HTMLElement>(".step-content");
         const imageEl = el.querySelector<HTMLElement>(".step-image");
         const badgeEl = el.querySelector<HTMLElement>(".step-badge");
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            end: "bottom top", // Stays fully visible while scrolling; fades only when bottom crosses the top of the viewport
-            toggleActions: "play reverse play reverse",
+        // --- Step Content (Typography, Subtitle, Description, Highlight Badge) ---
+        if (contentEl) {
+          const inFocus = isElementInFocusZone(contentEl);
+          if (inFocus) initialActive.push(index);
+
+          gsap.set(contentEl, {
+            opacity: inFocus ? 1 : 0.2,
+            filter: inFocus ? "blur(0px)" : "blur(3px)",
+            y: inFocus ? 0 : 20,
+          });
+
+          ScrollTrigger.create({
+            trigger: contentEl,
+            start: "top 88%",   // Enters from bottom proximity into center focus zone
+            end: "top 14%",     // Reaches top proximity of the phone (below navbar)
             onEnter: () => {
+              // Smoothly fade in as it enters center zone from bottom
+              gsap.to(contentEl, {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                duration: 0.35,
+                ease: "power2.out",
+              });
               setActiveStepIndices((prev) =>
                 prev.includes(index) ? prev : [...prev, index]
               );
             },
             onLeave: () => {
+              // Fades out only when hitting top proximity of the phone
+              gsap.to(contentEl, {
+                opacity: 0.2,
+                y: -10,
+                filter: "blur(3px)",
+                duration: 0.35,
+                ease: "power2.out",
+              });
               setActiveStepIndices((prev) => prev.filter((i) => i !== index));
             },
             onEnterBack: () => {
+              // Smoothly fade back in when scrolling back down from top proximity into center
+              gsap.to(contentEl, {
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+                duration: 0.35,
+                ease: "power2.out",
+              });
               setActiveStepIndices((prev) =>
                 prev.includes(index) ? prev : [...prev, index]
               );
             },
             onLeaveBack: () => {
+              // Fades out when leaving towards bottom proximity of the phone
+              gsap.to(contentEl, {
+                opacity: 0.2,
+                y: 20,
+                filter: "blur(3px)",
+                duration: 0.35,
+                ease: "power2.out",
+              });
               setActiveStepIndices((prev) => prev.filter((i) => i !== index));
             },
-          },
-        });
-
-        if (contentEl) {
-          tl.fromTo(
-            contentEl,
-            { opacity: 0.15, y: 35, filter: "blur(3px)" },
-            {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              duration: 0.6,
-              ease: "power2.out",
-            }
-          );
+          });
         }
 
+        // --- Step Device Image ---
         if (imageEl) {
-          tl.fromTo(
-            imageEl,
-            { opacity: 0.15, scale: 0.9, y: 35 },
-            {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              duration: 0.7,
-              ease: "power2.out",
+          const inFocus = isElementInFocusZone(imageEl);
+          gsap.set(imageEl, {
+            opacity: inFocus ? 1 : 0.2,
+            scale: inFocus ? 1 : 0.94,
+          });
+
+          ScrollTrigger.create({
+            trigger: imageEl,
+            start: "top 88%",
+            end: "top 14%",
+            onEnter: () => {
+              gsap.to(imageEl, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.4,
+                ease: "power2.out",
+              });
             },
-            contentEl ? "-=0.45" : 0
-          );
+            onLeave: () => {
+              gsap.to(imageEl, {
+                opacity: 0.2,
+                scale: 0.94,
+                duration: 0.4,
+                ease: "power2.out",
+              });
+            },
+            onEnterBack: () => {
+              gsap.to(imageEl, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.4,
+                ease: "power2.out",
+              });
+            },
+            onLeaveBack: () => {
+              gsap.to(imageEl, {
+                opacity: 0.2,
+                scale: 0.94,
+                duration: 0.4,
+                ease: "power2.out",
+              });
+            },
+          });
         }
 
+        // --- Step Badge Glow / Pulse ---
         if (badgeEl) {
-          tl.fromTo(
-            badgeEl,
-            { scale: 0.95 },
-            { scale: 1.05, duration: 0.35, ease: "back.out(1.7)" },
-            "-=0.5"
-          );
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 88%",
+            end: "top 14%",
+            onEnter: () => {
+              gsap.to(badgeEl, { scale: 1.05, duration: 0.3, ease: "back.out(1.7)" });
+            },
+            onLeave: () => {
+              gsap.to(badgeEl, { scale: 1.0, duration: 0.3 });
+            },
+            onEnterBack: () => {
+              gsap.to(badgeEl, { scale: 1.05, duration: 0.3, ease: "back.out(1.7)" });
+            },
+            onLeaveBack: () => {
+              gsap.to(badgeEl, { scale: 1.0, duration: 0.3 });
+            },
+          });
         }
       });
+
+      if (initialActive.length > 0) {
+        setActiveStepIndices(initialActive);
+      }
 
       ScrollTrigger.refresh();
     }, timelineContainerRef);
@@ -318,6 +404,7 @@ export function DeviceServiceJourney() {
                         alt={`${step.title} - Step ${step.stepNumber}`}
                         className="step-image w-full max-w-md lg:max-w-xl h-auto max-h-[420px] object-contain filter drop-shadow-2xl select-none pointer-events-none transition-transform duration-500 hover:scale-105"
                         loading="lazy"
+                        onLoad={() => ScrollTrigger.refresh()}
                         onError={(e) => {
                           // Automatic fallback to clean device asset if network fails
                           e.currentTarget.src = "/categories/smartphone.png";
