@@ -166,10 +166,10 @@ export function HeroProductsBanner({
 
   return (
     <section className="py-6 space-y-6">
-      {/* 1. Top Banner (100% full-width on desktop lg screen, contained on mobile/tablet) */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
+      {/* 1. Top Banner */}
+      <div className="w-full max-w-[1536px] mx-auto px-3 sm:px-4 lg:px-5 xl:px-6">
         <div
-          className={`relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border lg:border-x-0 shadow-lg p-5 sm:p-8 md:p-12 lg:py-14 lg:px-8 xl:px-12 min-h-[280px] sm:min-h-[340px] text-slate-900 ${
+          className={`relative overflow-hidden rounded-2xl sm:rounded-3xl border shadow-lg p-5 sm:p-8 md:p-12 lg:py-12 lg:px-8 xl:px-12 min-h-[280px] sm:min-h-[340px] text-slate-900 ${
             finalTheme === "amber"
               ? "bg-gradient-to-br from-[#fffbeb] via-[#ffffff] to-[#fef3c7] border-amber-200/80"
               : "bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border-blue-200/80"
@@ -292,7 +292,7 @@ export function HeroProductsBanner({
       </div>
 
       {/* 2. Hero Products Dynamic Small Cards Rail / Carousel from Database */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1536px] px-3 sm:px-4 lg:px-5 xl:px-6">
         <div className="relative group">
           {/* Scroll Left Button */}
           <button

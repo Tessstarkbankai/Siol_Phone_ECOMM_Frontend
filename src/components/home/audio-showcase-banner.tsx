@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 export function AudioShowcaseBanner() {
   return (
     <section className="py-4 sm:py-6 my-2">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
-        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-slate-200/80 lg:border-x-0 shadow-lg shadow-slate-950/5">
+      <div className="w-full max-w-[1536px] mx-auto px-3 sm:px-4 lg:px-5 xl:px-6">
+        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-lg shadow-slate-950/5">
           {/* Panoramic Image Showcase Card */}
           <div className="relative w-full aspect-[2.67/1] sm:aspect-[2.67/1] md:aspect-[2.67/1] lg:aspect-[2.8/1] xl:aspect-[3.2/1] flex items-center justify-center overflow-hidden bg-slate-950">
             <img

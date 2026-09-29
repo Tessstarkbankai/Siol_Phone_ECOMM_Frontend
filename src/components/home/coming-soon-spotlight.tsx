@@ -6,7 +6,7 @@ export function ComingSoonSpotlight() {
   return (
     <section className="py-8 my-6">
       {/* Section Header: Trendy Smartphone Company Teaser */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-6">
+      <div className="mx-auto max-w-[1536px] px-3 sm:px-4 lg:px-5 xl:px-6 mb-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
           <div className="space-y-1.5">
             <div className="inline-flex items-center gap-2 rounded-full bg-purple-500/10 border border-purple-200/80 px-3.5 py-1 text-xs font-bold uppercase tracking-widest text-purple-700">
@@ -33,9 +33,9 @@ export function ComingSoonSpotlight() {
         </div>
       </div>
 
-      {/* Main Showcase Teaser Banner (100% full-width on desktop lg screen) */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
-        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-purple-100/90 lg:border-x-0 bg-white shadow-xl shadow-purple-950/5 aspect-[1440/724] lg:aspect-[2.33/1] sm:min-h-[400px] md:min-h-[480px] lg:min-h-[540px] flex items-center justify-center">
+      {/* Main Showcase Teaser Banner */}
+      <div className="w-full max-w-[1536px] mx-auto px-3 sm:px-4 lg:px-5 xl:px-6">
+        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-purple-100/90 bg-white shadow-xl shadow-purple-950/5 aspect-[1440/724] lg:aspect-[2.33/1] sm:min-h-[400px] md:min-h-[480px] lg:min-h-[540px] flex items-center justify-center">
           <img
             src="/Frame 1984079647.png"
             alt="SiOL Flagship Smartphone - Coming Soon"

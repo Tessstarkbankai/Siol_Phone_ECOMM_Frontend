@@ -1,8 +1,8 @@
 export function SiolTeaserBanner() {
   return (
     <section className="my-6 sm:my-12">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
-        <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-sky-200/60 lg:border-x-0 shadow-md sm:aspect-[1440/620] lg:aspect-[2.33/1] sm:min-h-[440px] md:min-h-[500px] lg:min-h-[560px] flex flex-col items-center justify-between sm:justify-start select-none bg-[#e9f2f1]">
+      <div className="w-full max-w-[1536px] mx-auto px-3 sm:px-4 lg:px-5 xl:px-6">
+        <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-sky-200/60 shadow-md sm:aspect-[1440/620] lg:aspect-[2.33/1] sm:min-h-[440px] md:min-h-[500px] lg:min-h-[560px] flex flex-col items-center justify-between sm:justify-start select-none bg-[#e9f2f1]">
           {/* Top Centered Typography & Brand Identity */}
           <div className="relative z-10 w-full flex flex-col items-center text-center pt-5 sm:pt-11 md:pt-13 lg:pt-16 px-4">
             {/* SiOL Logo */}
