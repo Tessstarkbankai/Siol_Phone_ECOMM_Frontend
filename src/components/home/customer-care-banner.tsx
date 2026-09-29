@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 export function CustomerCareBanner() {
   return (
     <section className="py-6 sm:py-8 my-2">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
-        {/* Section Header */}
+      {/* Section Header */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 sm:mb-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-200 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
@@ -16,9 +16,6 @@ export function CustomerCareBanner() {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 leading-tight">
               Proactive <br /> Customer Care &amp; Support
             </h2>
-            {/* <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Real people, real support. Experience priority device assistance, certified doorstep pickup, and instant resolution from official SiOL specialists.
-            </p> */}
           </div>
 
           <div className="shrink-0">
@@ -34,12 +31,14 @@ export function CustomerCareBanner() {
             </Button>
           </div>
         </div>
+      </div>
 
-        {/* Hero Photo Banner Container */}
-        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-lg shadow-slate-950/5 bg-slate-50">
+      {/* Hero Photo Banner Container (100% full-width on desktop lg screen) */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
+        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-slate-200/80 lg:border-x-0 shadow-lg shadow-slate-950/5 bg-slate-50">
           <Link
             to="/support"
-            className="block relative w-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-2xl sm:rounded-3xl"
+            className="block relative w-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-2xl sm:rounded-3xl lg:rounded-none"
             title="SiOL Proactive Customer Care & Support - Click to learn more"
           >
             <img

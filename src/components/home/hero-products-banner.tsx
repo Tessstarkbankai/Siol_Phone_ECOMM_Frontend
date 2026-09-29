@@ -166,116 +166,119 @@ export function HeroProductsBanner({
 
   return (
     <section className="py-6 space-y-6">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-        {/* 1. Top Banner */}
+      {/* 1. Top Banner (100% full-width on desktop lg screen, contained on mobile/tablet) */}
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
         <div
-          className={`relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg p-5 sm:p-8 md:p-12 lg:p-14 min-h-[280px] sm:min-h-[340px] flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 text-slate-900 ${
+          className={`relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border lg:border-x-0 shadow-lg p-5 sm:p-8 md:p-12 lg:py-14 lg:px-8 xl:px-12 min-h-[280px] sm:min-h-[340px] text-slate-900 ${
             finalTheme === "amber"
-              ? "bg-gradient-to-br from-[#fffbeb] via-[#ffffff] to-[#fef3c7] border border-amber-200/80"
-              : "bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border border-blue-200/80"
+              ? "bg-gradient-to-br from-[#fffbeb] via-[#ffffff] to-[#fef3c7] border-amber-200/80"
+              : "bg-gradient-to-br from-[#eff6ff] via-[#ffffff] to-[#e0f2fe] border-blue-200/80"
           }`}
         >
-          {/* Left Text Presentation */}
-          <div className="space-y-3 max-w-md text-center md:text-left z-10">
-            <div
-              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-widest ${
-                finalTheme === "amber"
-                  ? "bg-amber-500/10 border border-amber-200 text-amber-800"
-                  : "bg-blue-500/10 border border-blue-200 text-primary"
-              }`}
-            >
-              <Sparkles
-                className={`h-3.5 w-3.5 ${
-                  finalTheme === "amber" ? "text-amber-600" : "text-primary"
-                }`}
-              />
-              <span>{finalBadge}</span>
-            </div>
-
-            <h2 className="text-4xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-none">
-              {finalTitlePrimary}
-              <span
-                className={
-                  finalTheme === "amber" ? "text-amber-600" : "text-primary"
-                }
-              >
-                {finalTitleAccent}
-              </span>
-            </h2>
-
-            <p className="text-sm sm:text-base font-normal text-slate-600">
-              {finalDescription}
-            </p>
-
-            {/* Star Divider Line */}
-            <div className="flex items-center justify-center md:justify-start gap-3 py-1 text-slate-400">
+          {/* Centered Inner Container for Desktop Layout */}
+          <div className="mx-auto max-w-7xl w-full flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
+            {/* Left Text Presentation */}
+            <div className="space-y-3 max-w-md text-center md:text-left z-10">
               <div
-                className={`h-[1px] w-12 ${
-                  finalTheme === "amber" ? "bg-amber-200" : "bg-blue-200"
-                }`}
-              />
-              <Star
-                className={`h-3 w-3 ${
+                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-widest ${
                   finalTheme === "amber"
-                    ? "fill-amber-500 text-amber-500"
-                    : "fill-primary text-primary"
+                    ? "bg-amber-500/10 border border-amber-200 text-amber-800"
+                    : "bg-blue-500/10 border border-blue-200 text-primary"
                 }`}
-              />
-              <div
-                className={`h-[1px] w-12 ${
-                  finalTheme === "amber" ? "bg-amber-200" : "bg-blue-200"
-                }`}
-              />
+              >
+                <Sparkles
+                  className={`h-3.5 w-3.5 ${
+                    finalTheme === "amber" ? "text-amber-600" : "text-primary"
+                  }`}
+                />
+                <span>{finalBadge}</span>
+              </div>
+
+              <h2 className="text-4xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-none">
+                {finalTitlePrimary}
+                <span
+                  className={
+                    finalTheme === "amber" ? "text-amber-600" : "text-primary"
+                  }
+                >
+                  {finalTitleAccent}
+                </span>
+              </h2>
+
+              <p className="text-sm sm:text-base font-normal text-slate-600">
+                {finalDescription}
+              </p>
+
+              {/* Star Divider Line */}
+              <div className="flex items-center justify-center md:justify-start gap-3 py-1 text-slate-400">
+                <div
+                  className={`h-[1px] w-12 ${
+                    finalTheme === "amber" ? "bg-amber-200" : "bg-blue-200"
+                  }`}
+                />
+                <Star
+                  className={`h-3 w-3 ${
+                    finalTheme === "amber"
+                      ? "fill-amber-500 text-amber-500"
+                      : "fill-primary text-primary"
+                  }`}
+                />
+                <div
+                  className={`h-[1px] w-12 ${
+                    finalTheme === "amber" ? "bg-amber-200" : "bg-blue-200"
+                  }`}
+                />
+              </div>
+
+              <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium">
+                {finalBullets.map((bullet, idx) => (
+                  <p key={idx}>{bullet}</p>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-1 text-xs sm:text-sm text-slate-600 font-medium">
-              {finalBullets.map((bullet, idx) => (
-                <p key={idx}>{bullet}</p>
-              ))}
-            </div>
-          </div>
+            {/* Right Composite Lineup with Pure Floating Images (Identical Scheme to Classic Series) */}
+            <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-4 md:gap-6 max-w-xl w-full">
+              <div className="flex items-end justify-center gap-3 sm:gap-4 md:gap-5 w-full">
+                {activeProducts.slice(0, 3).map((p, idx) => {
+                  const isCenter = idx === 1;
+                  const isFailed = Boolean(failedBgRemoval[p._id]);
+                  const fallbackUrl = p.image?.includes("res.cloudinary.com")
+                    ? p.image.replace("/upload/", "/upload/e_trim/")
+                    : p.image;
+                  const imageUrl = isFailed ? fallbackUrl : getTransparentProductImage(p.image);
 
-          {/* Right Composite Lineup with Pure Floating Images (Identical Scheme to Classic Series) */}
-          <div className="relative z-10 flex items-center justify-center gap-2 sm:gap-4 md:gap-6 max-w-xl w-full">
-            <div className="flex items-end justify-center gap-3 sm:gap-4 md:gap-5 w-full">
-              {activeProducts.slice(0, 3).map((p, idx) => {
-                const isCenter = idx === 1;
-                const isFailed = Boolean(failedBgRemoval[p._id]);
-                const fallbackUrl = p.image?.includes("res.cloudinary.com")
-                  ? p.image.replace("/upload/", "/upload/e_trim/")
-                  : p.image;
-                const imageUrl = isFailed ? fallbackUrl : getTransparentProductImage(p.image);
-
-                return (
-                  <Link
-                    key={p._id}
-                    to={`/collection/${p._id}`}
-                    title={p.title}
-                    className={`group relative flex flex-col items-center justify-end transition-all duration-300 hover:-translate-y-2.5 ${
-                      isCenter
-                        ? "h-40 sm:h-52 md:h-64 lg:h-72 w-28 sm:w-38 md:w-48 lg:w-56 z-10"
-                        : "h-32 sm:h-42 md:h-52 lg:h-60 w-22 sm:w-30 md:w-38 lg:w-46 opacity-95 hover:opacity-100"
-                    }`}
-                  >
-                    {/* Realistic 3D Ground/Floor Contact Shadow for Physical Depth */}
-                    <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 w-[76%] h-3 sm:h-4 rounded-[100%] bg-slate-950/20 blur-[6px] sm:blur-[8px] pointer-events-none transition-all duration-500 group-hover:w-[82%] group-hover:bg-slate-950/28 group-hover:blur-[10px]" />
-
-                    {/* Pure Floating Device Image */}
-                    <img
-                      src={imageUrl}
-                      alt={p.title}
-                      onError={() => {
-                        if (!isFailed) {
-                          setFailedBgRemoval((prev) => ({ ...prev, [p._id]: true }));
-                        }
-                      }}
-                      className={`relative z-10 h-full w-full object-contain object-bottom filter drop-shadow-[0_14px_22px_rgba(15,23,42,0.18)] drop-shadow-[0_4px_8px_rgba(15,23,42,0.08)] transition-transform duration-500 group-hover:scale-105 select-none pointer-events-none ${
-                        isFailed ? "mix-blend-multiply" : ""
+                  return (
+                    <Link
+                      key={p._id}
+                      to={`/collection/${p._id}`}
+                      title={p.title}
+                      className={`group relative flex flex-col items-center justify-end transition-all duration-300 hover:-translate-y-2.5 ${
+                        isCenter
+                          ? "h-40 sm:h-52 md:h-64 lg:h-72 w-28 sm:w-38 md:w-48 lg:w-56 z-10"
+                          : "h-32 sm:h-42 md:h-52 lg:h-60 w-22 sm:w-30 md:w-38 lg:w-46 opacity-95 hover:opacity-100"
                       }`}
-                    />
-                  </Link>
-                );
-              })}
+                    >
+                      {/* Realistic 3D Ground/Floor Contact Shadow for Physical Depth */}
+                      <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 -translate-x-1/2 w-[76%] h-3 sm:h-4 rounded-[100%] bg-slate-950/20 blur-[6px] sm:blur-[8px] pointer-events-none transition-all duration-500 group-hover:w-[82%] group-hover:bg-slate-950/28 group-hover:blur-[10px]" />
+
+                      {/* Pure Floating Device Image */}
+                      <img
+                        src={imageUrl}
+                        alt={p.title}
+                        onError={() => {
+                          if (!isFailed) {
+                            setFailedBgRemoval((prev) => ({ ...prev, [p._id]: true }));
+                          }
+                        }}
+                        className={`relative z-10 h-full w-full object-contain object-bottom filter drop-shadow-[0_14px_22px_rgba(15,23,42,0.18)] drop-shadow-[0_4px_8px_rgba(15,23,42,0.08)] transition-transform duration-500 group-hover:scale-105 select-none pointer-events-none ${
+                          isFailed ? "mix-blend-multiply" : ""
+                        }`}
+                      />
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -286,8 +289,10 @@ export function HeroProductsBanner({
             }`}
           />
         </div>
+      </div>
 
-        {/* 2. Hero Products Dynamic Small Cards Rail / Carousel from Database */}
+      {/* 2. Hero Products Dynamic Small Cards Rail / Carousel from Database */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="relative group">
           {/* Scroll Left Button */}
           <button

@@ -1,8 +1,8 @@
 export function SiolTeaserBanner() {
   return (
     <section className="my-8 sm:my-12">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-sky-200/60 shadow-md aspect-[3/4] sm:aspect-[1440/620] min-h-[280px] sm:min-h-[440px] md:min-h-[500px] lg:min-h-[560px] flex flex-col items-center justify-start select-none bg-[#e9f2f1]">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
+        <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-sky-200/60 lg:border-x-0 shadow-md aspect-[3/4] sm:aspect-[1440/620] lg:aspect-[2.33/1] min-h-[280px] sm:min-h-[440px] md:min-h-[500px] lg:min-h-[560px] flex flex-col items-center justify-start select-none bg-[#e9f2f1]">
           {/* Background Showcase Graphic */}
           <img
             src="/Frame 1984079653.png"
