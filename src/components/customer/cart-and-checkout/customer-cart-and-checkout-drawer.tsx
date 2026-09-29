@@ -98,17 +98,17 @@ export function CustomerCartAndCheckoutDrawer() {
 
   return (
     <Drawer open={isOpen} onOpenChange={setOpen}>
-      <DrawerContent className="ml-auto flex h-[92dvh] max-h-[92dvh] w-full max-w-5xl overflow-hidden rounded-t-3xl border-border bg-background p-0 shadow-2xl">
-        <div className="grid h-full min-h-0 w-full lg:grid-cols-[1.5fr_1fr]">
+      <DrawerContent className="ml-auto flex h-[92dvh] max-h-[92dvh] w-full max-w-5xl flex-col overflow-hidden rounded-t-3xl border-border bg-background p-0 shadow-2xl">
+        <div className="flex flex-col lg:grid lg:grid-cols-[1.5fr_1fr] h-full min-h-0 w-full overflow-y-auto lg:overflow-hidden overscroll-contain">
           {/* Left: Cart Items Pane */}
-          <div className="min-h-0 border-b border-border lg:border-b-0 lg:border-r bg-background">
+          <div className="shrink-0 lg:shrink lg:h-full min-h-0 border-b border-border lg:border-b-0 lg:border-r bg-background">
             <CustomerCartItems />
           </div>
 
           {/* Right: Checkout & Order Summary Pane */}
-          <aside className="min-h-0 bg-neutral-50/50 flex flex-col justify-between">
-            <div className="flex h-full min-h-0 flex-col p-4 sm:p-6">
-              <div className="flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+          <aside className="shrink-0 lg:shrink lg:h-full min-h-0 bg-neutral-50/50 flex flex-col justify-between pb-8 lg:pb-0">
+            <div className="flex flex-col lg:h-full lg:min-h-0 p-4 sm:p-6">
+              <div className="flex flex-col lg:h-full lg:min-h-0 lg:flex-1 overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
                 <DrawerHeader className="border-b border-border px-5 py-4 flex items-center justify-between">
                   <DrawerTitle className="text-base font-semibold text-foreground flex items-center gap-2">
                     <CreditCard className="h-4.5 w-4.5 text-primary" />
@@ -121,7 +121,7 @@ export function CustomerCartAndCheckoutDrawer() {
 
                 {isSignedIn ? (
                   <>
-                    <ScrollArea className="min-h-0 flex-1">
+                    <ScrollArea className="min-h-0 flex-1 max-h-[46vh] lg:max-h-none">
                       <div className="space-y-5 px-5 py-4">
                         {/* Delivery Address Section */}
                         <section className="space-y-2">
@@ -298,9 +298,9 @@ export function CustomerCartAndCheckoutDrawer() {
                     </DrawerFooter>
                   </>
                 ) : (
-                  <div className="p-8 text-center space-y-4 flex flex-col items-center justify-center h-full">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                      <LogIn className="h-7 w-7" />
+                  <div className="p-6 sm:p-8 text-center space-y-4 flex flex-col items-center justify-center my-auto py-8">
+                    <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                      <LogIn className="h-6 w-6 sm:h-7 sm:w-7" />
                     </div>
                     <div className="space-y-1">
                       <h3 className="text-base font-semibold text-foreground">Sign In to Checkout</h3>
@@ -311,7 +311,7 @@ export function CustomerCartAndCheckoutDrawer() {
                     <Button
                       onClick={() => setOpen(false)}
                       asChild
-                      className="bg-primary text-white font-bold h-11 px-7 rounded-xl shadow-md"
+                      className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold h-11 px-8 rounded-xl shadow-md cursor-pointer transition active:scale-95"
                     >
                       <Link to="/sign-in">Sign In / Register</Link>
                     </Button>

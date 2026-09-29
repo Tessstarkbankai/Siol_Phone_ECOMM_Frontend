@@ -56,15 +56,15 @@ export function CustomerCartItems() {
       ) : null}
 
       {/* Cart Items List */}
-      <ScrollArea className="min-h-0 flex-1">
-        <div className="space-y-4 p-5">
+      <ScrollArea className="min-h-0 flex-1 max-h-[38vh] lg:max-h-none">
+        <div className="space-y-4 p-4 sm:p-5">
           {!cart.items.length ? (
-            <div className="flex min-h-[320px] flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-neutral-50 px-6 text-center space-y-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                <ShoppingBag className="h-7 w-7" />
+            <div className="flex min-h-[160px] sm:min-h-[260px] flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-neutral-50 px-4 sm:px-6 py-6 text-center space-y-3">
+              <div className="flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <ShoppingBag className="h-5 w-5 sm:h-7 sm:w-7" />
               </div>
               <div className="space-y-1">
-                <p className="text-base font-semibold text-foreground">Your cart is empty</p>
+                <p className="text-sm sm:text-base font-semibold text-foreground">Your cart is empty</p>
                 <p className="text-xs text-muted-foreground max-w-xs">
                   Looks like you haven't added any items to your cart yet. Explore our curated collections!
                 </p>
@@ -72,7 +72,7 @@ export function CustomerCartItems() {
               <Button
                 onClick={() => setOpen(false)}
                 asChild
-                className="bg-primary text-white font-semibold h-10 px-6 rounded-lg shadow-sm"
+                className="bg-primary text-white font-semibold h-9 sm:h-10 px-5 sm:px-6 rounded-lg text-xs sm:text-sm shadow-sm"
               >
                 <Link to="/collections">Start Shopping</Link>
               </Button>

@@ -66,16 +66,15 @@ export function DeviceServiceJourney() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: el,
-            start: "top 74%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse", // Reverse smoothly on above scroll
+            start: "top 85%",
+            end: "bottom top", // Stays fully visible while scrolling; fades only when bottom crosses the top of the viewport
+            toggleActions: "play reverse play reverse",
             onEnter: () => {
               setActiveStepIndices((prev) =>
                 prev.includes(index) ? prev : [...prev, index]
               );
             },
-            onLeaveBack: () => {
-              // When user scrolls back up above this step, deactivate it and retract
+            onLeave: () => {
               setActiveStepIndices((prev) => prev.filter((i) => i !== index));
             },
             onEnterBack: () => {
@@ -83,18 +82,21 @@ export function DeviceServiceJourney() {
                 prev.includes(index) ? prev : [...prev, index]
               );
             },
+            onLeaveBack: () => {
+              setActiveStepIndices((prev) => prev.filter((i) => i !== index));
+            },
           },
         });
 
         if (contentEl) {
           tl.fromTo(
             contentEl,
-            { opacity: 0.12, y: 45, filter: "blur(4px)" },
+            { opacity: 0.15, y: 35, filter: "blur(3px)" },
             {
               opacity: 1,
               y: 0,
               filter: "blur(0px)",
-              duration: 0.7,
+              duration: 0.6,
               ease: "power2.out",
             }
           );
@@ -103,24 +105,24 @@ export function DeviceServiceJourney() {
         if (imageEl) {
           tl.fromTo(
             imageEl,
-            { opacity: 0.1, scale: 0.86, y: 45 },
+            { opacity: 0.15, scale: 0.9, y: 35 },
             {
               opacity: 1,
               scale: 1,
               y: 0,
-              duration: 0.8,
+              duration: 0.7,
               ease: "power2.out",
             },
-            contentEl ? "-=0.55" : 0
+            contentEl ? "-=0.45" : 0
           );
         }
 
         if (badgeEl) {
           tl.fromTo(
             badgeEl,
-            { scale: 0.9 },
-            { scale: 1.05, duration: 0.4, ease: "back.out(1.7)" },
-            "-=0.6"
+            { scale: 0.95 },
+            { scale: 1.05, duration: 0.35, ease: "back.out(1.7)" },
+            "-=0.5"
           );
         }
       });
@@ -136,7 +138,7 @@ export function DeviceServiceJourney() {
       id="device-service"
       className="py-10 sm:py-16 bg-white text-slate-900 border-b border-slate-200/80 overflow-hidden"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-2.5">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-[#f5f5f7] border border-[#d2d2d7]/60 px-3.5 py-1 text-xs font-medium text-[#1d1d1f]">
@@ -151,8 +153,8 @@ export function DeviceServiceJourney() {
           </p>
         </div>
 
-        {/* 1. 4-CARD DEVICE SELECTOR GRID (Compact & Uncropped with object-contain) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        {/* 1. 4-CARD DEVICE SELECTOR GRID (Compact & Fit 2 in one row on mobile devices) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-5">
           {CATEGORIES.map((cat) => {
             const journey = DEVICE_SERVICE_JOURNEYS[cat.id];
             const isSelected = selectedCategory === cat.id;
@@ -163,14 +165,14 @@ export function DeviceServiceJourney() {
                 type="button"
                 onClick={() => setSelectedCategory(cat.id)}
                 aria-label={`Select ${cat.label}`}
-                className={`group relative overflow-hidden rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl bg-white ${
+                className={`group relative overflow-hidden rounded-xl sm:rounded-2xl text-left transition-all duration-300 cursor-pointer shadow-xs hover:shadow-lg bg-white ${
                   isSelected
-                    ? "ring-3 ring-[#1d1d1f] ring-offset-2 scale-[1.01]"
-                    : "opacity-80 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-300"
+                    ? "ring-2 sm:ring-3 ring-[#1d1d1f] ring-offset-1 sm:ring-offset-2 scale-[1.01]"
+                    : "opacity-85 hover:opacity-100 ring-1 ring-slate-200 hover:ring-slate-300"
                 }`}
               >
                 {/* Image Container: Clean studio frame, compact height, object-contain so NO device is cropped */}
-                <div className="relative h-44 sm:h-48 lg:h-52 w-full overflow-hidden bg-[#fbfbfd] p-3 sm:p-4 flex items-center justify-center">
+                <div className="relative h-28 sm:h-44 lg:h-52 w-full overflow-hidden bg-[#fbfbfd] p-2 sm:p-4 flex items-center justify-center">
                   <img
                     src={journey.bannerImage}
                     alt={cat.label}
@@ -180,15 +182,15 @@ export function DeviceServiceJourney() {
                 </div>
 
                 {/* Bottom Bar: Label, status dot, and selected badge */}
-                <div className="py-2.5 px-3.5 bg-[#1d1d1f] text-white flex items-center justify-between">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <span className={`h-2 w-2 shrink-0 rounded-full ${cat.dotColor}`} />
-                    <span className="text-xs sm:text-[13px] font-medium tracking-wide truncate">
+                <div className="py-2 px-2.5 sm:py-2.5 sm:px-3.5 bg-[#1d1d1f] text-white flex items-center justify-between gap-1">
+                  <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                    <span className={`h-1.5 w-1.5 sm:h-2 sm:w-2 shrink-0 rounded-full ${cat.dotColor}`} />
+                    <span className="text-[11px] sm:text-[13px] font-semibold sm:font-medium tracking-tight truncate">
                       {cat.label}
                     </span>
                   </div>
                   <span
-                    className={`text-[11px] font-medium px-2 py-0.5 rounded-full transition-colors shrink-0 ml-2 ${
+                    className={`text-[9px] sm:text-[11px] font-medium px-1.5 sm:px-2 py-0.5 rounded-full transition-colors shrink-0 ${
                       isSelected
                         ? "bg-[#0071e3] text-white"
                         : "text-slate-400 group-hover:text-white"
@@ -205,17 +207,17 @@ export function DeviceServiceJourney() {
         {/* 2. NEON BLUE GLOWING STRAIGHT TIMELINE SERVICE PROCESS (GSAP BIDIRECTIONAL SCROLL, CARD-LESS, FLOATING IMAGES) */}
         <div className="relative pt-4 sm:pt-6">
           {/* Active Flow Title */}
-          <div className="flex flex-wrap items-center justify-between border-b border-slate-200 pb-5 mb-14 gap-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-3 w-3 relative">
+          <div className="flex flex-wrap items-center justify-between border-b border-slate-200 pb-4 sm:pb-5 mb-8 sm:mb-14 gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="flex h-2.5 w-2.5 sm:h-3 sm:w-3 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00f0ff] opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-[#00f0ff] shadow-[0_0_8px_#00f0ff]" />
               </span>
-              <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight">
+              <h3 className="text-lg sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight">
                 {currentJourney.name} — Service Process
               </h3>
             </div>
-            <span className="text-xs font-medium bg-[#f5f5f7] text-[#1d1d1f] border border-[#d2d2d7]/60 px-3 py-1 rounded-full">
+            <span className="text-[11px] sm:text-xs font-medium bg-[#f5f5f7] text-[#1d1d1f] border border-[#d2d2d7]/60 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full">
               {currentJourney.badge}
             </span>
           </div>
@@ -240,7 +242,7 @@ export function DeviceServiceJourney() {
             </div>
 
             {/* 4 SERVICE STEPS (CARD-LESS, PURE FLOATING IMAGES, ROUNDED STEP ICON, BIDIRECTIONAL SCROLL) */}
-            <div className="relative z-10 space-y-24 sm:space-y-36">
+            <div className="relative z-10 space-y-16 sm:space-y-36">
               {currentJourney.steps.map((step, index) => {
                 const isRevealed = activeStepIndices.includes(index);
                 const isEven = index % 2 === 1; // Alternating layout for desktop
