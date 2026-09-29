@@ -72,15 +72,105 @@ export function Footer() {
         onMouseLeave={() => setIsPaused(false)}
         className="relative w-full overflow-hidden border-b border-neutral-200 bg-neutral-950 text-white"
       >
-        <div className="relative mx-auto max-w-7xl">
-          {/* Background Images Layer with smooth crossfade */}
-          <div className="relative aspect-[4/3] sm:aspect-[2148/780] min-h-[360px] sm:min-h-[380px] md:min-h-[420px] w-full flex items-center overflow-hidden">
+        {/* MOBILE VIEW (< sm): Full Uncropped Banner Image on Top + Badges & Controls Below */}
+        <div className="flex flex-col sm:hidden w-full">
+          {/* Uncropped Full-Width Image Layer */}
+          <div className="relative w-full aspect-[2148/732] overflow-hidden bg-neutral-950 flex items-center justify-center">
+            {FOOTER_CAROUSEL_SLIDES.map((slide, idx) => (
+              <img
+                key={slide.id}
+                src={slide.image}
+                alt="SiOL Product Showcase"
+                className={`absolute inset-0 h-full w-full object-contain object-center transition-all duration-700 select-none ${
+                  idx === currentSlide
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-105 pointer-events-none"
+                }`}
+                loading="lazy"
+              />
+            ))}
+          </div>
+
+          {/* Badges & Navigation Below Image */}
+          <div className="px-4 py-3.5 space-y-3 bg-neutral-950 border-t border-white/10">
+            {/* 2x2 Grid of Badges */}
+            <div className="grid grid-cols-2 gap-2">
+              {activeSlide.badges.map((badge, bIdx) => {
+                const Icon = badge.icon;
+                return (
+                  <div
+                    key={bIdx}
+                    className="flex items-center gap-2 rounded-xl bg-white/5 px-2.5 py-1.5 border border-white/10"
+                  >
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-white/15 text-white">
+                      <Icon className="h-3 w-3 text-[#38bdf8]" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-semibold text-white leading-tight truncate">
+                        {badge.title}
+                      </p>
+                      <p className="text-[9px] text-slate-400 leading-tight truncate">
+                        {badge.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Navigation Indicators & Manual Controls */}
+            <div className="flex items-center justify-between pt-1">
+              <div className="flex items-center gap-1.5">
+                {FOOTER_CAROUSEL_SLIDES.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    type="button"
+                    onClick={() => setCurrentSlide(dotIdx)}
+                    aria-label={`Go to slide ${dotIdx + 1}`}
+                    className={`h-1.5 transition-all duration-300 rounded-full cursor-pointer ${
+                      dotIdx === currentSlide ? "w-6 bg-[#0071e3]" : "w-1.5 bg-white/40 hover:bg-white/70"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCurrentSlide((prev) =>
+                      prev === 0 ? FOOTER_CAROUSEL_SLIDES.length - 1 : prev - 1
+                    )
+                  }
+                  aria-label="Previous slide"
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 hover:bg-white/25 text-white transition cursor-pointer"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCurrentSlide((prev) => (prev + 1) % FOOTER_CAROUSEL_SLIDES.length)
+                  }
+                  aria-label="Next slide"
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 hover:bg-white/25 text-white transition cursor-pointer"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* DESKTOP / TABLET VIEW (>= sm): Immersive Wide Banner with Overlaid Badges */}
+        <div className="hidden sm:block relative mx-auto max-w-7xl">
+          <div className="relative aspect-[2148/780] min-h-[380px] md:min-h-[420px] w-full flex items-center overflow-hidden">
             {FOOTER_CAROUSEL_SLIDES.map((slide, idx) => (
               <img
                 key={slide.id}
                 src={slide.image}
                 alt={slide.title}
-                className={`absolute inset-0 h-full w-full object-cover object-center sm:object-right transition-all duration-1000 select-none pointer-events-none ${
+                className={`absolute inset-0 h-full w-full object-cover object-right transition-all duration-1000 select-none pointer-events-none ${
                   idx === currentSlide
                     ? "opacity-100 scale-100"
                     : "opacity-0 scale-105 pointer-events-none"
@@ -89,12 +179,12 @@ export function Footer() {
               />
             ))}
 
-            {/* Contrast Gradient: Subtle, lighter overlay so images stay vivid and bright */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/15 to-transparent sm:bg-gradient-to-r sm:from-black/45 sm:via-black/15 sm:to-transparent z-10" />
+            {/* Contrast Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent z-10" />
 
             {/* Carousel Content Container */}
             <div className="relative z-20 w-full max-w-xl px-5 sm:px-8 md:px-12 py-6 sm:py-10 space-y-4 sm:space-y-5">
-              {/* Dynamic Eyebrow & Title (Only rendered if text exists) */}
+              {/* Dynamic Eyebrow & Title */}
               {(activeSlide.title || activeSlide.eyebrow || activeSlide.tagline) && (
                 <div className="space-y-1.5 transition-all duration-500">
                   {activeSlide.eyebrow && (

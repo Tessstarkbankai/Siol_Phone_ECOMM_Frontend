@@ -35,19 +35,19 @@ export function ComingSoonSpotlight() {
 
       {/* Main Showcase Teaser Banner (100% full-width on desktop lg screen) */}
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:max-w-none lg:px-0">
-        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-purple-100/90 lg:border-x-0 bg-white shadow-xl shadow-purple-950/5 aspect-[4/3] sm:aspect-[1440/724] lg:aspect-[2.33/1] min-h-[220px] sm:min-h-[400px] md:min-h-[480px] lg:min-h-[540px] flex items-center justify-center">
+        <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-none border border-purple-100/90 lg:border-x-0 bg-white shadow-xl shadow-purple-950/5 aspect-[1440/724] lg:aspect-[2.33/1] sm:min-h-[400px] md:min-h-[480px] lg:min-h-[540px] flex items-center justify-center">
           <img
             src="/Frame 1984079647.png"
             alt="SiOL Flagship Smartphone - Coming Soon"
-            className="w-full h-full object-contain sm:object-cover transition-transform duration-700 group-hover:scale-[1.015]"
+            className="w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 group-hover:scale-[1.015]"
           />
 
           {/* Floating Live Teaser Pill */}
-          <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-10 xl:left-16 sm:right-auto pointer-events-none">
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/90 backdrop-blur-md border border-purple-200/80 px-2.5 sm:px-3.5 py-1 sm:py-1.5 shadow-sm max-w-full">
+          <div className="absolute bottom-1.5 left-2 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-10 xl:left-16 sm:right-auto pointer-events-none">
+            <div className="inline-flex items-center gap-1 sm:gap-2 rounded-full bg-white/95 backdrop-blur-md border border-purple-200/80 px-2 py-0.5 sm:px-3.5 sm:py-1.5 shadow-sm max-w-full">
               <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-purple-600 animate-pulse shrink-0" />
-              <span className="text-[9px] sm:text-xs font-bold text-slate-800 tracking-wider uppercase truncate">
-                Official Design Teaser • Aerospace Titanium & Amethyst
+              <span className="text-[8px] sm:text-xs font-bold text-slate-800 tracking-wider uppercase truncate">
+                Official Design Teaser • Titanium & Amethyst
               </span>
             </div>
           </div>
